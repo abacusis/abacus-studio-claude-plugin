@@ -1,4 +1,4 @@
-# Abacus Studio — Claude Code plugin 0.11.2
+# Abacus Studio — Claude Code plugin 0.11.3
 
 Next.js apps receive public Supabase variable aliases requested by Studio's
 Required environment variable names, including NEXT_PUBLIC_SUPABASE_URL and

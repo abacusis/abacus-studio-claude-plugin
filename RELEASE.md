@@ -28,6 +28,12 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.11.3
+
+- Refreshes the client-facing plugin description in both manifests.
+- Keeps marketplace version and description synchronized with the plugin manifest.
+- No permissions, commands, authentication, or application behavior changes.
+
 ## 0.11.2
 
 - Public-release packaging uses an explicit allowlist and hashes every included file.

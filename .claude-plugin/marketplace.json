@@ -1,12 +1,13 @@
 {
   "name": "abacus-studio-marketplace",
-  "description": "Abacus Studio integration for Claude Code: local sandbox setup, design and reviewed changes.",
+  "description": "Build with Claude Code, connected to your application and backed by Abacus engineering guidance.",
   "owner": { "name": "Abacus" },
   "plugins": [
     {
       "name": "abacus-studio",
+      "version": "0.11.3",
       "source": "./",
-      "description": "Build and improve your software with Claude Code, connected securely to Abacus Studio."
+      "description": "Connect Claude Code to your application, build and preview changes locally, and submit them for Abacus review."
     }
   ]
 }

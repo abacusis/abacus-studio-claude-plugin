@@ -1,0 +1,38 @@
+# Publishing Abacus Studio for Claude Code
+
+Target repository: `abacusis/abacus-studio-claude-plugin`.
+Internal plugin: `abacus-studio`; marketplace: `abacus-studio-marketplace`.
+Only the plugin distribution belongs in this repository.
+
+## Prepare a release
+
+1. Bump `.claude-plugin/plugin.json` and the release notes/version assertion.
+2. Run the Python tests and `node --test tests/package.test.mjs`.
+3. Run `claude plugin validate .`.
+4. Use `scripts/build_release.py --output <NEW absolute release folder>`.
+   It copies only allowlisted distribution files, rejects symlinks and concrete
+   credential patterns, and writes file hashes and a verified ZIP beside the
+   clean folder. It never initializes Git, pushes, or changes repository visibility.
+5. Review the audit manifest. Do not upload the development folder wholesale:
+   local `.claude` settings, caches, `.env`, and application workspaces are excluded.
+
+## Before publishing
+
+- Choose an explicit license/usage policy. Public visibility alone does not grant
+  an open-source license; no license has been selected in this package.
+- Create a NEW dedicated repository from the clean folder, not another project's
+  history. Check the initial commit for secrets before making it public.
+- Test marketplace installation in a separate Claude profile and a clean app
+  workspace, including Studio sign-in, setup, and a manual plugin update.
+- Test Windows and Linux separately; current automated tests are not those tests.
+- Publish a matching version tag after approval. Protect the distribution branch
+  and review updates: clients enabling auto-update trust code released here.
+
+## 0.11.2
+
+- Public-release packaging uses an explicit allowlist and hashes every included file.
+- Excludes local permissions, credential files, Python caches, and Git history.
+- Installation and update instructions use the dedicated Claude plugin repository.
+- Removes client-name references from a package test fixture.
+- Adds Supabase management-token detection to the submission secret guard.
+- Documents credential boundaries, execution risks, and platform test limitations.

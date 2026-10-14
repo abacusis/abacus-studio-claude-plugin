@@ -28,6 +28,13 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.13.0
+
+- Adds Abacus Security for focused source-only reviews and optional direct use.
+- Routes materially security-sensitive Engineering changes to the security skill.
+- Includes Cloudflare attribution and MIT notice; preserves Studio approvals.
+- No full audit harness, target execution, live probes, or dashboard upload.
+
 ## 0.12.0
 
 - Adds Abacus Engineering: one automatically discoverable skill and an optional

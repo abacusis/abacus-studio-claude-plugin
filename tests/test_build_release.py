@@ -28,6 +28,9 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIsNone(archive.testzip())
                 self.assertIn('RELEASE-MANIFEST.json', archive.namelist())
                 self.assertIn('skills/engineering/SKILL.md', archive.namelist())
+                self.assertIn('skills/security/SKILL.md', archive.namelist())
+                self.assertIn('references/security/review.md', archive.namelist())
+                self.assertIn('references/security/upstream.md', archive.namelist())
                 for name in ('planning', 'testing', 'debugging', 'architecture', 'review', 'upstream'):
                     self.assertIn('references/engineering/' + name + '.md', archive.namelist())
                 self.assertNotIn('.claude/settings.local.json', archive.namelist())

@@ -27,7 +27,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.12.0');
+  assert.equal(manifest.version, '0.13.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);
@@ -63,11 +63,11 @@ test('menu exposes direct actions and engineering with valid workflow links', ()
   const root = new URL('../skills/', import.meta.url);
   const commands = readdirSync(root).filter(name => existsSync(new URL(`${name}/SKILL.md`, root))).sort();
   const visible = commands.filter(name => !read(`skills/${name}/SKILL.md`).includes('user-invocable: false'));
-  assert.deepEqual(visible, ['connect', 'design', 'disconnect', 'engineering', 'request-publish', 'setup', 'status', 'submit']);
+  assert.deepEqual(visible, ['connect', 'design', 'disconnect', 'engineering', 'request-publish', 'security', 'setup', 'status', 'submit']);
   assert.match(read('skills/sandbox-database/SKILL.md'), /user-invocable: false/);
   for (const command of commands) {
     const skill = read(`skills/${command}/SKILL.md`);
-    if (!['design', 'engineering', 'sandbox-database'].includes(command)) assert.match(skill, /disable-model-invocation: true/);
+    if (!['design', 'engineering', 'security', 'sandbox-database'].includes(command)) assert.match(skill, /disable-model-invocation: true/);
     for (const match of skill.matchAll(/\]\((\.\.\/\.\.\/references\/[^)]+)\)/g)) {
       assert.equal(existsSync(new URL(`../skills/${command}/${match[1]}`, import.meta.url)), true);
     }

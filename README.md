@@ -1,4 +1,14 @@
-# Abacus Studio — Claude Code plugin 0.12.0
+# Abacus Studio — Claude Code plugin 0.13.0
+
+## Abacus Security
+
+Focused source-based security reviews are automatically discoverable or available
+through `/abacus-studio:security`. Engineering routes security-sensitive changes
+to this guidance. Reviews report evidence and unresolved validation separately;
+they do not modify source, run target code, probe live systems, or guarantee safety.
+This is a curated Cloudflare-informed adaptation, not the complete upstream audit
+harness. Full audit execution, validated JSON reports, and Studio Health uploads
+are not included. See [provenance and license](references/security/upstream.md).
 
 ## Abacus Engineering
 
@@ -32,6 +42,7 @@ Choose an action directly from the Abacus Studio plugin menu:
 | `/abacus-studio:setup` | Choose an app, clone its code, and open a local preview. |
 | `/abacus-studio:design` | Improve the interface. Describe your goal in plain language. |
 | `/abacus-studio:engineering` | Plan, build, debug, test, or review a change. Claude can also select it automatically. |
+| `/abacus-studio:security` | Review source for security boundary failures without changing or executing the application. |
 | `/abacus-studio:submit` | Review and save changes to the sandbox repository. |
 | `/abacus-studio:request-publish` | Request a publishing review PR. |
 

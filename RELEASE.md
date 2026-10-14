@@ -28,6 +28,16 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.12.0
+
+- Adds Abacus Engineering: one automatically discoverable skill and an optional
+  `/abacus-studio:engineering` command for planning, testing, debugging,
+  architecture, and review.
+- Bundles curated Abacus playbooks with upstream attribution and the MIT notice.
+- Preserves Studio's submission, sandbox approval, and publishing boundaries;
+  adds no credentials, hooks, or automatic commits or deployments.
+- Verifies the engineering references are included in release archives.
+
 ## 0.11.3
 
 - Refreshes the client-facing plugin description in both manifests.

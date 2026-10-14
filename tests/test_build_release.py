@@ -27,6 +27,9 @@ class ReleaseTests(unittest.TestCase):
             with zipfile.ZipFile(result['zip']) as archive:
                 self.assertIsNone(archive.testzip())
                 self.assertIn('RELEASE-MANIFEST.json', archive.namelist())
+                self.assertIn('skills/engineering/SKILL.md', archive.namelist())
+                for name in ('planning', 'testing', 'debugging', 'architecture', 'review', 'upstream'):
+                    self.assertIn('references/engineering/' + name + '.md', archive.namelist())
                 self.assertNotIn('.claude/settings.local.json', archive.namelist())
             with self.assertRaises(ValueError):
                 release.build(Path(__file__).parents[1], output)

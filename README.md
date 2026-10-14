@@ -1,4 +1,16 @@
-# Abacus Studio — Claude Code plugin 0.11.3
+# Abacus Studio — Claude Code plugin 0.12.0
+
+## Abacus Engineering
+
+Bundled engineering guidance is available automatically for relevant development
+work, or through `/abacus-studio:engineering`. It covers requirements and project
+language, behavior-first testing, evidence-led debugging, maintainable architecture,
+and requirements/engineering review. No separate upstream plugin installation is
+needed. Design stays with Impeccable; saving and publishing stay with Studio.
+
+This package does not automatically commit, push, migrate, or deploy. It does not
+add credentials, hooks, a background service, or Studio dashboard reporting.
+See [provenance and MIT notice](references/engineering/upstream.md).
 
 Next.js apps receive public Supabase variable aliases requested by Studio's
 Required environment variable names, including NEXT_PUBLIC_SUPABASE_URL and
@@ -19,6 +31,7 @@ Choose an action directly from the Abacus Studio plugin menu:
 | `/abacus-studio:status` | Show connection, role, and granted access only. |
 | `/abacus-studio:setup` | Choose an app, clone its code, and open a local preview. |
 | `/abacus-studio:design` | Improve the interface. Describe your goal in plain language. |
+| `/abacus-studio:engineering` | Plan, build, debug, test, or review a change. Claude can also select it automatically. |
 | `/abacus-studio:submit` | Review and save changes to the sandbox repository. |
 | `/abacus-studio:request-publish` | Request a publishing review PR. |
 

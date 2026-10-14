@@ -31,7 +31,7 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIn('skills/security/SKILL.md', archive.namelist())
                 self.assertIn('references/security/review.md', archive.namelist())
                 self.assertIn('references/security/upstream.md', archive.namelist())
-                for name in ('planning', 'testing', 'debugging', 'architecture', 'review', 'upstream'):
+                for name in ('planning', 'testing', 'debugging', 'architecture', 'review', 'upstream', 'specification', 'spec-kit-upstream'):
                     self.assertIn('references/engineering/' + name + '.md', archive.namelist())
                 self.assertNotIn('.claude/settings.local.json', archive.namelist())
             with self.assertRaises(ValueError):

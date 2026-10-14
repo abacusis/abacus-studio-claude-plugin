@@ -9,6 +9,12 @@ Review two distinct questions:
 
 Use file and line evidence, impact, and a proposed remedy for actionable findings. Prioritize correctness, authorization, data exposure, and regressions over stylistic preferences. Do not claim exhaustive security coverage.
 
+When a feature specification exists, check each requirement ID against behavior
+and actual acceptance evidence, including task dependencies and verification gaps.
+Do not rewrite the spec to fit the code or count implemented tasks as verified.
+Report met, partial, not met, and not verified separately. Use the accepted version
+and identify proposed requirement changes rather than silently treating them as agreed.
+
 Report both axes separately, plus executed checks and remaining uncertainty. If authorized and supported, independent reviewers can review each axis; otherwise perform both explicitly without pretending subagents ran. Do not automatically fix findings in a review-only request.
 
 Development review does not approve a commit, push, release, or production deployment. Submission and publishing remain separate Studio workflows.

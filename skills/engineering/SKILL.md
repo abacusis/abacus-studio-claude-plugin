@@ -10,6 +10,7 @@ Use this skill automatically when the development task fits, or explicitly throu
 Choose only the relevant playbooks and read them completely before applying them:
 
 - Unclear feature requirements or business terminology: [Planning](../../references/engineering/planning.md).
+- Substantial features or explicit specs: [Specification-driven planning](../../references/engineering/specification.md), with agreement, tasks, and acceptance evidence.
 - Feature implementation or regression tests: [Testing](../../references/engineering/testing.md).
 - Broken or slow behavior: [Debugging](../../references/engineering/debugging.md).
 - Module boundaries or a requested refactor: [Architecture](../../references/engineering/architecture.md).

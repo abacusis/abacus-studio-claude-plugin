@@ -28,6 +28,13 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.14.0
+
+- Adds specification-driven planning to Engineering for substantial features.
+- Links requirements, implementation tasks, and actual acceptance evidence.
+- Includes Spec Kit attribution and MIT notice; no extra installer or commands.
+- Preserves existing standards, branch handling, migration and release approvals.
+
 ## 0.13.0
 
 - Adds Abacus Security for focused source-only reviews and optional direct use.

@@ -1,4 +1,13 @@
-# Abacus Studio — Claude Code plugin 0.13.0
+# Abacus Studio — Claude Code plugin 0.14.0
+
+Substantial features now use specification-driven planning inside Engineering:
+agree on business requirements, plan implementation, create traceable tasks, and
+verify the result against acceptance criteria. Small edits stay lightweight.
+No new commands or Spec Kit installation are required. Specs use the project's
+existing documentation convention (or an approved location); they are ordinary
+reviewed source-repository documents, not automatically uploaded to Studio.
+See [planning workflow](references/engineering/specification.md) and
+[Spec Kit attribution](references/engineering/spec-kit-upstream.md).
 
 ## Abacus Security
 

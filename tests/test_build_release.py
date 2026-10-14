@@ -27,6 +27,8 @@ class ReleaseTests(unittest.TestCase):
             with zipfile.ZipFile(result['zip']) as archive:
                 self.assertIsNone(archive.testzip())
                 self.assertIn('RELEASE-MANIFEST.json', archive.namelist())
+                self.assertIn('LICENSE', archive.namelist())
+                self.assertIn('THIRD_PARTY_NOTICES.md', archive.namelist())
                 self.assertIn('skills/engineering/SKILL.md', archive.namelist())
                 self.assertIn('skills/security/SKILL.md', archive.namelist())
                 self.assertIn('references/security/review.md', archive.namelist())

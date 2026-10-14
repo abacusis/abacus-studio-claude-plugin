@@ -1,4 +1,15 @@
-# Abacus Studio — Claude Code plugin 0.14.0
+# Abacus Studio — Claude Code plugin 0.14.1
+
+## Licensing — draft awaiting review
+
+[LICENSE](LICENSE) proposes proprietary terms for Abacus-owned material, allowing
+authorized client use with Studio while restricting redistribution/resale and
+reuse of that material in competing products. It is a review draft, not an
+effective or legally approved agreement. The named licensor is Abacus Internet
+Solutions Inc. Adoption, ownership, client agreement consistency and acceptance
+remain unresolved. It does not retroactively
+change previous versions. Third-party MIT rights remain separate and intact:
+see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and its full upstream notices.
 
 Substantial features now use specification-driven planning inside Engineering:
 agree on business requirements, plan implementation, create traceable tasks, and

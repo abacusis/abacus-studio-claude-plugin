@@ -18,8 +18,11 @@ Only the plugin distribution belongs in this repository.
 
 ## Before publishing
 
-- Choose an explicit license/usage policy. Public visibility alone does not grant
-  an open-source license; no license has been selected in this package.
+- LICENSE currently contains a proprietary review draft, not adopted terms.
+  Do not publish it as effective until legal review and owner approval confirm
+  the licensor, ownership, acceptance process, client agreement consistency and
+  governing terms. Preserve THIRD_PARTY_NOTICES.md and all upstream MIT notices.
+  Public visibility alone does not grant an open-source license.
 - Create a NEW dedicated repository from the clean folder, not another project's
   history. Check the initial commit for secrets before making it public.
 - Test marketplace installation in a separate Claude profile and a clean app
@@ -27,6 +30,13 @@ Only the plugin distribution belongs in this repository.
 - Test Windows and Linux separately; current automated tests are not those tests.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
+
+## 0.14.1
+
+- Publishes a clearly labeled proprietary license draft naming Abacus Internet
+  Solutions Inc.; it is not effective terms and does not alter prior releases.
+- Includes third-party notices and full upstream MIT attribution in packaging.
+- No runtime, permission, or command changes.
 
 ## 0.14.0
 

@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 import zipfile
 
-ROOT_FILES = {'.gitignore', '.mcp.json', 'README.md', 'INSTALL.md', 'SECURITY.md', 'RELEASE.md'}
+ROOT_FILES = {'.gitignore', '.mcp.json', 'README.md', 'INSTALL.md', 'SECURITY.md', 'RELEASE.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md'}
 PATTERNS = ('.claude-plugin/*.json', 'skills/*/SKILL.md', 'references/*.md',
             'references/*/*.md', 'scripts/*.py', 'scripts/requirements.txt',
             'tests/*.py', 'tests/*.mjs')

@@ -38,6 +38,10 @@ execution approval. A source snapshot is NOT eligible for this reuse path.
    its approved local install/start commands. Ask for the destination and approval.
    Include enabled Studio skill packages in the same setup approval. Do not ask
    for a separate approval merely to move from app selection into this setup step.
+   If code_map_enabled is true, include installation of the pinned Graphify Python
+   runtime and a local source-only application map in that same approval. Python
+   3.10+ is needed; unsupported systems continue without mapping. No global tools,
+   Graphify cloud, upstream installer, hooks, or separate Graphify sign-in are used.
    Browser consent and host-required execution prompts still apply.
    Existing snapshot folders must remain untouched. Never convert an old snapshot
    into a checkout or invent a repository from the user's wording.
@@ -68,6 +72,11 @@ execution approval. A source snapshot is NOT eligible for this reuse path.
    `.claude/skills/` folders. Include those packages in the initial setup explanation
    and approval. Installation does not execute upstream installers or enable hooks.
    Report installed packages and offer `/abacus-studio:design` for Impeccable.
+   Setup also attempts the enabled code map automatically. Report its actual
+   ready/unavailable status, without claiming a failed map is ready. For an existing
+   reused clone, run `studio_git.py code-map --project-id "<Studio ID>" --workspace
+   "<absolute workspace>" --approved` only under approval covering this optional
+   runtime installation. A map failure must not block the install or preview.
    If discovery is stale after moving folders, ask the user to start a new session
    in the clone. Existing user skills are never overwritten; report conflicts.
 5. On failure, preserve files and report the blocker. Do not fall back to a ZIP,

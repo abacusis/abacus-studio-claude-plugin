@@ -13,6 +13,12 @@ unavailable knowledge honestly; do not treat missing context as an empty library
 
 Choose only the relevant playbooks and read them completely before applying them:
 
+For substantial changes, unfamiliar modules, or dependency/impact investigation,
+read [Application code map](../../references/engineering/code-map.md). When Studio
+enables it, query the local map to locate related code, then read the source.
+Do not use mapping for connection status or every trivial edit. Mapping is optional;
+if disabled, busy, stale, or unavailable, continue with ordinary source searches.
+
 - Unclear feature requirements or business terminology: [Planning](../../references/engineering/planning.md).
 - Substantial features or explicit specs: [Specification-driven planning](../../references/engineering/specification.md), with agreement, tasks, and acceptance evidence.
 - Feature implementation or regression tests: [Testing](../../references/engineering/testing.md).

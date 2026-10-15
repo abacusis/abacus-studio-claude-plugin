@@ -1,4 +1,23 @@
-# Abacus Studio — Claude Code plugin 0.15.0
+# Abacus Studio — Claude Code plugin 0.16.0
+
+## Application code map
+
+An optional Studio setting enables local source mapping with Graphify. Approved
+Setup installs a pinned isolated runtime and builds the map; Engineering consults
+it automatically for substantial changes and dependency investigation. Queries
+refresh changed source snapshots without installing anything. No new client
+command, upstream hooks, cloud upload, or Graphify account is required. Unsupported
+platforms and map failures fall back to ordinary source searches. See
+[integration details](references/engineering/code-map.md).
+
+Deployment: apply Studio migration `20261015020000_workspace_code_map.sql`, then
+deploy `admin-projects`, `mcp`, and `local-git`, and deploy
+the settings frontend. The option is disabled by default. Enable it per application
+and run approved Setup with this plugin. Do not enable/install it silently for
+existing clients. Backend deployment and plugin updates are separate from the
+Studio frontend release.
+
+## Application knowledge
 
 Application knowledge is retrieved through Studio's read-only `search_app_knowledge`
 and `get_app_knowledge` tools using the existing helper authorization. Engineering

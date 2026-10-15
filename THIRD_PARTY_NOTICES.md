@@ -24,3 +24,8 @@ own applicable license and notices. Runtime dependencies installed separately
 also retain their own terms; this notice does not relicense them.
 
 Task Master is not bundled or adapted. No permission under its license is claimed.
+
+Graphify (`graphifyy==0.9.91`) is an optional separately installed runtime, not
+vendored in this plugin. Its Apache-2.0 distribution retains MIT notices for legacy
+portions. Its installed LICENSE, LICENSE-MIT and NOTICE remain applicable. See
+https://github.com/Graphify-Labs/graphify and references/engineering/code-map.md.

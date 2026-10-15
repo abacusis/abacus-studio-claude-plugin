@@ -27,6 +27,7 @@ from preview_workspace import refresh_launch, supervise
 from sandbox_environment import provision
 from install_skills import install as install_skills
 from helper_runtime import ensure_helper_runtime
+from code_map import code_map
 
 FUNCTIONS = 'https://aseymhsdlzcwquwcbxzc.supabase.co/functions/v1'
 SERVICE = 'Abacus Studio Git'
@@ -248,7 +249,12 @@ def setup(project, destination):
     finally:
         local_git.close()
     skills = install_skills(target, config)
-    return output | {'commands': config['commands'], 'runtime_requirements': config['runtime_requirements'], 'skills': skills}
+    local_git = Git(target, project)
+    try:
+        mapping = code_map(target, config, local_git, install=True)
+    finally:
+        local_git.close()
+    return output | {'commands': config['commands'], 'runtime_requirements': config['runtime_requirements'], 'skills': skills, 'code_map': mapping}
 
 
 def workspace(root, project):
@@ -475,7 +481,7 @@ def migrate(action, directory, project, review_id=None, approved=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['knowledge-search', 'knowledge-get', 'connection-status', 'list-apps', 'workspace-config', 'install', 'connect', 'disconnect', 'setup', 'migration-preview', 'migration-apply', 'publish-preview', 'publish', 'preview-config', 'preview', 'credential', 'status', 'prepare', 'resolve', 'check', 'submit', 'record', 'cancel'])
+    parser.add_argument('action', choices=['code-map', 'knowledge-search', 'knowledge-get', 'connection-status', 'list-apps', 'workspace-config', 'install', 'connect', 'disconnect', 'setup', 'migration-preview', 'migration-apply', 'publish-preview', 'publish', 'preview-config', 'preview', 'credential', 'status', 'prepare', 'resolve', 'check', 'submit', 'record', 'cancel'])
     parser.add_argument('credential_operation', nargs='?', choices=['get', 'store', 'erase'])
     parser.add_argument('--project-id')
     parser.add_argument('--query')
@@ -498,7 +504,15 @@ def main():
                 return 0 # Never store the temporary GitHub token locally.
             credential(args.project_id)
             return 0
-        if args.action == 'connection-status':
+        if args.action == 'code-map':
+            if not args.workspace:
+                raise ValueError('An authorized workspace is required.')
+            root, config, local_git = workspace(args.workspace, args.project_id)
+            try:
+                result = code_map(root, config, local_git, query=args.query, install=args.approved)
+            finally:
+                local_git.close()
+        elif args.action == 'connection-status':
             result = connection_status()
         elif args.action == 'list-apps':
             if args.query and len(args.query) > 160:

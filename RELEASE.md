@@ -31,6 +31,13 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.15.0
+
+- Adds read-only application knowledge search/retrieval through the helper.
+- Engineering and Design retrieve relevant records before consequential changes.
+- Preserves explicit sharing, approval/lifecycle distinctions and app permissions.
+- Requires Studio's application knowledge migration and matching MCP deployment.
+
 ## 0.14.1
 
 - Publishes a clearly labeled proprietary license draft naming Abacus Internet

@@ -31,6 +31,7 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIn('THIRD_PARTY_NOTICES.md', archive.namelist())
                 self.assertIn('skills/engineering/SKILL.md', archive.namelist())
                 self.assertIn('skills/security/SKILL.md', archive.namelist())
+                self.assertIn('skills/project-knowledge/SKILL.md', archive.namelist())
                 self.assertIn('references/security/review.md', archive.namelist())
                 self.assertIn('references/security/upstream.md', archive.namelist())
                 for name in ('planning', 'testing', 'debugging', 'architecture', 'review', 'upstream', 'specification', 'spec-kit-upstream'):

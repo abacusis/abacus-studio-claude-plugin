@@ -475,10 +475,12 @@ def migrate(action, directory, project, review_id=None, approved=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['connection-status', 'list-apps', 'workspace-config', 'install', 'connect', 'disconnect', 'setup', 'migration-preview', 'migration-apply', 'publish-preview', 'publish', 'preview-config', 'preview', 'credential', 'status', 'prepare', 'resolve', 'check', 'submit', 'record', 'cancel'])
+    parser.add_argument('action', choices=['knowledge-search', 'knowledge-get', 'connection-status', 'list-apps', 'workspace-config', 'install', 'connect', 'disconnect', 'setup', 'migration-preview', 'migration-apply', 'publish-preview', 'publish', 'preview-config', 'preview', 'credential', 'status', 'prepare', 'resolve', 'check', 'submit', 'record', 'cancel'])
     parser.add_argument('credential_operation', nargs='?', choices=['get', 'store', 'erase'])
     parser.add_argument('--project-id')
     parser.add_argument('--query')
+    parser.add_argument('--knowledge-id')
+    parser.add_argument('--offset', type=int, default=0)
     parser.add_argument('--workspace')
     parser.add_argument('--destination')
     parser.add_argument('--approved', action='store_true')
@@ -502,6 +504,14 @@ def main():
             if args.query and len(args.query) > 160:
                 raise ValueError('App search must be under 161 characters.')
             result = mcp_call('list_projects', {'query': args.query} if args.query else {})
+        elif args.action == 'knowledge-search':
+            if (args.query and len(args.query) > 300) or not 0 <= args.offset <= 10000:
+                raise ValueError('Use a query up to 300 characters and offset from 0 to 10000.')
+            result = mcp_call('search_app_knowledge', {'project_id': args.project_id, 'query': args.query or '', 'offset': args.offset})
+        elif args.action == 'knowledge-get':
+            if not args.knowledge_id or not re.fullmatch(r'[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}', args.knowledge_id):
+                raise ValueError('A knowledge record ID returned by Studio is required.')
+            result = mcp_call('get_app_knowledge', {'project_id': args.project_id, 'knowledge_id': args.knowledge_id})
         elif args.action == 'workspace-config':
             result = mcp_call('get_workspace_config', {'project_id': args.project_id})
         elif args.action == 'connect':

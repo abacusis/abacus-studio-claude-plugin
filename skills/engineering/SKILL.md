@@ -7,6 +7,10 @@ description: Plan and implement application changes, diagnose bugs, design maint
 
 Use this skill automatically when the development task fits, or explicitly through `/abacus-studio:engineering`. The user does not need to learn separate testing or debugging commands.
 
+For a configured Studio application, use `abacus-studio:project-knowledge` before
+planning or changing behavior so relevant prior decisions inform the work. Report
+unavailable knowledge honestly; do not treat missing context as an empty library.
+
 Choose only the relevant playbooks and read them completely before applying them:
 
 - Unclear feature requirements or business terminology: [Planning](../../references/engineering/planning.md).

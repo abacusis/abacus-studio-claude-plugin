@@ -1,4 +1,12 @@
-# Abacus Studio — Claude Code plugin 0.14.1
+# Abacus Studio — Claude Code plugin 0.15.0
+
+Application knowledge is retrieved through Studio's read-only `search_app_knowledge`
+and `get_app_knowledge` tools using the existing helper authorization. Engineering
+and Design discover shared records by title, summary and topics, then read relevant
+full records. Only current approved guidance establishes requirements; proposed
+and superseded records are context. No extra client command, write permissions,
+automatic ingestion, or silent approval changes. Requires the matching Studio
+backend and migration; unavailable knowledge is reported, not treated as empty.
 
 ## Licensing — draft awaiting review
 

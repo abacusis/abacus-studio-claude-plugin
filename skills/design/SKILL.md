@@ -5,6 +5,8 @@ argument-hint: "[polish|audit|simplify|critique] [target]"
 ---
 
 Use the project-local Impeccable skill at `.claude/skills/impeccable/SKILL.md`.
+For a configured Studio app, first use `abacus-studio:project-knowledge` to retrieve
+relevant design/workflow agreements. Only current approved records establish requirements.
 Read its complete instructions before taking design actions and follow the
 references it selects. Resolve its skill directory to that project-local folder,
 not this wrapper's directory, when invoking its launcher or reading references.

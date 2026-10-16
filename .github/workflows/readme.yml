@@ -14,3 +14,5 @@ jobs:
         env:
           README_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: python3 scripts/check_readme.py --base-env README_BASE
+      - name: Check generated tool packages match shared source
+        run: python3 scripts/generate_packages.py --check

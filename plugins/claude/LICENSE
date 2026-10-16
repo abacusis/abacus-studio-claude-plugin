@@ -1,0 +1,87 @@
+ABACUS STUDIO PLUGIN — PROPRIETARY LICENSE DRAFT
+Draft dated October 14, 2026. Published for reference; not effective terms.
+
+Copyright (c) 2026 Abacus Internet Solutions Inc. All rights reserved in
+Abacus-owned material. "Abacus" means Abacus Internet Solutions Inc.
+Before adoption, confirm ownership of covered material, applicable law,
+acceptance mechanism, and consistency with client terms.
+
+1. Scope
+
+This proposed license covers only original material owned by Abacus in the
+Abacus Studio plugin ("Abacus Material"). It does not cover third-party material,
+client application code, client data, or independently created client work.
+Third-party material remains governed by its applicable license; see
+THIRD_PARTY_NOTICES.md. If these terms conflict with a third-party license for
+that material, the third-party license controls. No broader rights are claimed
+over upstream material merely because it appears in an adapted file.
+
+2. Permitted use
+
+Subject to an applicable agreement with Abacus and valid Studio authorization,
+Abacus proposes to grant clients and their authorized personnel a non-exclusive,
+non-transferable permission to install, execute, and make necessary local copies
+of Abacus Material to develop, review, and maintain their authorized applications
+through Abacus Studio and supported coding tools. Personnel must act for the
+authorized client, not redistribute the plugin to unrelated parties.
+
+Local modifications needed for that permitted use are allowed, but must not
+bypass authorization, safety, or approval controls. Abacus is not obligated to
+support modified copies. Client application output is not restricted by this
+license solely because the plugin helped create it. Third-party code included
+in an application remains subject to its own terms.
+
+3. Restrictions on Abacus Material
+
+Unless Abacus separately authorizes it in writing, recipients may not distribute,
+sublicense, resell, rent, or offer Abacus Material as a hosted service; incorporate
+it into a product competing with the Abacus Studio plugin or its managed
+development workflows; or remove its copyright, attribution, or license notices.
+These restrictions do not prohibit independently implementing general ideas,
+methods, or functionality without copying protected Abacus Material.
+
+Nothing limits rights under third-party licenses, mandatory law, or applicable
+code-hosting terms, including viewing or forking where those terms permit it.
+Public repository visibility does not itself grant additional commercial rights
+to Abacus Material. No trademark rights are granted, and no endorsement by an
+upstream author is implied.
+
+4. Service and authorization boundaries
+
+This license does not grant access to any application, repository, environment,
+credential, or external service. Studio permissions and applicable service/client
+agreements determine access. AI providers and coding tools have separate terms
+and charges. Installing the plugin does not authorize publishing or production
+changes. Revoking Studio access does not erase copies or rotate credentials
+already present on a recipient's computer.
+
+5. Termination
+
+Abacus may terminate the proposed permission for a material breach that remains
+uncured after written notice and a reasonable opportunity to cure, subject to any
+controlling client agreement. On termination, recipients must stop using and
+delete Abacus Material except copies required by law or a controlling agreement.
+This does not require deleting client applications or independently licensed
+third-party material, or terminate rights granted directly by upstream licensors.
+
+6. Warranty and responsibility
+
+To the extent permitted by law and subject to any controlling written agreement,
+Abacus Material is provided "AS IS", without warranties of merchantability,
+fitness for a particular purpose, or non-infringement. AI output and reviews may
+be incomplete or incorrect; the plugin does not guarantee security, correctness,
+or regulatory compliance. Required review and authorized release procedures
+remain necessary.
+
+7. Liability and controlling agreements
+
+To the extent permitted by law, neither party is liable under this proposed
+license for indirect, incidental, special, or consequential damages, except where
+mandatory law or a controlling written agreement provides otherwise. Nothing
+excludes liability that cannot lawfully be excluded. Existing signed agreements
+with Abacus prevail over conflicting provisions here. Governing law, dispute
+resolution, liability limits, and enforceable acceptance terms must be finalized
+with legal counsel before publication.
+
+This draft is not an executed client agreement and does not retroactively alter
+rights in previously distributed versions.

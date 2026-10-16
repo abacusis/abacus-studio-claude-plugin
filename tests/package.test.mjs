@@ -162,7 +162,7 @@ test('Readiness Reviewer cannot waive checks or approve publication', () => {
   assert.match(read('scripts/route_development.py'), /abacus-studio:readiness-reviewer/);
   assert.match(agent, /0 used\nmeans 2 left/);
 });
-test('marketplace installs the existing root plugin without duplicating metadata', () => {
+test('Claude marketplace selects its generated package with shared identity', () => {
   const marketplace = JSON.parse(read('.claude-plugin/marketplace.json'));
   const plugin = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(marketplace.name, 'abacus-studio-marketplace');
@@ -171,7 +171,7 @@ test('marketplace installs the existing root plugin without duplicating metadata
   assert.equal(marketplace.plugins[0].name, plugin.name);
   assert.equal(marketplace.plugins[0].version, plugin.version);
   assert.equal(marketplace.plugins[0].description, plugin.description);
-  assert.equal(marketplace.plugins[0].source, './');
+  assert.equal(marketplace.plugins[0].source, './plugins/claude');
   assert.match(read('INSTALL.md'), /https:\/\/github.com\/abacusis\/abacus-studio-claude-plugin/);
   assert.match(read('INSTALL.md'), /abacus-studio@abacus-studio-marketplace/);
 });
@@ -187,7 +187,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.28.0');
+  assert.equal(manifest.version, '0.28.1');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

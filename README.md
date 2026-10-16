@@ -49,7 +49,20 @@ your local Claude session and depend on available tools, approved access, and
 actual evidence. No screenshot means no visual pass; no executed check means no
 claim that it passed. Readiness to preview is never approval to publish.
 
-### What's new in 0.28.0
+### What's new in 0.28.1
+
+**One repository, consistent packages for each tool.** Claude's package is
+generated in `plugins/claude` and Codex's in `plugins/codex`, both from shared
+source. Each marketplace selects the right package—no tool-specific branch flag.
+A freshness check keeps both distributions synchronized with the playbooks and
+helpers. The same adapter pattern can support more tools after compatibility work;
+no other tool integration is included yet.
+
+Version 0.28.1 is available from `main` for both tools. Existing Codex installs
+pinned to the old `codex` branch need a one-time marketplace re-registration;
+see the [Codex installation instructions](adapters/codex/INSTALL.md).
+
+### Recent improvements
 
 **The same engineering foundation, now prepared for Codex.** A separate local
 Codex preview package reuses the playbooks, project knowledge, workspace helpers
@@ -61,11 +74,8 @@ profiles. Optional trusted hooks provide local observation; generic Codex worker
 cannot yet be attributed to specialist roles in the dashboard. This is a local
 testing preview, not an OpenAI public-directory listing or a claim of full UI parity.
 
-Version 0.28.0 is available for Claude Code, with a Codex testing preview from
-the same repository's generated `codex` distribution branch. See the
+Version 0.28.0 remains the published Claude release and Codex testing preview. See the
 [release packages](https://github.com/abacusis/abacus-studio-claude-plugin/releases/tag/v0.28.0).
-
-### Recent improvements
 
 **Try the idea before connecting the backend.** Ask for a mockup first, or let
 Claude suggest a clickable sample-data preview when the layout or flow is still

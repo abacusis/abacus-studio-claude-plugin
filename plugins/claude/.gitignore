@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.claude/
+.impeccable/
+.studio/
+*.zip
+node_modules/
+__pycache__/
+*.pyc
+release/

@@ -1,21 +1,27 @@
 # Abacus Studio for Codex — testing preview
 
-This is the Codex package, not the repository's Claude package. Use the generated
-`codex` branch explicitly; the default branch serves Claude. Do not copy files
-into an existing Claude installation. This is a testing preview, not full parity
-or an OpenAI public-directory listing.
+This is the Codex testing preview, not full parity or an OpenAI public-directory
+listing. Starting with 0.28.1 both packages live on main: `plugins/codex` and
+`plugins/claude`. The marketplace selects the correct folder. Do not copy files
+into another tool's installation. No branch flag is needed for new installations.
 
 ## Install from GitHub
 
 With a supported Codex CLI, run:
 
 ```sh
-codex plugin marketplace add https://github.com/abacusis/abacus-studio-claude-plugin.git --ref codex
+codex plugin marketplace add https://github.com/abacusis/abacus-studio-plugin.git
 codex plugin add abacus-studio@abacus-studio-codex
 ```
 
-These install the published Codex distribution, not the shared source checkout.
+These install the Codex distribution, not the shared source.
 Then start a new Codex session and ask: “Set up my application with Abacus Studio.”
+
+If you registered the old `--ref codex` marketplace, upgrading that source stays
+on the old branch. Re-register it once: remove the `abacus-studio-codex` marketplace
+through the plugin manager or `codex plugin marketplace remove abacus-studio-codex`,
+then run the two branch-free commands above. This does not alter application files.
+The legacy branch is retained for compatibility, not silently redirected.
 
 ## Build a local test package (maintainers)
 

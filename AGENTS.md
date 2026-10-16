@@ -2,8 +2,12 @@
 
 This is the public Abacus Studio plugin source repository, with separate Claude
 and Codex release targets. Shared helpers/playbooks stay here; Codex-only wording
-and packaging belong in adapters/codex/ and scripts/build_codex.py. Do not edit
+and packaging belong in adapters/<tool>/ and scripts/build_<tool>.py. Do not edit
 generated distributions or rename the remote as an incidental implementation step.
+Both generated distributions live in plugins/<tool>/ on main. Regenerate them
+with scripts/generate_packages.py after source changes; never hand-edit them.
+Keep each tool's root marketplace pointed at its own package. Future tool adapters
+must establish real compatibility; a folder alone does not create support.
 README.md is the
 client-facing product introduction, not an internal architecture manual.
 

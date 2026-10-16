@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Abacus Studio · Your AI team</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a href="./" class="brand">Abacus Studio<span class="brand-dot"></span></a><span class="local-label">On your computer</span><span id="connection" role="status">Connecting…</span></header>
+  <main>
+    <section class="workspace" aria-labelledby="team-title">
+      <div class="intro"><div><h1 id="team-title">Your AI team</h1><p id="project">Waiting for workspace details</p></div><span id="session-note" class="quiet">Recorded activity</span></div>
+      <div id="offline" class="notice" role="alert" hidden>Connection lost. This is the last recorded state, not live activity. Reopen the dashboard through Codex if its local server has stopped.</div>
+      <div id="empty" class="notice" hidden>No Codex activity recorded yet. Continue in Codex with this plugin loaded. Agents appear as working only after a start event is received.</div>
+      <div class="team-map" id="team-map" aria-label="Orchestrator coordination map">
+        <svg id="connections" class="connections" aria-hidden="true"></svg>
+        <div class="coordinator-row" id="coordinator"></div>
+        <div class="specialists" id="specialists"></div>
+      </div>
+      <p id="handoff-status" class="handoff-status" role="status">Connections appear when agents are invoked.</p>
+      <p id="team-summary" class="map-note" role="status">Waiting for Codex. Agents appear when they join the work.</p>
+      <div id="request-notice" class="notice request-notice" role="status" hidden></div>
+    </section>
+    <aside class="details" id="details" aria-labelledby="detail-name">
+      <div class="detail-heading"><div id="detail-icon" class="detail-icon" aria-hidden="true"></div><div><h2 id="detail-name" tabindex="-1">Orchestrator</h2><p id="detail-status" class="state">Idle</p></div><button id="close-details" class="icon-button" aria-label="Close agent details">×</button></div>
+      <p id="detail-task" class="detail-task">No task summary reported yet.</p>
+      <p id="detail-provenance" class="quiet provenance">Finished work still needs its checks reviewed.</p>
+      <div class="tabs" role="tablist" aria-label="Agent details">
+        <button id="tab-activity" role="tab" aria-selected="true" aria-controls="panel">Activity</button>
+        <button id="tab-changes" role="tab" aria-selected="false" aria-controls="panel" tabindex="-1">Changes</button>
+        <button id="tab-checks" role="tab" aria-selected="false" aria-controls="panel" tabindex="-1">Checks</button>
+      </div>
+      <div id="panel" class="panel" role="tabpanel" aria-labelledby="tab-activity" tabindex="0"></div>
+      <p class="privacy-note">Recorded events and coordinator reports.<br>No transcripts or private AI reasoning.</p>
+    </aside>
+  </main>
+  <footer class="changes-bar">
+    <button id="show-changes" class="changes-summary" aria-expanded="false" aria-controls="all-changes"><span id="git-icon" aria-hidden="true"></span><span><strong id="change-count">Checking local changes…</strong><span id="commit-count" class="quiet">Upstream status unknown</span></span></button>
+    <p id="git-note" class="git-note">Read-only Git inspection. No automatic fetch, push, or publishing.</p>
+    <div class="actions"><button id="submit" class="primary" disabled>Submit changes</button><button id="request-publish" class="secondary" disabled>Request publish</button></div>
+  </footer>
+  <section id="all-changes" class="all-changes" aria-label="Local working-copy changes" hidden></section>
+  <p class="footnote">Buttons queue a request for Codex. Return to Codex and send “Continue” to begin the existing workflow. All checks and approvals still apply.</p>
+</body>
+</html>

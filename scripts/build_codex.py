@@ -44,7 +44,7 @@ def render(root, sources):
         if (name.startswith(('.claude-plugin/', 'adapters/', 'agents/', 'skills/', 'hooks/', 'tests/'))
                 or name in ('.mcp.json', 'INSTALL.md', 'README.md')
                 or name in ('scripts/route_development.py', 'scripts/build_release.py',
-                            'scripts/build_codex.py', 'scripts/check_readme.py')
+                            'scripts/build_codex.py', 'scripts/build_claude.py', 'scripts/generate_packages.py', 'scripts/check_readme.py')
                 or name == 'references/engineering/orchestration-testing.md'):
             continue
         content = path.read_text()

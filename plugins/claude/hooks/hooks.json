@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [{"hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "UserPromptSubmit": [{"hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/route_development.py\" || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/route_development.py\" || exit 0","timeout":5},{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "SubagentStart": [{"matcher":"^abacus-studio:.*$","hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "SubagentStop": [{"matcher":"^abacus-studio:.*$","hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "PreToolUse": [{"matcher":"Read|Grep|Glob|Edit|Write|Bash|Agent|Task","hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "PostToolUse": [{"matcher":"Read|Grep|Glob|Edit|Write|Bash|Agent|Task","hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "PostToolUseFailure": [{"matcher":"Read|Grep|Glob|Edit|Write|Bash|Agent|Task","hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "Stop": [{"hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "StopFailure": [{"hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}],
+    "SessionEnd": [{"hooks":[{"type":"command","command":"python3 -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || python -I \"${CLAUDE_PLUGIN_ROOT}/scripts/local_dashboard.py\" hook || exit 0","timeout":5}]}]
+  }
+}

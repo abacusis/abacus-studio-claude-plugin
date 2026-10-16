@@ -9,7 +9,7 @@ import zipfile
 
 ROOT_FILES = {'.gitignore', '.mcp.json', 'README.md', 'INSTALL.md', 'SECURITY.md', 'RELEASE.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md'}
 PATTERNS = ('.claude-plugin/*.json', 'hooks/hooks.json', 'agents/*.md', 'dashboard/*.html', 'dashboard/*.css', 'dashboard/*.js', 'skills/*/SKILL.md', 'references/*.md',
-            'references/*/*.md', 'adapters/codex/*.md', 'scripts/*.py', 'scripts/requirements.txt',
+            'references/*/*.md', 'adapters/*/*.md', 'scripts/*.py', 'scripts/requirements.txt',
             'tests/*.py', 'tests/*.mjs')
 FORBIDDEN = {'.git', '.claude', '.studio', '.impeccable', '__pycache__', 'node_modules'}
 CONCRETE_SECRET = re.compile(r'-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----|\b(?:sbp_[A-Za-z0-9]{20,}|sb_secret_[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[A-Z0-9]{16})\b|\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}')
@@ -37,6 +37,15 @@ def release_files(root):
         files.append(path)
     return files
 
+def render_target(root, target, files=None):
+    if target not in ('claude', 'codex'):
+        raise ValueError('Unknown release target')
+    adapter_spec = importlib.util.spec_from_file_location('release_adapter_' + target, Path(__file__).with_name('build_' + target + '.py'))
+    adapter = importlib.util.module_from_spec(adapter_spec)
+    adapter_spec.loader.exec_module(adapter)
+    return adapter.render(root, files if files is not None else release_files(root))
+
+
 def build(root, output, target='claude'):
     if target not in ('claude', 'codex'):
         raise ValueError('Unknown release target')
@@ -47,13 +56,7 @@ def build(root, output, target='claude'):
     if output == root or root in output.parents:
         raise ValueError('Release output must be outside the source folder.')
     files = release_files(root)
-    if target == 'codex':
-        adapter_spec = importlib.util.spec_from_file_location('codex_release_adapter', Path(__file__).with_name('build_codex.py'))
-        adapter = importlib.util.module_from_spec(adapter_spec)
-        adapter_spec.loader.exec_module(adapter)
-        contents = adapter.render(root, files)
-    else:
-        contents = {source.relative_to(root).as_posix(): source.read_bytes() for source in files}
+    contents = render_target(root, target, files)
     manifest = {'version': json.loads((root / '.claude-plugin/plugin.json').read_text())['version'],
                 'repository': 'abacusis/abacus-studio-claude-plugin', 'files': {},
                 'excluded': 'Everything outside the distribution allowlist, including local host settings, caches, credentials and Git history.',

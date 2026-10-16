@@ -1,0 +1,12 @@
+{
+  "name": "abacus-studio-codex",
+  "interface": { "displayName": "Abacus Studio for Codex" },
+  "plugins": [
+    {
+      "name": "abacus-studio",
+      "source": { "source": "local", "path": "./plugins/codex" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
+      "category": "Productivity"
+    }
+  ]
+}

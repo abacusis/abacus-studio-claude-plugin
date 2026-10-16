@@ -1,5 +1,31 @@
 # Publishing Abacus Studio for Claude Code
 
+## 0.28.1 — one branch, consistent tool packages
+
+- Shared source remains on main; both distributions are generated at
+  plugins/claude and plugins/codex. Root tool-specific marketplaces select the
+  appropriate folder. Existing plugin identities and authorization stay unchanged.
+- Codex's new install path needs no --ref codex. Existing branch-pinned installs
+  require one explicit marketplace re-registration; the old branch is preserved.
+- Both package adapters feed the same release builder and generation command.
+  CI checks exact generated content, not only version numbers. Local edits and
+  symlinks in generated folders block regeneration rather than being overwritten.
+- This structure permits future tool adapters but does not implement Grok or
+  promise compatibility with tools that have not been tested.
+- No commit, remote publication, marketplace migration or branch deletion is
+  performed by generation. Both packages are released together as 0.28.1.
+
+Before an approved publication: update availability wording, run tests and
+`python3 scripts/generate_packages.py`, then `--check`. Include both generated
+folders and root marketplace catalogs in the release commit. ZIPs remain standalone
+packages with their own local-root catalogs. Do not publish stale generated files.
+
+Local layout validation on 2026-10-16: 110 Python and 21 JavaScript tests passed.
+Native Claude and Codex CLI installs from the same local repository marketplace
+both selected their own generated folder and installed version 0.28.1 in isolated
+profiles. Claude manifest validation and both package freshness checks passed.
+These checks do not constitute new live Studio or trusted-hook acceptance tests.
+
 ## 0.28.0 — Claude release and Codex testing preview
 
 - One source repository, separate Claude and Codex release targets. Existing

@@ -1,0 +1,15 @@
+{
+  "name": "abacus-studio-marketplace",
+  "description": "Build with Claude Code, connected to your application and backed by Abacus engineering guidance.",
+  "owner": {
+    "name": "Abacus"
+  },
+  "plugins": [
+    {
+      "name": "abacus-studio",
+      "version": "0.28.1",
+      "source": "./",
+      "description": "Connect Claude Code to your application, build and preview changes locally, and submit them for Abacus review."
+    }
+  ]
+}

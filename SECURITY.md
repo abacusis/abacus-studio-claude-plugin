@@ -32,7 +32,9 @@ reduce automatic routing reliability; no permission bypass is attempted.
 
 Separate dashboard observers run only after workspace opt-in. They select lifecycle
 IDs, tool names and filtered file paths from hook input, storing local metadata in
-the Git-ignored `.studio/dashboard` directory. They discard prompts, transcripts,
+the Git-ignored `.studio/dashboard` directory. Pre-action callbacks expose only the
+action category and filtered Read/Edit/Write paths—not command text or search
+patterns. Observers discard prompts, transcripts,
 tool bodies/output and agent responses. Coordinator-written summaries must contain
 no sensitive information; filtering is not comprehensive secret redaction.
 The optional server binds only to loopback with an unguessable URL, Host/Origin

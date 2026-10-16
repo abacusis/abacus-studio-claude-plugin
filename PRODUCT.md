@@ -44,7 +44,9 @@ storage and lifecycle instrumentation remain engineering decisions to validate.
 ## Evidence on Hand
 
 The plugin has working specialist definitions and documented bounded smoke tests.
-No dashboard exists yet. Mockup agent activity and file counts must be labeled
+The local dashboard observes agent lifecycle and safe tool metadata, plus explicit
+coordinator summaries. Compact participants appear as they join; unused specialists
+are hidden, and finished participants stay muted. Mockup activity must be labeled
 illustrative, not screenshots of running agents or real project records.
 
 ## Product Principles

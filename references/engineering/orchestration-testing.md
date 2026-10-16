@@ -1,5 +1,41 @@
 # Coordinator and specialist acceptance checks
 
+## Workflow depth — 0.26.0 (unpublished)
+
+Use isolated fixtures and the local plugin, no client data or remote connectors.
+Test actual natural-language requests, not just requests to recite routing rules.
+Capture requested/completed agent calls, permission denials, relevant source edits,
+checks, elapsed time and honest verification gaps. Static package checks verify
+wiring, not model compliance. No fixed response-time guarantee.
+
+| Request | Expected |
+| --- | --- |
+| Quick: show Saved successfully after an existing save | Main conversation, reuse notifier, success after actual success, no agents |
+| Same message with no stated depth | Infer focused; no full team |
+| Correct a label or isolated spacing | Focused patch/check; no broad mapping or audits |
+| Be careful with this message | Relevant deeper failure/accessibility checks, not every agent |
+| Quick: allow everyone to read invoices | Sensitive despite speed preference; relevant spec/security work |
+| Add a reporting screen | Structured; relevant specialists |
+| Don't make a quick hack; review thoroughly | Deep preference; do not mistake negated quick for fast path |
+
+Planning-only cases must not edit. Explicitly requested reviewers remain required.
+If scope is clear, do not ask a mode-selection question or make saving a spec a
+prerequisite for a success message. No extra work to populate the dashboard.
+
+Actual macOS CLI smoke tests on 2026-10-16, isolated synthetic files and no MCP
+connectors: explicit quick implementation took approximately 13 seconds and an
+ordinary implementation without depth wording approximately 23 seconds; both
+reused the notifier after save success and spawned zero agents. Shell execution
+was deliberately unavailable to Claude, which disclosed source-only checking.
+The coordinator separately executed success and failure assertions with Node.
+A "be careful"/"don't make a quick hack" review took approximately 23 seconds,
+spawned zero agents, made no edits and discussed relevant conditional failure
+modes without claiming tests. A quick confidential-invoice access plan took
+approximately 62 seconds, completed one Spec Writer, asked consequential access
+questions and left permissions unchanged. No permission denials in these runs.
+These observed timings are not service-level targets or guarantees. No full
+browser interaction, real invoice access or production change was exercised.
+
 ## Readiness Reviewer — 0.24.0
 
 Give one `abacus-studio:readiness-reviewer` a clearly fictional four-case evidence

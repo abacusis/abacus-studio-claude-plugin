@@ -23,6 +23,7 @@ ROLES = {'orchestrator': 'Orchestrator', 'spec-writer': 'Spec Writer', 'builder'
          'ui-reviewer': 'UI Review', 'ux-reviewer': 'UX Review', 'readiness-reviewer': 'Readiness'}
 ACTIONS = {'submit': '/abacus-studio:submit', 'request-publish': '/abacus-studio:request-publish'}
 STALE_AFTER = 300
+DASHBOARD_PROTOCOL = 2
 SECRET = re.compile(r'(?i)(?:sb_secret_|sbp_|github_pat_|ghp_|sk-proj-|-----BEGIN |\b(?:password|api[_-]?key|token|secret)\s*[:=])')
 
 
@@ -174,7 +175,7 @@ def observe(payload):
     root, _ = enabled(payload['cwd'])
     sid = key(payload.get('session_id'))
     kind = payload.get('hook_event_name')
-    allowed = {'SessionStart', 'UserPromptSubmit', 'SubagentStart', 'SubagentStop',
+    allowed = {'SessionStart', 'UserPromptSubmit', 'SubagentStart', 'SubagentStop', 'PreToolUse',
                'PostToolUse', 'PostToolUseFailure', 'Stop', 'StopFailure', 'SessionEnd'}
     if kind not in allowed:
         return None
@@ -191,8 +192,16 @@ def observe(payload):
             state = 'working' if kind == 'SubagentStart' else 'returned'
             db.execute('INSERT INTO agents VALUES(?,?,?,?,?,?) ON CONFLICT(session,id) DO UPDATE SET state=excluded.state,seen=excluded.seen,started=CASE WHEN excluded.state="working" THEN excluded.started ELSE agents.started END',
                        (sid, aid, role, state, now, now))
+            if state == 'working':
+                assigned = db.execute('SELECT body FROM reports WHERE session=? AND role=?', (sid,role)).fetchone()
+                if assigned:
+                    goal = json.loads(assigned['body'])
+                    if goal.get('status') == 'queued' and not goal.get('checks') and not goal.get('findings'):
+                        # Explicitly assigned goal belongs to this start, not old check evidence.
+                        goal['status'] = ''
+                        db.execute('UPDATE reports SET body=?,time=? WHERE session=? AND role=?', (json.dumps(goal),now,sid,role))
             event(db, sid, role, kind, 'Agent started' if state == 'working' else 'Agent returned · outcome not inferred')
-        elif kind in ('PostToolUse', 'PostToolUseFailure'):
+        elif kind in ('PreToolUse', 'PostToolUse', 'PostToolUseFailure'):
             if aid:
                 agent = db.execute('SELECT role FROM agents WHERE session=? AND id=?', (sid, aid)).fetchone()
                 if not agent:
@@ -205,8 +214,12 @@ def observe(payload):
                       'Agent': 'Delegation returned', 'Task': 'Delegation returned'}
             if tool not in labels:
                 return None
-            file = safe_path(root, payload.get('tool_input', {}).get('file_path')) if tool in ('Edit', 'Write') else None
-            event(db, sid, role, kind, 'Tool failed or blocked' if kind.endswith('Failure') else labels[tool], file)
+            if kind == 'PreToolUse':
+                labels = {'Read':'Reading source', 'Grep':'Searching source', 'Glob':'Finding related files',
+                          'Edit':'Editing a file', 'Write':'Writing a file', 'Bash':'Running a command',
+                          'Agent':'Delegating specialist work', 'Task':'Delegating specialist work'}
+            file = safe_path(root, payload.get('tool_input', {}).get('file_path')) if tool in ('Read', 'Edit', 'Write') else None
+            event(db, sid, role, kind, 'Action failed or was blocked' if kind.endswith('Failure') else labels[tool], file)
         else:
             state = {'SessionStart': 'idle', 'UserPromptSubmit': 'working', 'Stop': 'idle',
                      'StopFailure': 'attention', 'SessionEnd': 'ended'}[kind]
@@ -216,7 +229,7 @@ def observe(payload):
             event(db, sid, role, kind, {'SessionStart':'Session connected', 'UserPromptSubmit':'Turn started',
                 'Stop':'Turn ended', 'StopFailure':'Turn interrupted', 'SessionEnd':'Session ended'}[kind])
             if kind in ('SessionStart', 'UserPromptSubmit'):
-                context = 'Local dashboard is enabled for this workspace. Dashboard session key: ' + sid + '. Use references/engineering/local-dashboard.md for reporting, never raw transcripts.'
+                context = 'Local dashboard is enabled for this workspace. Dashboard session key: ' + sid + '. Read references/engineering/local-dashboard.md and keep brief task summaries current before delegating and after receiving results. Never raw transcripts or private reasoning.'
             if kind == 'UserPromptSubmit':
                 db.execute('BEGIN IMMEDIATE') if not db.in_transaction else None
                 queued = db.execute('SELECT * FROM requests WHERE state="queued" ORDER BY time LIMIT 2').fetchall()
@@ -308,10 +321,18 @@ def snapshot(root):
             report_stale = bool(stored and rows and stored['time'] < max(row['started'] for row in rows))
             if status == 'idle' and stored and not report_stale and body.get('status'):
                 status = body['status']
+            activity = next((item for item in events if item['role'] == role and item['kind'] in
+                            ('PreToolUse','PostToolUse','PostToolUseFailure')), None)
+            # A previous invocation's last action is not this invocation's work.
+            if activity and rows and activity['time'] < max(row['started'] for row in rows):
+                activity = None
             agents.append({'role':role,'name':label,'status':status,'active_count':len(fresh),
+                           'participated': bool(rows) or role == 'orchestrator' or bool(stored),
+                           'invoked': bool(rows),
+                           'activity':activity,
                            'report':body,'report_stale':report_stale,'report_time': stored['time'] if stored else None})
         requests = [dict(row) for row in db.execute('SELECT id,action,state,time FROM requests ORDER BY time DESC LIMIT 10')]
-    return {'project':text(root.name), 'session':dict(session) if session else None,
+    return {'dashboard_protocol':DASHBOARD_PROTOCOL, 'project':text(root.name), 'session':dict(session) if session else None,
             'agents':agents,'events':events,'git':git_status(root),'requests':requests,
             'observed_at':now,'stale_after':STALE_AFTER,
             'note':'Hook-observed activity and coordinator-reported checks. No private AI reasoning.'}
@@ -456,12 +477,25 @@ def main():
                 # Do not connect to arbitrary URLs from repository metadata.
                 url = old.get('url','')
                 if re.fullmatch(r'http://127\.0\.0\.1:[0-9]+/[a-f0-9]{48}/',url):
+                    legacy_running=False
                     try:
                         with opener.open(url+'api/state',timeout=1) as response:
                             if response.status == 200:
-                                print(json.dumps({'url':url,'reused':True})); return 0
+                                running=json.loads(response.read(1024*1024))
+                                if running.get('dashboard_protocol') == DASHBOARD_PROTOCOL:
+                                    print(json.dumps({'url':url,'reused':True})); return 0
+                                legacy_running=True
+                                # Replace only the dashboard identified by this workspace's
+                                # private capability, never a guessed port or another listener.
+                                origin='http://'+urlsplit(url).netloc
+                                req=urllib.request.Request(url+'api/close',data=b'{}',headers={'Origin':origin},method='POST')
+                                with opener.open(req,timeout=2) as closed:
+                                    if closed.status != 200: raise ValueError('Close the previous dashboard before reopening it')
+                                legacy_running=False
                     except Exception:
                         pass
+                    if legacy_running:
+                        raise ValueError('Close the previous dashboard before reopening it')
             env = {'PATH':os.defpath}
             for name in ('SYSTEMROOT','WINDIR'):
                 if name in os.environ: env[name]=os.environ[name]

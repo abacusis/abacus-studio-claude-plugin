@@ -2,7 +2,11 @@
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
-Use existing project knowledge, code mapping, and relevant playbooks; do not
+FIRST apply [Workflow depth](workflow-depth.md). Its focused Quick Change path
+exits before this full workflow; it includes ordinary success feedback using an
+existing pattern. User quick/deep intent adjusts effort, not authority or actual
+risk. Deep does not mean every specialist, and quick does not waive sensitive
+checks. Use only relevant project knowledge, code mapping, and playbooks; do not
 replace them with a second planning system.
 
 ## Current capability boundary
@@ -20,8 +24,9 @@ sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
 delegation as Task or Agent. A small codebase alone is not a fallback reason. Other
-specialist agents, quality-check hooks, a local progress UI, durable run state, and Studio
-progress synchronization are NOT implemented. Do not spawn specialist reviewers
+specialist agents beyond those listed, durable execution recovery and Studio
+progress synchronization are NOT implemented. An optional local dashboard observes
+actual work; it is not an execution engine. Do not spawn specialist reviewers
 that are not installed, simulate separate conversations, or claim they ran.
 Builder performs authorized structured implementation; the coordinator still
 owns review, readiness, and client decisions. Separate specification drafting
@@ -76,7 +81,7 @@ is sensitive, not small. When uncertain, investigate the impact before classifyi
 
 | Approach | Examples | Work required |
 | --- | --- | --- |
-| Focused | Correct text or isolated spacing with no behavioral/access change | Implement the authorized edit and perform a relevant focused check. No full team ceremony. |
+| Focused | Correct text, isolated spacing or ordinary success feedback using an existing pattern, without business-rule/access change | Main conversation implements and performs a focused check. No automatic specialists or full team ceremony. |
 | Structured | Add a screen, feature, or business workflow | Requirements and acceptance criteria, implementation, verification, relevant reviews, and readiness assessment. |
 | Sensitive | Change permissions, payments, privileged access, customer-data exposure, or shared-data behavior | Structured workflow plus explicit permission/failure criteria and relevant security review. |
 
@@ -111,12 +116,12 @@ focused edit.
 | --- | --- | --- |
 | Orchestrator | Keep scope, stages, findings, and next action consistent. | Every application change. |
 | Spec Writer | Clarify behavior, acceptance criteria, and exclusions. | Structured and sensitive changes. |
-| Builder | Implement the agreed behavior and relevant tests. | Authorized implementation. |
-| Verification Specialist | Match criteria to actual checks, results, and gaps. | Structured and sensitive changes; focused checks for small edits. |
+| Builder | Implement the agreed behavior and relevant tests. | Authorized structured/sensitive implementation. |
+| Verification Specialist | Match criteria to actual checks, results, and gaps. | Structured and sensitive changes; the coordinator handles focused checks for small edits. |
 | Code Reviewer | Check correctness, architecture, maintainability, and regressions. | Structured and sensitive changes. |
 | Security Reviewer | Examine relevant source-level access and data boundaries. | Security-sensitive changes; source-only Security limits apply. |
-| UI Reviewer | Check visual consistency, spacing, hierarchy, responsive layout, and presentation. | Changed visible interfaces. |
-| UX Reviewer | Check user flows, navigation, feedback, accessibility, and loading/error/empty states. | Changed interaction or workflow, including accessibility effects. |
+| UI Reviewer | Check visual consistency, spacing, hierarchy, responsive layout, and presentation. | Relevant structured/sensitive visible changes, or explicitly requested review. |
+| UX Reviewer | Check user flows, navigation, feedback, accessibility, and loading/error/empty states. | Relevant structured/sensitive interaction/workflow changes, or explicitly requested review. |
 | Readiness Reviewer | Compare the agreed result, checks, and unresolved findings. | Structured and sensitive changes. |
 
 Keep UI and UX as separate named responsibilities in plans and review summaries;

@@ -9,7 +9,14 @@ Read and apply [Client communication](../../references/client-communication.md) 
 
 Use this skill automatically when the development task fits, or explicitly through `/abacus-studio:engineering`. The user does not need to learn separate testing or debugging commands.
 
-For application changes, read [Coordinator workflow](../../references/engineering/orchestration.md)
+FIRST read [Workflow depth](../../references/engineering/workflow-depth.md).
+Honor natural-language quick/deep preferences while classifying actual risk.
+For focused low-risk work, complete that guide's Quick Change path in the main
+conversation and STOP: the full orchestration and specialist instructions below
+apply to structured/sensitive work, not every confirmation message or copy edit.
+No intent specified means choose the shortest adequate path, not a full team.
+
+For structured/sensitive application changes, read [Coordinator workflow](../../references/engineering/orchestration.md)
 completely before planning or implementing. It defines focused, structured, and
 sensitive approaches and the full team responsibilities. The installed specialists
 are `abacus-studio:spec-writer`, `abacus-studio:builder`, `abacus-studio:verifier`,
@@ -22,6 +29,8 @@ When the user asks to open the local dashboard or see the team working, read
 Ask for its local tracking approval before starting it; do not launch it for
 connection status or every development request. When enabled, keep coordinator
 summaries and check results current using that reference's reporting contract.
+Before delegating, report each specialist's short goal and the Orchestrator's
+stage; after results arrive, report the outcome. Never mirror raw transcripts.
 
 For structured or sensitive features, you MUST delegate the specification to
 `abacus-studio:spec-writer` using the host's Agent/Task delegation tool before

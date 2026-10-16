@@ -49,7 +49,27 @@ your local Claude session and depend on available tools, approved access, and
 actual evidence. No screenshot means no visual pass; no executed check means no
 claim that it passed. Readiness to preview is never approval to publish.
 
-### What's new in 0.25.0
+### What's new in 0.26.0
+
+**Small changes stay small.** Say “keep it quick” or “go deeper”—Claude uses your
+intent and the actual risk to choose an appropriate workflow. Simple messages and
+copy edits stay with the main conversation and focused checks, rather than a full
+agent team. Sensitive work still gets the checks it needs. No new commands.
+
+**Watch Claude coordinate the team.** A live map connects the Orchestrator to
+invoked specialists. One-shot handoff signals show tasks starting and returning,
+while parallel work stays visible together. Reduced motion keeps the same state
+without moving signals. These connections represent recorded session activity,
+not private agent conversations.
+
+Compact agent panels appear as specialists join,
+show their task and latest action, and become muted when finished. Unused agents
+stay out of the way. Meaningful file activity replaces repetitive event labels;
+finished tasks remain distinct from passing checks.
+
+Version 0.26.0 is available from the Abacus Studio marketplace.
+
+### Recent improvements
 
 Publish requests open a development-to-release review PR without requiring paid
 GitHub branch protection. Review, merging and deployment remain separate steps.
@@ -61,10 +81,8 @@ the existing Claude workflows; they never bypass review or publish directly.
 Tracking is optional and local. Returned agents are not automatically marked as
 passed, and stale activity is clearly labeled.
 
-Version 0.25.0 is available from the Abacus Studio marketplace. Ask Claude to
+Ask Claude to
 “Open the local team dashboard” and approve workspace tracking to get started.
-
-### Recent improvements
 
 The **Readiness Reviewer** adds a final evidence check before Claude calls a
 substantial change ready to preview. It brings together the agreed requirements,

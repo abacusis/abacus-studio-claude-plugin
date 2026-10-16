@@ -80,6 +80,27 @@ class DashboardTests(unittest.TestCase):
         self.assertNotIn(b'do-not-save-this',raw)
         self.assertIsNone(dash.safe_path(self.root,str(self.root.parent/'private.txt')))
 
+    def test_current_action_and_participation_without_sensitive_tool_bodies(self):
+        self.enable()
+        self.assertFalse(next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')['participated'])
+        self.observed('SubagentStart',agent_id='builder-1',agent_type='abacus-studio:builder')
+        self.observed('PreToolUse',agent_id='builder-1',tool_name='Read',tool_input={'file_path':str(self.root/'app.txt'),'content':'private-content-not-recorded'})
+        builder=next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')
+        self.assertTrue(builder['participated'])
+        self.assertEqual(builder['activity']['summary'],'Reading source')
+        self.assertEqual(builder['activity']['file'],'app.txt')
+        self.observed('PreToolUse',agent_id='builder-1',tool_name='Bash',tool_input={'command':'echo private-command-not-recorded'})
+        builder=next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')
+        self.assertEqual(builder['activity']['summary'],'Running a command')
+        self.assertIsNone(builder['activity']['file'])
+        self.observed('SubagentStop',agent_id='builder-1',agent_type='abacus-studio:builder')
+        self.assertTrue(next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')['participated'])
+        self.observed('SubagentStart',agent_id='builder-2',agent_type='abacus-studio:builder')
+        self.assertIsNone(next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')['activity'])
+        raw=(self.root/'.studio/dashboard/activity.sqlite').read_bytes()
+        self.assertNotIn(b'private-command-not-recorded',raw)
+        self.assertNotIn(b'private-content-not-recorded',raw)
+
     def test_report_provenance_validation_and_staleness(self):
         self.enable()
         sid=dash.key('test-session')
@@ -90,6 +111,24 @@ class DashboardTests(unittest.TestCase):
         self.assertTrue(current['report_stale'])
         self.assertEqual(current['report']['checks'][0]['result'],'not_verified')
         self.assertEqual(dash.snapshot(self.root)['events'][1]['source'],'coordinator')
+
+    def test_assigned_goal_survives_start_but_old_checks_are_not_refreshed(self):
+        self.enable()
+        dash.report(self.root,dash.key('test-session'),{'role':'builder','summary':'Add validation','status':'queued'})
+        queued=next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')
+        self.assertTrue(queued['participated'])
+        self.assertFalse(queued['invoked'])
+        self.observed('SubagentStart',agent_id='one',agent_type='abacus-studio:builder')
+        builder=next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')
+        self.assertFalse(builder['report_stale'])
+        self.assertTrue(builder['invoked'])
+        self.assertEqual(builder['report']['summary'],'Add validation')
+        self.observed('SubagentStop',agent_id='one',agent_type='abacus-studio:builder')
+        self.observed('SubagentStart',agent_id='two',agent_type='abacus-studio:builder')
+        self.assertTrue(next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='builder')['report_stale'])
+        dash.report(self.root,dash.key('test-session'),{'role':'verifier','summary':'Old evidence','status':'queued','checks':[{'title':'Existing test','result':'passed'}]})
+        self.observed('SubagentStart',agent_id='three',agent_type='abacus-studio:verifier')
+        self.assertTrue(next(a for a in dash.snapshot(self.root)['agents'] if a['role']=='verifier')['report_stale'])
 
     def test_git_local_changes_upstream_unknown_and_cached_ahead(self):
         self.enable()
@@ -156,6 +195,35 @@ class DashboardTests(unittest.TestCase):
                 self.assertEqual(response.status,202)
             self.assertEqual(self.git('status','--porcelain'),'')
         finally:
+            server.shutdown();server.server_close();thread.join(3)
+
+    def test_start_replaces_only_the_identified_legacy_dashboard(self):
+        self.enable()
+        capability='a'*48
+        class Legacy(dash.handler(self.root,capability)):
+            def do_GET(self):
+                if self.path == '/'+capability+'/api/state':
+                    self.send(200,{'dashboard_protocol':1})
+                else:
+                    super().do_GET()
+        server=ThreadingHTTPServer(('127.0.0.1',0),Legacy)
+        thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+        legacy_url=f'http://127.0.0.1:{server.server_port}/{capability}/'
+        dash.atomic(self.root/'.studio/dashboard/server.json',{'url':legacy_url,'pid':-1})
+        command=[sys.executable,'-I',str(ROOT/'scripts/local_dashboard.py')]
+        try:
+            result=subprocess.run(command+['start','--workspace',str(self.root),'--approved'],check=True,capture_output=True,text=True,timeout=8)
+            new=json.loads(result.stdout)
+            self.assertNotEqual(new['url'],legacy_url)
+            thread.join(2)
+            self.assertFalse(thread.is_alive())
+            opener=build_opener(ProxyHandler({}))
+            with opener.open(new['url']+'api/state',timeout=3) as response:
+                self.assertEqual(json.load(response)['dashboard_protocol'],dash.DASHBOARD_PROTOCOL)
+            reuse=subprocess.run(command+['start','--workspace',str(self.root),'--approved'],check=True,capture_output=True,text=True,timeout=5)
+            self.assertTrue(json.loads(reuse.stdout)['reused'])
+        finally:
+            subprocess.run(command+['stop','--workspace',str(self.root),'--approved'],capture_output=True,timeout=5)
             server.shutdown();server.server_close();thread.join(3)
 
 

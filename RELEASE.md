@@ -44,6 +44,30 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.26.0
+
+- Adds quick/deep/automatic intent guidance and an early focused Quick Change
+  path for ordinary success feedback, copy and isolated layout changes.
+- Focused work avoids automatic specialists, full orchestration, broad mapping
+  and reporting ceremony. Actual risk and explicit requirements still govern.
+- Corrects broad role-table wording that could trigger UI/UX or Builder delegation
+  for every small interaction. Routing remains model guidance, not enforcement.
+
+- Adds a responsive coordination map with a central Orchestrator, recorded
+  invocation connections and once-only assignment/return signals. No animated
+  replay on initial load, unchanged polls, stale events, offline or ended sessions.
+- Supports reduced motion and narrow-screen gutter connections; details and Git
+  actions retain their existing behavior. Reopening replaces an identified older
+  dashboard server rather than silently reusing an incompatible observer.
+
+- Compact active-team panels hide unused specialists and retain muted participants.
+- Adds pre-action observation and filtered Read paths without capturing commands,
+  prompts, search patterns, outputs, transcripts or private reasoning.
+- Shows task summaries and latest action on each visible agent; removes repetitive
+  hook labels and generic lifecycle noise from the activity list.
+- Requires concise coordinator task/result reporting when local tracking is enabled.
+- "Finished task" is not a passing review. Stale/offline signals remain explicit.
+
 ## 0.25.0
 
 - Removes obsolete plugin guidance requiring branch protection or Administration

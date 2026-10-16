@@ -26,6 +26,10 @@ class RoutingTests(unittest.TestCase):
         self.assertIn('planning-only', context)
         self.assertIn('Do NOT activate Engineering for arithmetic', context)
         self.assertIn('Preserve planning-only boundaries and all approvals', context)
+        self.assertIn('quick, deep, or automatic', context)
+        self.assertIn('shortest adequate path', context)
+        self.assertIn('No automatic', context)
+        self.assertIn('never bypasses sensitive-work checks', context)
         self.assertNotIn('untrusted arbitrary input', first.stdout)
 
     def test_default_hook_is_bounded_and_fail_open(self):

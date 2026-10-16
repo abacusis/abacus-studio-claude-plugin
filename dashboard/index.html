@@ -15,18 +15,19 @@
       <div class="intro"><div><h1 id="team-title">Your AI team</h1><p id="project">Waiting for workspace details</p></div><span id="session-note" class="quiet">Recorded activity</span></div>
       <div id="offline" class="notice" role="alert" hidden>Connection lost. This is the last recorded state, not live activity. Reopen the dashboard through Claude if its local server has stopped.</div>
       <div id="empty" class="notice" hidden>No Claude activity recorded yet. Continue in Claude with this plugin loaded. Agents appear as working only after a start event is received.</div>
-      <div class="team-map" aria-label="Agent team">
+      <div class="team-map" id="team-map" aria-label="Orchestrator coordination map">
+        <svg id="connections" class="connections" aria-hidden="true"></svg>
         <div class="coordinator-row" id="coordinator"></div>
-        <div class="team-trunk" aria-hidden="true"></div>
         <div class="specialists" id="specialists"></div>
       </div>
-      <p class="map-note">Select anyone to see their activity, changes, and reported checks.</p>
+      <p id="handoff-status" class="handoff-status" role="status">Connections appear when agents are invoked.</p>
+      <p id="team-summary" class="map-note" role="status">Waiting for Claude. Agents appear when they join the work.</p>
       <div id="request-notice" class="notice request-notice" role="status" hidden></div>
     </section>
     <aside class="details" id="details" aria-labelledby="detail-name">
       <div class="detail-heading"><div id="detail-icon" class="detail-icon" aria-hidden="true"></div><div><h2 id="detail-name" tabindex="-1">Orchestrator</h2><p id="detail-status" class="state">Idle</p></div><button id="close-details" class="icon-button" aria-label="Close agent details">×</button></div>
       <p id="detail-task" class="detail-task">No task summary reported yet.</p>
-      <p id="detail-provenance" class="quiet provenance">Lifecycle events do not imply passing checks.</p>
+      <p id="detail-provenance" class="quiet provenance">Finished work still needs its checks reviewed.</p>
       <div class="tabs" role="tablist" aria-label="Agent details">
         <button id="tab-activity" role="tab" aria-selected="true" aria-controls="panel">Activity</button>
         <button id="tab-changes" role="tab" aria-selected="false" aria-controls="panel" tabindex="-1">Changes</button>

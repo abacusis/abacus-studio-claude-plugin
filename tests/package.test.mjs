@@ -2,6 +2,18 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+test('workflow depth honors user intent without turning every change into a team job', () => {
+  const skill=read('skills/engineering/SKILL.md');
+  const guide=read('references/engineering/workflow-depth.md');
+  const hook=read('scripts/route_development.py');
+  assert.ok(skill.indexOf('[Workflow depth]')<skill.indexOf('[Coordinator workflow]'));
+  for(const phrase of ['Quick','Deep','Automatic','keywords alone','Planning-only stays planning-only','review-only does not authorize fixes','Classify by consequences, not file count','Quick Change — complete here','Main conversation','No automatic specialists','screenshots must be inspected','do not start it','No extra command']) assert.ok(guide.toLowerCase().includes(phrase.toLowerCase()),phrase);
+  assert.match(guide,/Saved successfully/);
+  assert.match(guide,/Quickly let all users read invoices/);
+  assert.match(guide,/STOP/);
+  assert.match(hook,/shortest adequate path/);
+  assert.match(hook,/Never add agents to populate the dashboard/);
+});
 test('Engineering loads coordination with honest limits and complete responsibilities', () => {
   assert.match(read('skills/engineering/SKILL.md'), /\[Coordinator workflow\]\(\.\.\/\.\.\/references\/engineering\/orchestration\.md\)/);
   const guide = read('references/engineering/orchestration.md');
@@ -165,7 +177,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.25.0');
+  assert.equal(manifest.version, '0.26.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);
@@ -228,6 +240,14 @@ test('local dashboard ships semantic assets and queues existing workflows only',
   assert.match(html,/role="tablist"/);
   assert.match(html,/Return to Claude/);
   assert.match(js,/requestError/);
+  assert.match(js,/Finished task/);
+  assert.match(js,/seenHandoffs/);
+  assert.match(js,/renderHandoffs/);
+  assert.match(js,/a.invoked/);
+  assert.match(js,/prefers-reduced-motion:reduce/);
+  assert.match(js,/!agent.participated/);
+  assert.equal(js.includes('Observed hook event'),false);
+  assert.ok(JSON.parse(read('hooks/hooks.json')).hooks.PreToolUse);
   assert.match(js,/scrollIntoView/);
   assert.match(read('scripts/build_release.py'),/dashboard\/\*\.html/);
   assert.match(read('skills/engineering/SKILL.md'),/local-dashboard.md/);

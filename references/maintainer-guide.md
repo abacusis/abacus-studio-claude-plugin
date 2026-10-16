@@ -12,9 +12,10 @@ before handoff. These checks do not replace editorial review.
 
 ## Capability references
 
-- [Coordinator workflow — Steps 1 through 8](engineering/orchestration.md): local main-session
+- [Coordinator workflow — Steps 1 through 9](engineering/orchestration.md): local main-session
   coordination, role selection, evidence, bounded correction, and readiness.
-  Spec Writer, Builder, Verifier, Code Reviewer, Security Reviewer, UI Reviewer, and UX Reviewer agents are bundled; readiness specialist, quality-check hooks, dashboard,
+  Spec Writer, Builder, Verifier, Code Reviewer, Security Reviewer, UI Reviewer,
+  UX Reviewer and Readiness Reviewer are bundled; quality-check hooks, dashboard,
   and progress upload are not implemented yet. The agent inherits the session model.
   See [manual acceptance checks](engineering/orchestration-testing.md).
 

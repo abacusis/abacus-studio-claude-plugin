@@ -54,6 +54,10 @@ The UX Reviewer also has only Read/Grep/Glob. It reviews approved source, images
 and interaction evidence; it cannot submit forms, operate browsers, run scripts,
 or change data. Actual actions remain with the coordinator or authorized verifier,
 under existing sandbox/write approval. Evidence review is not an independent run.
+The Readiness Reviewer also has only reading tools. It reconciles supplied checks
+and findings but cannot waive required evidence, run tests, fix source, or approve
+publishing. It is guidance, not an enforced deployment gate or proof of evidence
+authenticity; Abacus review and publication authorization remain separate.
 The Security Reviewer uses the same restricted tool list for source-only analysis;
 it cannot run attacks or tests, probe services, or remediate findings. Source-only
 candidates stay Needs validation without severity unless independent evidence

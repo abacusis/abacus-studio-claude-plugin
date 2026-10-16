@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 through 8
+# Coordinate the development workflow — Steps 1 through 9
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,14 +7,15 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Seven specialist agents are installed:
+The coordinator remains the main conversation. Eight specialist agents are installed:
 `abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
 scoped development tools subject to host permissions, plus `abacus-studio:verifier`
 for evidence-based checking without application edits, and read-only
 `abacus-studio:code-reviewer` for engineering review, plus read-only
 `abacus-studio:security-reviewer` for security boundaries and
 `abacus-studio:ui-reviewer` for screenshot inspection and `abacus-studio:ux-reviewer`
-for user-flow evidence review. Delegate structured or
+for user-flow evidence review, and `abacus-studio:readiness-reviewer` for the final
+evidence assessment. Delegate structured or
 sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
@@ -100,8 +101,9 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer, Builder, Verification Specialist, Code Reviewer, Security Reviewer, UI Reviewer, and UX Reviewer are installed specialist agents. The remaining roles
-are responsibility areas performed by the coordinator, not installed agents.
+Spec Writer, Builder, Verification Specialist, Code Reviewer, Security Reviewer,
+UI Reviewer, UX Reviewer, and Readiness Reviewer are installed specialist agents.
+The Orchestrator remains the main conversation, not another installed agent.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
 
@@ -263,6 +265,17 @@ Further work needs a new scoped user direction; do not reset the round counter
 silently or change acceptance criteria to obtain a pass.
 
 ## 6. State readiness without granting approval
+
+For structured/sensitive implemented work invoke `abacus-studio:readiness-reviewer`
+using [Readiness assessment](readiness.md) after required checks and relevant
+reviews return, or when a material evidence gap prevents completion. Supply spec
+and criterion IDs, current source including local edits, required scope and
+not-applicable reasons, actual evidence paths/results/provenance, findings and
+dispositions, questions and correction count. Wait for its assessment; no invented
+or waived checks. It cannot run checks, fix code or grant publishing approval.
+Disclose unavailable/denied/failed delegation and any coordinator-only fallback.
+No full readiness agent for planning-only or focused routine changes. Refresh
+affected evidence after corrections, within the same maximum two rounds.
 
 Return one of these outcomes for structured/sensitive work:
 - Ready to preview: required checks and relevant reviews are complete for the

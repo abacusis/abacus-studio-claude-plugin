@@ -33,8 +33,10 @@ CONTEXT = (
     'abacus-studio:security-reviewer; no security ceremony for trivial edits. '
     'Do NOT activate Engineering for arithmetic, general conversation, pure knowledge '
     'lookup, connection/status, installation help, or questions about plugin commands. '
-    'Preserve planning-only boundaries and all approvals. Never invent skill or '
-    'agent execution. If Skill/delegation is unavailable or denied, disclose the '
+    'Preserve planning-only boundaries and all approvals. '
+    'Structured implemented work ends with abacus-studio:readiness-reviewer '
+    'using actual current evidence, not waived checks or publishing approval. '
+    'Never invent skill or agent execution. If Skill/delegation is unavailable or denied, disclose the '
     'limitation and continue safely without changing permissions. Keep replies brief.'
 )
 

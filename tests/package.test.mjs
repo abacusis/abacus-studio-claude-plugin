@@ -6,7 +6,7 @@ test('Engineering loads coordination with honest limits and complete responsibil
   assert.match(read('skills/engineering/SKILL.md'), /\[Coordinator workflow\]\(\.\.\/\.\.\/references\/engineering\/orchestration\.md\)/);
   const guide = read('references/engineering/orchestration.md');
   for (const role of ['Orchestrator', 'Spec Writer', 'Builder', 'Verification Specialist', 'Code Reviewer', 'Security Reviewer', 'UI Reviewer', 'UX Reviewer', 'Readiness Reviewer']) assert.ok(guide.includes(role), role);
-  for (const phrase of ['Classify by consequences, not file count', 'no mandatory classification questionnaire', 'Do not spawn specialist', 'two correction rounds', 'Needs human input', 'Source inspection does not', 'HEAD', 'not installed agents', 'not a publishing Approver']) assert.ok(guide.toLowerCase().includes(phrase.toLowerCase()), phrase);
+  for (const phrase of ['Classify by consequences, not file count', 'no mandatory classification questionnaire', 'Do not spawn specialist', 'two correction rounds', 'Needs human input', 'Source inspection does not', 'HEAD', 'not another installed agent', 'not a publishing Approver']) assert.ok(guide.toLowerCase().includes(phrase.toLowerCase()), phrase);
   assert.match(guide, /Execution depends on the local Claude session/);
   assert.match(guide, /summarize the scope and proceed/);
   assert.match(guide, /Saving and publishing/);
@@ -14,7 +14,7 @@ test('Engineering loads coordination with honest limits and complete responsibil
   assert.match(read('references/engineering/orchestration-testing.md'), /not model compliance/);
 });
 test('Spec Writer has a read-only handoff and installed specialists are explicit', () => {
-  assert.deepEqual(readdirSync(new URL('../agents/', import.meta.url)).sort(), ['builder.md', 'code-reviewer.md', 'security-reviewer.md', 'spec-writer.md', 'ui-reviewer.md', 'ux-reviewer.md', 'verifier.md']);
+  assert.deepEqual(readdirSync(new URL('../agents/', import.meta.url)).sort(), ['builder.md', 'code-reviewer.md', 'readiness-reviewer.md', 'security-reviewer.md', 'spec-writer.md', 'ui-reviewer.md', 'ux-reviewer.md', 'verifier.md']);
   const agent = read('agents/spec-writer.md');
   const frontmatter = agent.split('---')[1];
   assert.match(frontmatter, /^name: spec-writer$/m);
@@ -30,7 +30,7 @@ test('Spec Writer has a read-only handoff and installed specialists are explicit
   assert.match(coordinator, /Invoke the installed namespaced `abacus-studio:spec-writer`/);
   assert.match(coordinator, /If unavailable or denied/);
   assert.match(coordinator, /Wait for its result/);
-  assert.match(coordinator, /Only Spec Writer, Builder, Verification Specialist, Code Reviewer, Security Reviewer, UI Reviewer, and UX Reviewer are installed specialist agents/);
+  assert.match(coordinator, /UX Reviewer, and Readiness Reviewer are installed specialist agents/);
   assert.match(read('skills/engineering/SKILL.md'), /you MUST delegate the specification/);
   assert.match(read('skills/project-knowledge/SKILL.md'), /do not invoke Engineering again/);
   assert.match(coordinator, /Do not paste the agent's full draft into chat by default/);
@@ -128,6 +128,18 @@ test('UX Reviewer separates actual flow evidence from static screenshots', () =>
   assert.match(read('references/engineering/ux-review.md'), /A test plan is not an executed check/);
   assert.match(read('scripts/route_development.py'), /abacus-studio:ux-reviewer/);
 });
+test('Readiness Reviewer cannot waive checks or approve publication', () => {
+  const agent = read('agents/readiness-reviewer.md');
+  const frontmatter = agent.split('---')[1];
+  assert.match(frontmatter, /^tools: Read, Grep, Glob$/m);
+  assert.match(frontmatter, /^model: inherit$/m);
+  assert.match(frontmatter, /^maxTurns: 25$/m);
+  assert.doesNotMatch(frontmatter, /Bash|Edit|Write|permissionMode|mcpServers|hooks/);
+  for (const phrase of ['references/engineering/readiness.md', 'Do not edit files', 'Ready to preview / Needs changes / Needs human', 'Stale, failed, blocked, missing', 'Agent agreement is not proof', 'not an independently executed test', 'same existing two-round limit', 'approved to publish']) assert.ok(agent.includes(phrase), phrase);
+  assert.match(read('skills/engineering/SKILL.md'), /MUST delegate\nthe final assessment to `abacus-studio:readiness-reviewer`/);
+  assert.match(read('scripts/route_development.py'), /abacus-studio:readiness-reviewer/);
+  assert.match(agent, /0 used\nmeans 2 left/);
+});
 test('marketplace installs the existing root plugin without duplicating metadata', () => {
   const marketplace = JSON.parse(read('.claude-plugin/marketplace.json'));
   const plugin = JSON.parse(read('.claude-plugin/plugin.json'));
@@ -153,7 +165,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.23.0');
+  assert.equal(manifest.version, '0.24.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

@@ -44,6 +44,15 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.24.0
+
+- Adds a read-only Readiness Reviewer to reconcile current requirements, checks
+  and relevant specialist findings before declaring substantial work ready.
+- Missing/stale evidence and material unresolved validation cannot become passes;
+  actual defects take priority while evidence gaps stay visible.
+- Preserves the shared two-round correction limit and separate publishing approval.
+- Updates the public README with the client benefit and current specialist team.
+
 ## 0.23.0
 
 - Adds a read-only UX Reviewer to assess actual flow evidence, feedback and recovery.

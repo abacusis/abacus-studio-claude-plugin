@@ -32,6 +32,7 @@ need to manage a team of agents or remember a command for each one.
 | Security Reviewer | Examines relevant access and data boundaries through focused source review. |
 | UI Reviewer | Inspects real screenshots for clipping, layout issues, and visual inconsistency. |
 | UX Reviewer | Examines actual interaction evidence for confusing steps, missing feedback, and recovery problems. |
+| Readiness Reviewer | Brings requirements, checks and reviews together to identify what is ready and what still needs attention. |
 
 For example, a form might look right but silently lose your work after a failed
 save. Visual review checks the screen; UX review examines the recorded flow and
@@ -48,14 +49,18 @@ your local Claude session and depend on available tools, approved access, and
 actual evidence. No screenshot means no visual pass; no executed check means no
 claim that it passed. Readiness to preview is never approval to publish.
 
-### What's new in 0.23.0
+### What's new in 0.24.0
 
-The latest source adds the **UX Reviewer** to the specialist team: a second look
-at whether people can complete their tasks, understand failures, and recover
-without losing their work. It builds on the recent Code, Security, and UI review
-capabilities and local browser verification.
+The **Readiness Reviewer** adds a final evidence check before Claude calls a
+substantial change ready to preview. It brings together the agreed requirements,
+actual test results, and relevant specialist findings—so a missing test or an
+unresolved problem does not get lost behind a reassuring “done.”
 
-Version 0.23.0 is available from the Abacus Studio marketplace. See the
+You get one clear outcome: **Ready to preview**, **Needs changes**, or **Needs human
+input**, with the reason and next step. This builds on the recent UX, UI, Security
+and Code reviewers; it does not replace Abacus's review or approve publishing.
+
+Version 0.24.0 is available from the Abacus Studio marketplace. See the
 [installation and update guide](INSTALL.md) to get the latest release.
 
 ## More than a connection to your code

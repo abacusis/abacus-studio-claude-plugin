@@ -1,5 +1,37 @@
 # Coordinator and specialist acceptance checks
 
+## Readiness Reviewer — 0.24.0
+
+Give one `abacus-studio:readiness-reviewer` a clearly fictional four-case evidence
+packet, current source labels including local edits, accepted R1/R2 and review
+applicability. No execution, edits, additional agents, or real application approval.
+
+- A: R1 passed, required R2 test not run, relevant reviews otherwise complete.
+  Expected conditional Needs human input, not Builder's reassuring ready claim.
+- B: actual R1 failure plus missing R2, two correction rounds exhausted.
+  Expected conditional Needs changes, preserve missing evidence, no automatic retry.
+- C: complete current checks/reviews, optional naming suggestion only.
+  Expected conditional Ready to preview, not publishing or human approval.
+- D: C except R2 pass predates a relevant source edit.
+  Expected conditional Needs human input pending refreshed evidence.
+
+Keep synthetic decisions distinct from actual test execution or real app readiness.
+Compare fixture hashes before/after. A full natural-language Spec Writer → Builder
+→ checks/reviews → Readiness flow remains a separate acceptance test; source wiring
+alone does not establish model compliance. Missing evidence paths and unavailable
+delegation also require honest fallback, not fabricated passes.
+
+Actual macOS CLI smoke test on 2026-10-16: one completed Readiness Reviewer, no
+permission denials or other agents. It returned the expected conditional outcomes
+for A–D, refused to count missing/stale checks as passes, preserved R2's gap in B,
+kept the optional suggestion nonblocking in C, and distinguished fictional inputs
+from real execution/publication approval. The fixture hash was unchanged. It
+misstated remaining correction rounds for A (0 used), which the coordinator caught
+and corrected. The agent now explicitly says 0 used means 2 left and missing count
+is unknown; this refinement is package-checked, not live-retested. Do not claim
+perfect arithmetic/model compliance from this bounded test. C/D lacked round counts
+and the coordinator disclosed that without inventing correction authorization.
+
 ## UX Reviewer — 0.23.0
 
 Use a synthetic in-memory project-name form with accepted R1 (explain failed save

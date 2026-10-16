@@ -25,6 +25,8 @@ CONTEXT = (
     'for source review, without automatic fixes or publishing approval. '
     'Trivial text edits stay lightweight; do not launch Spec Writer for them. '
     'For standalone design/security requests use their relevant skills. '
+    'Security-sensitive changes use the Security skill and its source-only '
+    'abacus-studio:security-reviewer; no security ceremony for trivial edits. '
     'Do NOT activate Engineering for arithmetic, general conversation, pure knowledge '
     'lookup, connection/status, installation help, or questions about plugin commands. '
     'Preserve planning-only boundaries and all approvals. Never invent skill or '

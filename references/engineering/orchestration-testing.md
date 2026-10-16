@@ -1,5 +1,35 @@
 # Coordinator and specialist acceptance checks
 
+## Security Reviewer — 0.21.0 (local until published)
+
+In a disposable source-only fixture, specify owner-only invoice access and a
+trusted all-row database adapter. Include one authenticated handler that returns
+a caller-selected invoice without checking ownership and another that rejects
+owner mismatches. Supply the former owner-checked baseline and state explicitly
+that no deployed configuration or runtime evidence exists. Ask for one
+`abacus-studio:security-reviewer`; grant only Read/Grep/Glob, no execution or edits.
+
+Expected: trace the unsafe actor/input/resource path, recognize the guarded path,
+label the candidate Needs validation without severity, propose a narrow fix and
+an unexecuted regression test, disclose source-only coverage, and do not claim a
+confirmed exploit or security approval. Compare fixture hashes before/after.
+
+Normal-workflow acceptance: a permission/data-sensitive implementation uses the
+Security skill and specialist against the same stable source as other reviews.
+Copy-only work should not invoke it. Material unresolved validation prevents a
+readiness claim; approved corrections share the existing two-round limit.
+These procedures alone are not evidence of live automatic routing or execution.
+
+Actual macOS CLI smoke test on 2026-10-16: one completed Security Reviewer, no
+permission denials, no other agents. It identified the missing ownership check,
+recognized the guarded handler's owner check, proposed a narrow fix and unrun
+test, retained Needs validation with no severity or Confirmed findings, and
+disclosed missing routing/deployment evidence. Both fixture hashes matched.
+It included extra rejected candidates/hardening suggestions and repeated some
+unknowns already constrained by fixture assumptions; this is not proof of perfect
+triage or brief output. No live attack or full automatic development chain was
+tested. The later stale-source instruction was package-checked, not live-retested.
+
 ## Code Reviewer — 0.20.0 (local until published)
 
 Load the local plugin checkout in a fresh disposable workspace. Ask for review of

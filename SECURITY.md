@@ -46,6 +46,10 @@ edits and unapproved data writes; host permissions remain the execution boundary
 A separate agent is not human approval or a security certification.
 
 The Code Reviewer has only Read, Grep, and Glob tools: no shell or file editing.
+The Security Reviewer uses the same restricted tool list for source-only analysis;
+it cannot run attacks or tests, probe services, or remediate findings. Source-only
+candidates stay Needs validation without severity unless independent evidence
+establishes the complete failure and actual result. It is not a pen test.
 It performs source inspection within the authorized workspace and returns findings
 to the coordinator, not fixes or publishing approval. Reading tools still require
 host access controls; the agent is instructed not to read credentials or unrelated

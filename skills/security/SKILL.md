@@ -19,4 +19,14 @@ Use independent source verification when the host supports authorized delegation
 
 Tell the client what was reviewed, what could not be established, and what needs attention. A clean review is not proof the application is secure, Abacus approval, or a production certification.
 
+Use the installed `abacus-studio:security-reviewer` through the host Agent/Task
+tool for authorized focused source reviews when available. Supply scope, intended
+access rules, source including local edits, baseline limitations, and evidence
+provenance without credentials. Wait for its result and preserve validation labels.
+If that agent is already performing this review, do not delegate recursively.
+It cannot spawn reviewers: further independent candidate checks belong to the
+coordinator, and agreement alone does not establish runtime confirmation.
+Disclose actual unavailability/denial/failure; coordinator source review is an
+honest fallback, not a separately executed agent review. No automatic fixes.
+
 See [provenance and license](../../references/security/upstream.md). No upstream scripts, hooks, validators, or automatic updates are bundled in this focused adaptation.

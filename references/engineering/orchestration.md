@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 through 5
+# Coordinate the development workflow — Steps 1 through 6
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,11 +7,12 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Four specialist agents are installed:
+The coordinator remains the main conversation. Five specialist agents are installed:
 `abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
 scoped development tools subject to host permissions, plus `abacus-studio:verifier`
 for evidence-based checking without application edits, and read-only
-`abacus-studio:code-reviewer` for engineering review. Delegate structured or
+`abacus-studio:code-reviewer` for engineering review, plus read-only
+`abacus-studio:security-reviewer` for security boundaries. Delegate structured or
 sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
@@ -97,7 +98,7 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer, Builder, Verification Specialist, and Code Reviewer are installed specialist agents. The remaining roles
+Only Spec Writer, Builder, Verification Specialist, Code Reviewer, and Security Reviewer are installed specialist agents. The remaining roles
 are responsibility areas performed by the coordinator, not installed agents.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
@@ -172,6 +173,22 @@ Consolidate concrete findings separately from optional suggestions; do not count
 two agents agreeing as proof. Send authorized fixes to Builder within the existing
 two-round limit and rerun affected verification/review. Disclose actual unavailable,
 denied, or failed delegation; coordinator review is not a separate-agent review.
+
+For security-sensitive changes use the Security skill and installed
+`abacus-studio:security-reviewer`. Supply authorized paths, intended access rules,
+baseline/diff, source identity including local edits, and evidence provenance.
+Review relevant permissions, tenant data, payments/webhooks, injection, secrets,
+uploads, and AI/tool boundaries—not every category for every change. No extra
+security ceremony for trivial nonsensitive edits.
+
+Security review may run alongside other checks against stable source. It cannot
+execute code, probe services, edit files, or spawn agents. Wait for relevant results
+before readiness. Preserve Needs validation without severity when actual outcome
+or independent evidence is missing; agent agreement does not confirm an exploit.
+Material unresolved security validation prevents claiming ready to preview.
+Consolidate duplicate findings and route authorized fixes within the same two
+correction rounds, then rerun affected reviews. Disclose unavailable/denied/failed
+delegation; never represent it as an agent review or clean security pass.
 
 Use a short working outline: understand/specify, build, verify/review, resolve,
 assess readiness. Label stages planned, in progress, completed, blocked, or not

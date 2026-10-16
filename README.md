@@ -39,6 +39,8 @@ Abacus technical review and publishing approval remain separate.
 Studio-managed Impeccable design package. Focused source reviews help identify
 potential security issues and explain what still needs verification. They are
 not a substitute for a complete security audit.
+For sensitive changes, a read-only Security Reviewer traces relevant access and
+data boundaries and reports concerns without probing your live application.
 
 **A clearer view of the code.** When enabled for your application, a local code
 map helps Claude locate related components before making substantial changes.

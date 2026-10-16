@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 through 4
+# Coordinate the development workflow — Steps 1 through 5
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,10 +7,11 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Three specialist agents are installed:
+The coordinator remains the main conversation. Four specialist agents are installed:
 `abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
 scoped development tools subject to host permissions, plus `abacus-studio:verifier`
-for evidence-based checking without application edits. Delegate structured or
+for evidence-based checking without application edits, and read-only
+`abacus-studio:code-reviewer` for engineering review. Delegate structured or
 sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
@@ -96,7 +97,7 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer, Builder, and Verification Specialist are installed specialist agents. The remaining roles
+Only Spec Writer, Builder, Verification Specialist, and Code Reviewer are installed specialist agents. The remaining roles
 are responsibility areas performed by the coordinator, not installed agents.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
@@ -156,6 +157,21 @@ defects to Builder within at most two correction rounds; rerun affected verifica
 against the changed source. Unavailable/denied/failed delegation must be disclosed;
 coordinator checks are a fallback, not a separately executed verification. Its
 verified status covers only evidenced criteria, not readiness or security certification.
+
+For substantial structured/sensitive implementation also invoke the installed
+`abacus-studio:code-reviewer` with authorized workspace, accepted scope/spec,
+comparison baseline or diff, current source including local edits, conventions,
+and verification evidence with provenance. It reads source and callers but cannot
+edit, run tests, or approve publication. Missing baseline means a limited source
+review, not a claimed complete diff review. Relevant explicit review-only requests
+can use this agent without invoking Builder or manufacturing a new specification.
+
+Code Reviewer and Verifier may run in parallel against the same stable source;
+wait for both before readiness and never edit reviewed files concurrently.
+Consolidate concrete findings separately from optional suggestions; do not count
+two agents agreeing as proof. Send authorized fixes to Builder within the existing
+two-round limit and rerun affected verification/review. Disclose actual unavailable,
+denied, or failed delegation; coordinator review is not a separate-agent review.
 
 Use a short working outline: understand/specify, build, verify/review, resolve,
 assess readiness. Label stages planned, in progress, completed, blocked, or not

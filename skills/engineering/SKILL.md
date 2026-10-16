@@ -12,8 +12,9 @@ Use this skill automatically when the development task fits, or explicitly throu
 For application changes, read [Coordinator workflow](../../references/engineering/orchestration.md)
 completely before planning or implementing. It defines focused, structured, and
 sensitive approaches and the full team responsibilities. The installed specialists
-are `abacus-studio:spec-writer`, `abacus-studio:builder`, and `abacus-studio:verifier`.
-Reviewer and readiness agents and a progress dashboard are not shipped yet.
+are `abacus-studio:spec-writer`, `abacus-studio:builder`, `abacus-studio:verifier`,
+and `abacus-studio:code-reviewer`. Security, UI, UX, and readiness agents and a
+progress dashboard are not shipped yet.
 
 For structured or sensitive features, you MUST delegate the specification to
 `abacus-studio:spec-writer` using the host's Agent/Task delegation tool before
@@ -41,6 +42,17 @@ readiness. It must not fix code. Send findings back to Builder within the existi
 two-round correction limit, then rerun affected verification. No verifier for a
 planning-only request or a trivial edit. Apply the same honest fallback rules;
 coordinator-only checks must never be represented as separate-agent verification.
+
+After substantial structured/sensitive implementation, you MUST also delegate
+source review to `abacus-studio:code-reviewer`. Supply the accepted scope/spec,
+baseline or diff, current source including local edits, relevant conventions and
+verification results with provenance. It reviews code without editing or running
+tests. It may run alongside Verifier only against the same stable source, with no
+concurrent Builder edits. Wait for both before readiness; consolidate defects and
+rerun affected review/verification after corrections within the same two-round
+limit. Review-only requests do not authorize Builder fixes. Use honest fallback
+disclosure if delegation is unavailable/denied/failed; no automatic full-team
+review for trivial edits or planning-only requests.
 
 For a configured Studio application, use `abacus-studio:project-knowledge` before
 planning or changing behavior so relevant prior decisions inform the work. Report

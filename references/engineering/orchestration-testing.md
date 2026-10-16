@@ -1,5 +1,34 @@
 # Coordinator and specialist acceptance checks
 
+## Code Reviewer — 0.20.0 (local until published)
+
+Load the local plugin checkout in a fresh disposable workspace. Ask for review of
+a change that caches invoices by invoice ID, while the agreed contract says IDs
+are unique only within each customer account. Supply the prior uncached baseline
+and current files. The coordinator can run the existing same-account test first;
+it should pass. Grant the reviewer only its Read/Grep/Glob tools, no shell or edits.
+Expected: one `abacus-studio:code-reviewer` invocation, a concrete cross-account
+cache defect with file/line and remedy, tests attributed to the coordinator,
+no Builder, no fixes, no publishing approval. Compare file hashes before/after.
+
+For normal workflow testing, request a substantial feature without naming agents.
+After implementation, expect both Verifier and Code Reviewer against the same
+source state, then a short consolidated result. A planning-only request or trivial
+copy edit should not launch this full review workflow. After authorized fixes,
+affected checks/reviews must rerun within the existing two correction rounds.
+These are acceptance procedures, not claims that every scenario has run.
+
+Actual macOS CLI smoke test on 2026-10-16: one completed
+`abacus-studio:code-reviewer`, no permission denials, no Builder or other agents.
+The coordinator's existing same-account test passed. The reviewer identified the
+cross-account cache collision with source locations and a composite-key remedy,
+and attributed passing tests to the coordinator rather than claiming execution.
+All three fixture SHA-256 hashes matched before/after. It also raised cache
+lifetime/fetcher concerns; these remain secondary source-review suggestions, not
+additional reproduced defects. The response was longer than the preferred client
+summary. This proves a bounded review handoff, not full automatic orchestration,
+universal model compliance, or production security assurance.
+
 These are manual behavior checks, not evidence that a model already passed them.
 Use a disposable authorized application workspace, not production data. Package
 tests check wiring and required instructions, not model compliance.

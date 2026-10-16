@@ -45,6 +45,12 @@ can still have side effects through Bash. Its instructions prohibit application
 edits and unapproved data writes; host permissions remain the execution boundary.
 A separate agent is not human approval or a security certification.
 
+The Code Reviewer has only Read, Grep, and Glob tools: no shell or file editing.
+It performs source inspection within the authorized workspace and returns findings
+to the coordinator, not fixes or publishing approval. Reading tools still require
+host access controls; the agent is instructed not to read credentials or unrelated
+customer data. Its source review is not a penetration test or security certification.
+
 Optional local browser verification installs pinned Python Playwright and Chromium
 only with approval, separately from the app. It uses a fresh browser context, not
 personal profiles or imported sessions. Managed captures require a current Studio

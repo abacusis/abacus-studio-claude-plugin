@@ -31,8 +31,9 @@ For substantial features, a read-only Spec Writer agent can help clarify the
 requirements before implementation, while Claude coordinates the work.
 An implementation Builder agent can then work from those requirements, with
 a Verification Specialist checking the result against agreed requirements.
-It reports what passed, what failed, and what still needs checking. Technical
-review and publishing approval remain separate.
+It reports what passed, what failed, and what still needs checking. A read-only
+Code Reviewer examines the engineering quality and potential regressions.
+Abacus technical review and publishing approval remain separate.
 
 **Design and security support.** Improve layouts and usability with the optional
 Studio-managed Impeccable design package. Focused source reviews help identify

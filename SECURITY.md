@@ -23,11 +23,34 @@ local-development enablement, and the assigned client repository server-side.
 
 ## Execution and review
 
+The plugin includes one routing-only UserPromptSubmit hook. It executes a small
+local Python script that returns constant guidance to select the appropriate
+workflow. It does not read prompt input, files, tokens, or transcripts, and does
+not upload data, modify projects, launch agents, or approve actions. It has a
+five-second timeout and command failure is non-blocking. Disabling hooks may
+reduce automatic routing reliability; no permission bypass is attempted.
+
 Setup requires approval of the destination and local commands. Dependency scripts
 and application code execute locally, so inspect them and use trusted repositories.
 Studio-selected skill packages are pinned and checksum-verified; installation
 does not run upstream installers or enable hooks. A skill's own launcher may
 download an executable when invoked, subject to the coding tool's permissions.
+
+The Builder has editing and shell tools, constrained by host permissions and the
+coordinator's approved scope; prompt instructions are not a filesystem sandbox.
+Its work is not independent verification or publishing authorization.
+
+Optional local browser verification installs pinned Python Playwright and Chromium
+only with approval, separately from the app. It uses a fresh browser context, not
+personal profiles or imported sessions. Managed captures require a current Studio
+workspace, approved loopback target, and reviewed action scope. External HTTP
+origins and writes are blocked unless separately approved; WebSockets and service
+workers are blocked. Browser filtering cannot prevent a local server from reaching
+production or performing effects on GET, so verify sandbox backing before capture.
+Screenshots stay in Git-ignored local evidence and can contain sensitive data.
+Viewing them in an AI tool may transmit them to that tool's provider. No automatic
+redaction, login, video, trace, or Studio upload is provided. Capture is not a pass;
+image inspection and criterion-linked assertions are separate evidence.
 
 Submission fetches before synchronization and push, requires reviewed checks, and
 does not force-push. Publishing requests a PR; it does not merge or deploy.

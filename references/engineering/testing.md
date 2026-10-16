@@ -9,3 +9,10 @@ Assert externally observable behavior, not private implementation details. Expec
 For bug fixes, the regression test must reproduce the actual failure pattern. If a meaningful test cannot be run, document the limitation and use another observable verification method; never claim a passing test from inspection alone.
 
 Run focused checks during development, then relevant configured checks before completion. Submit still executes and verifies Studio's own approved checks; local tests do not replace them.
+
+For visible behavior, read [Local browser verification](browser-verification.md).
+Exercise the approved user flow and inspect desktop/mobile screenshots using an
+image-capable tool. A screenshot file is evidence of capture, not a passing test
+or proof it was visually inspected. Missing auth, blocked network requests, stale
+source, and unexecuted checks must be reported. Builder-reported evidence is not
+independent verification or publishing approval.

@@ -5,9 +5,9 @@ Client introduction: [README](../README.md). Release checklist:
 
 ## Capability references
 
-- [Coordinator workflow — Steps 1 and 2](engineering/orchestration.md): local main-session
+- [Coordinator workflow — Steps 1 through 3](engineering/orchestration.md): local main-session
   coordination, role selection, evidence, bounded correction, and readiness.
-  One read-only Spec Writer agent is bundled; other specialists, hooks, dashboard,
+  Read-only Spec Writer and implementation Builder agents are bundled; other specialists, quality-check hooks, dashboard,
   and progress upload are not implemented yet. The agent inherits the session model.
   See [manual acceptance checks](engineering/orchestration-testing.md).
 
@@ -21,8 +21,21 @@ Client introduction: [README](../README.md). Release checklist:
   use specifications, implementation tasks, and acceptance evidence.
 - [Focused security review](security/review.md): source review, not a complete
   audit harness, live penetration test, or Studio Health reporting integration.
+- [Local browser verification](engineering/browser-verification.md): reuse host
+  browser tools or an approved managed Python Playwright/Chromium installation.
+  Screenshots stay local and require actual image inspection; no browser profile
+  reuse, automatic login, trace upload, or unapproved form submission.
 
 ## Studio deployment dependencies
+
+Version 0.17.1 adds a local routing-only UserPromptSubmit hook in hooks/hooks.json.
+It emits constant context without reading the prompt, credentials, source, or
+transcripts; no network, writes, uploads, or background service. Python 3 is tried
+as python3 then python; failure returns to normal processing. It does not grant
+permissions or block a prompt. Hosts can disable hooks, and model selection is
+still probabilistic. No backend migration or setup reinstall is required, but
+the updated plugin must be loaded in a fresh/reloaded session. Test ordinary
+prompts and actual Skill/agent activity, not just explicit slash commands.
 
 For code mapping, apply migration `20261015020000_workspace_code_map.sql`, deploy
 `admin-projects`, `mcp`, and `local-git`, then release the settings frontend.
@@ -33,6 +46,10 @@ Knowledge requires the matching backend and
 `20261015010000_app_knowledge_library.sql`. Existing records are not automatically
 shared. See the knowledge reference for visibility and approval rules.
 The communication update needs no backend deployment.
+Version 0.18.0's Builder and browser helpers also need no backend change. The helper
+uses existing local-workspace authorization, with separate install/capture actions.
+Windows/Linux end-to-end browser validation remains outstanding; browser runtime
+installation never installs OS packages or assumes unsupported platforms work.
 
 ## Operational notes
 

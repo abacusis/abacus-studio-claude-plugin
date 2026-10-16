@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 and 2
+# Coordinate the development workflow — Steps 1 through 3
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,14 +7,22 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Step 2 adds one installed agent:
-`abacus-studio:spec-writer`, with read-only source tools. Delegate structured or
-sensitive specification work to it when the host allows delegation. Other
-specialist agents, hooks, a local progress UI, durable run state, and Studio
+The coordinator remains the main conversation. Two specialist agents are installed:
+`abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
+scoped development tools subject to host permissions. Delegate structured or
+sensitive specification work to it when the host allows delegation. This is
+required even for planning-only features; do not silently substitute your own
+draft while that agent and delegation tool are available. The host may expose
+delegation as Task or Agent. A small codebase alone is not a fallback reason. Other
+specialist agents, quality-check hooks, a local progress UI, durable run state, and Studio
 progress synchronization are NOT implemented. Do not spawn specialist reviewers
 that are not installed, simulate separate conversations, or claim they ran.
-Implementation, checks, and reviews still happen in the main conversation;
-separate specification drafting is not independent implementation verification.
+Builder performs authorized structured implementation; the coordinator still
+owns verification, review, and client decisions. Separate specification drafting
+or builder-reported tests are not independent implementation verification.
+Version 0.17.1 adds a routing-only UserPromptSubmit hook to remind the main
+conversation to load Engineering for development requests. It does not execute
+the workflow, enforce model compliance, or change any permission boundary.
 
 ### Spec Writer handoff
 
@@ -87,7 +95,7 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer is an installed specialist agent in Step 2. The remaining roles
+Only Spec Writer and Builder are installed specialist agents. The remaining roles
 are responsibility areas performed by the coordinator, not installed agents.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
@@ -113,6 +121,26 @@ for browser evidence or an accessibility check that has not actually occurred.
 Use the existing Design capability when relevant, within its authorization.
 
 ## 4. Build, verify, and review the actual result
+
+When implementation is authorized for a structured/sensitive change, invoke
+`abacus-studio:builder` with accepted requirements/spec version, the authorized
+workspace, relevant context, allowed files and commands, current edits, and
+preview/browser approval scope. A Spec Writer draft alone is not authorization
+to implement. No Builder for planning-only work or a trivial text correction.
+Wait for the result before reviewing; do not edit the same files concurrently.
+The Builder may return implemented, partial, or blocked. Inspect the actual diff
+and executed-check evidence rather than accepting the status as proof.
+
+Do not silently substitute implementation in the main conversation while Builder
+is available. For actual unavailability, denial, or failure, disclose the gap and
+continue only within the user's scope; an explicit separate-agent requirement
+remains unmet. Do not spawn replacements to evade the 40-turn budget or claim
+another agent ran. Further correction uses the existing maximum two rounds.
+
+Visible changes need [local browser verification](browser-verification.md): a
+current approved preview, relevant assertions/flows, desktop/mobile screenshots,
+and actual image inspection. Use host tools or the separately approved fallback;
+missing browser/authentication/image support stays not verified, not a pass.
 
 Use a short working outline: understand/specify, build, verify/review, resolve,
 assess readiness. Label stages planned, in progress, completed, blocked, or not

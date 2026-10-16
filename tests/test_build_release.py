@@ -13,6 +13,11 @@ class ReleaseTests(unittest.TestCase):
         names = {p.relative_to(Path(__file__).parents[1]).as_posix() for p in release.release_files(Path(__file__).parents[1])}
         self.assertIn('.claude-plugin/marketplace.json', names)
         self.assertIn('agents/spec-writer.md', names)
+        self.assertIn('agents/builder.md', names)
+        self.assertIn('scripts/browser_verification.py', names)
+        self.assertIn('references/engineering/browser-verification.md', names)
+        self.assertIn('hooks/hooks.json', names)
+        self.assertIn('scripts/route_development.py', names)
         self.assertNotIn('.claude/settings.local.json', names)
         self.assertFalse(any('__pycache__' in name or name.endswith('.pyc') for name in names))
 
@@ -32,6 +37,8 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIn('THIRD_PARTY_NOTICES.md', archive.namelist())
                 self.assertIn('skills/engineering/SKILL.md', archive.namelist())
                 self.assertIn('agents/spec-writer.md', archive.namelist())
+                self.assertIn('agents/builder.md', archive.namelist())
+                self.assertIn('hooks/hooks.json', archive.namelist())
                 self.assertIn('skills/security/SKILL.md', archive.namelist())
                 self.assertIn('skills/project-knowledge/SKILL.md', archive.namelist())
                 self.assertIn('references/security/review.md', archive.namelist())

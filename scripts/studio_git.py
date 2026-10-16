@@ -28,6 +28,7 @@ from sandbox_environment import provision
 from install_skills import install as install_skills
 from helper_runtime import ensure_helper_runtime
 from code_map import code_map
+import browser_verification
 
 FUNCTIONS = 'https://aseymhsdlzcwquwcbxzc.supabase.co/functions/v1'
 SERVICE = 'Abacus Studio Git'
@@ -481,13 +482,14 @@ def migrate(action, directory, project, review_id=None, approved=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['code-map', 'knowledge-search', 'knowledge-get', 'connection-status', 'list-apps', 'workspace-config', 'install', 'connect', 'disconnect', 'setup', 'migration-preview', 'migration-apply', 'publish-preview', 'publish', 'preview-config', 'preview', 'credential', 'status', 'prepare', 'resolve', 'check', 'submit', 'record', 'cancel'])
+    parser.add_argument('action', choices=['browser-install', 'browser-verify', 'code-map', 'knowledge-search', 'knowledge-get', 'connection-status', 'list-apps', 'workspace-config', 'install', 'connect', 'disconnect', 'setup', 'migration-preview', 'migration-apply', 'publish-preview', 'publish', 'preview-config', 'preview', 'credential', 'status', 'prepare', 'resolve', 'check', 'submit', 'record', 'cancel'])
     parser.add_argument('credential_operation', nargs='?', choices=['get', 'store', 'erase'])
     parser.add_argument('--project-id')
     parser.add_argument('--query')
     parser.add_argument('--knowledge-id')
     parser.add_argument('--offset', type=int, default=0)
     parser.add_argument('--workspace')
+    parser.add_argument('--url')
     parser.add_argument('--destination')
     parser.add_argument('--approved', action='store_true')
     parser.add_argument('--review-id')
@@ -504,7 +506,21 @@ def main():
                 return 0 # Never store the temporary GitHub token locally.
             credential(args.project_id)
             return 0
-        if args.action == 'code-map':
+        if args.action in ('browser-install', 'browser-verify'):
+            if not args.approved or not args.workspace:
+                raise ValueError('Browser installation/capture requires an authorized workspace and explicit approval.')
+            root, config, local_git = workspace(args.workspace, args.project_id)
+            try:
+                if args.action == 'browser-install':
+                    browser_verification.runtime(install=True)
+                    result = {'status': 'installed', 'runtime_version': browser_verification.VERSION}
+                else:
+                    raw = sys.stdin.read(20001)
+                    if len(raw) > 20000: raise ValueError('Browser plan is too large.')
+                    result = browser_verification.verify(root, args.url, json.loads(raw), local_git, approved=True, sandbox_services=config.get('sandbox_services', []))
+            finally:
+                local_git.close()
+        elif args.action == 'code-map':
             if not args.workspace:
                 raise ValueError('An authorized workspace is required.')
             root, config, local_git = workspace(args.workspace, args.project_id)

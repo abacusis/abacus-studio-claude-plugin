@@ -29,6 +29,8 @@ clarifying requirements, planning features, testing, debugging, and reviewing
 code. Larger changes get a structured approach; small improvements stay simple.
 For substantial features, a read-only Spec Writer agent can help clarify the
 requirements before implementation, while Claude coordinates the work.
+An implementation Builder agent can then work from those requirements, with
+verification and review still coordinated separately.
 
 **Design and security support.** Improve layouts and usability with the optional
 Studio-managed Impeccable design package. Focused source reviews help identify
@@ -40,6 +42,11 @@ map helps Claude locate related components before making substantial changes.
 
 **Plain-language communication.** The plugin guides Claude to explain results
 and next steps simply, with technical detail when you need it.
+
+**See the result, not just the code.** Approved local browser checks can exercise
+the changed flow and capture desktop and mobile-sized screenshots for inspection.
+The plugin can reuse available browser tools or offer a managed Playwright setup.
+Screenshots alone do not prove the feature works or replace your review.
 
 These capabilities guide Claude's work; they don't guarantee correct code or
 replace testing and professional review. Availability depends on your app's
@@ -112,6 +119,9 @@ Abacus maintains the engineering guidance and Studio workflows. Skills provide
 specialized playbooks, while Studio's MCP services supply authorized project
 information and workflow access. Optional project tools add design guidance and
 local code mapping without requiring clients to learn another set of commands.
+A small local routing hook helps Claude choose the development workflow from a
+normal request. It does not upload data, edit your project, or grant permissions.
+Automatic selection is guidance, not a guarantee for every request or model.
 
 For installation help, updates, or project access, contact your Abacus team.
 

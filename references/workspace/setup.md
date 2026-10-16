@@ -43,6 +43,13 @@ execution approval. A source snapshot is NOT eligible for this reuse path.
    3.10+ is needed; unsupported systems continue without mapping. No global tools,
    Graphify cloud, upstream installer, hooks, or separate Graphify sign-in are used.
    Browser consent and host-required execution prompts still apply.
+   For apps needing browser checks, prefer an available host browser. If absent,
+   include the pinned local Playwright runtime and Chromium download in the same
+   setup approval. Do not install them silently or modify app dependencies.
+   After the workspace is authorized, use `studio_git.py browser-install` with
+   project-id/workspace and --approved only when that installation is covered.
+   Existing workspaces need no reclone for this. Installation failure must be
+   reported without blocking normal development; browser checks remain unavailable.
    Existing snapshot folders must remain untouched. Never convert an old snapshot
    into a checkout or invent a repository from the user's wording.
 3. Reuse the shared helper authorization from Connect. If it expired or was revoked,
@@ -103,6 +110,11 @@ execution approval. A source snapshot is NOT eligible for this reuse path.
    or ask the client to fix launch files. For a host-managed startup failure, refresh
    preview-config and retry the owned launch once. Always verify the page renders
    with the browser facility too; HTTP success alone is not a rendered-page check.
+   Read the internal Local browser verification reference for approved capture,
+   desktop/mobile checks, image inspection, sandbox restrictions and evidence:
+   references/engineering/browser-verification.md under the plugin root. Use the
+   current verified URL. Setup approval does not approve sandbox record writes,
+   repeated form submissions, production access, or automatic login.
    Tell the client to use `/abacus-studio:status` for Studio connection
    and role, and `/abacus-studio:submit` to review local changes and submit.
    For missing database columns/tables, read the internal sandbox-database skill

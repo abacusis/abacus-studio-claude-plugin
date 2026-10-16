@@ -13,8 +13,8 @@ test('Engineering loads coordination with honest limits and complete responsibil
   assert.match(read('references/engineering/specification.md'), /do not add a mandatory approval pause/);
   assert.match(read('references/engineering/orchestration-testing.md'), /not model compliance/);
 });
-test('Spec Writer is the only bundled specialist and has a read-only handoff', () => {
-  assert.deepEqual(readdirSync(new URL('../agents/', import.meta.url)).sort(), ['spec-writer.md']);
+test('Spec Writer has a read-only handoff and Builder is the only other specialist', () => {
+  assert.deepEqual(readdirSync(new URL('../agents/', import.meta.url)).sort(), ['builder.md', 'spec-writer.md']);
   const agent = read('agents/spec-writer.md');
   const frontmatter = agent.split('---')[1];
   assert.match(frontmatter, /^name: spec-writer$/m);
@@ -30,7 +30,9 @@ test('Spec Writer is the only bundled specialist and has a read-only handoff', (
   assert.match(coordinator, /Invoke the installed namespaced `abacus-studio:spec-writer`/);
   assert.match(coordinator, /If unavailable or denied/);
   assert.match(coordinator, /Wait for its result/);
-  assert.match(coordinator, /Only Spec Writer is an installed specialist/);
+  assert.match(coordinator, /Only Spec Writer and Builder are installed specialist agents/);
+  assert.match(read('skills/engineering/SKILL.md'), /you MUST delegate the specification/);
+  assert.match(read('skills/project-knowledge/SKILL.md'), /do not invoke Engineering again/);
   assert.match(coordinator, /Do not paste the agent's full draft into chat by default/);
   assert.match(read('references/client-communication.md'), /aim for 2–4 sentences/);
   assert.match(coordinator, /never collapse them into a single/);
@@ -51,6 +53,20 @@ test('every bundled skill loads the shared client communication standard', () =>
   assert.match(standard, /Never print credentials/);
   assert.match(standard, /short answer is not permission to skip verification/);
   assert.match(standard, /review requested, not approved or live/);
+});
+test('Builder is scoped to implementation and browser capture is not a visual pass', () => {
+  const agent = read('agents/builder.md');
+  const frontmatter = agent.split('---')[1];
+  assert.match(frontmatter, /^tools: Read, Grep, Glob, Edit, Write, Bash$/m);
+  assert.match(frontmatter, /^model: inherit$/m);
+  assert.match(frontmatter, /^maxTurns: 40$/m);
+  assert.doesNotMatch(frontmatter, /permissionMode|hooks|mcpServers|memory/);
+  for (const phrase of ['A plan alone', 'Do not commit', 'subject to host permissions', 'Read captured images', 'not independent verification']) assert.ok(agent.includes(phrase), phrase);
+  const engineering = read('skills/engineering/SKILL.md');
+  assert.match(engineering, /you MUST then delegate to/);
+  assert.match(engineering, /Planning-only work must never invoke Builder/);
+  const browser = read('references/engineering/browser-verification.md');
+  for (const phrase of ['Capture never auto-installs', 'captured is NOT a visual pass', 'no automatic redaction', 'No personal browser profile', 'do not sandbox the server']) assert.ok(browser.includes(phrase), phrase);
 });
 test('marketplace installs the existing root plugin without duplicating metadata', () => {
   const marketplace = JSON.parse(read('.claude-plugin/marketplace.json'));
@@ -77,7 +93,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.17.0');
+  assert.equal(manifest.version, '0.18.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

@@ -30,7 +30,9 @@ code. Larger changes get a structured approach; small improvements stay simple.
 For substantial features, a read-only Spec Writer agent can help clarify the
 requirements before implementation, while Claude coordinates the work.
 An implementation Builder agent can then work from those requirements, with
-verification and review still coordinated separately.
+a Verification Specialist checking the result against agreed requirements.
+It reports what passed, what failed, and what still needs checking. Technical
+review and publishing approval remain separate.
 
 **Design and security support.** Improve layouts and usability with the optional
 Studio-managed Impeccable design package. Focused source reviews help identify

@@ -1,12 +1,20 @@
 ---
 name: project-knowledge
-description: Retrieve application-specific decisions, agreements, and prior reasoning from Studio before planning or changing a configured client application. Use for feature planning, implementation, design changes, debugging, or questions about why an application works as it does. Not for connection status or general coding questions.
+description: Supporting lookup of an application's saved decisions, agreements, and prior reasoning in Studio. Use from Engineering or Design, or for questions specifically about past decisions. Not a standalone feature-planning, implementation, or debugging workflow; those requests start with Engineering. Not for connection status or general questions.
 user-invocable: false
 ---
 
 # Application knowledge
 
 Read and apply [Client communication](../../references/client-communication.md) completely.
+
+If the current request is to plan, implement, debug, test, or review application
+changes and Engineering is not already active for this task, invoke
+`abacus-studio:engineering` before drafting a solution. This skill supplies context,
+not the development workflow. If Engineering already requested this lookup,
+return the relevant records or unavailable-context warning to that workflow;
+do not invoke Engineering again or create a recursive lookup loop. For a pure
+question about prior agreements, answer the question without starting development.
 
 Use the selected app ID returned by Studio or its verified workspace metadata.
 Do not search the computer for other projects or substitute an app. Resolve

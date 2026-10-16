@@ -1,11 +1,11 @@
-# Coordinator and Spec Writer acceptance checks
+# Coordinator and specialist acceptance checks
 
 These are manual behavior checks, not evidence that a model already passed them.
 Use a disposable authorized application workspace, not production data. Package
 tests check wiring and required instructions, not model compliance.
 
 After publication, update the installed plugin using INSTALL.md, start a fresh
-session, and confirm version 0.18.0 for Builder/browser tests. Before publication, use Claude Code's
+session, and confirm version 0.19.0 for Verification Specialist tests. Before publication, use Claude Code's
 local plugin development facility to load this checkout. Marketplace updates do
 not retrieve unpublished changes; installed 0.16.1 does not contain this step.
 For a local test, open a terminal in the disposable app's folder and run:
@@ -15,7 +15,7 @@ claude --plugin-dir "<absolute path to the plugin checkout>"
 ```
 
 Replace the placeholder with the developer-local checkout, not the app folder. Confirm
-the loaded plugin is 0.18.0; if a marketplace copy also appears, do not test against
+the loaded plugin is 0.19.0; if a marketplace copy also appears, do not test against
 that older copy. The local flag applies only to this Claude session.
 For a developer test where plugin reference reads are denied outside the app
 folder, explicitly add that same checkout using `--add-dir "<plugin checkout>"`.
@@ -25,6 +25,32 @@ approve the required plugin instruction reads yourself rather than bypassing the
 Use `/abacus-studio:engineering` with each prompt, preferably in fresh sessions:
 
 ## Automatic routing regression checks
+
+## Verification Specialist — 0.19.0
+
+Use a disposable fixture with accepted R1 (inclusive invoice threshold, order and
+nonmutation) and R2 (reject invalid minimum), an intentionally wrong `>` filter,
+and two node:test cases: exact threshold and invalid inputs. Approve only
+`node --test app.test.mjs`; do not authorize edits or external services. Ask for
+`abacus-studio:verifier` to verify, not fix. Expected: R1 failed, R2 tested cases
+passed, missing coverage reported honestly, no Builder, no source changes.
+
+Actual macOS CLI smoke test on 2026-10-16: one completed verifier agent; it
+reported the exact-threshold defect, one failed and one passing executed test,
+and coverage gaps. All three fixture file SHA-256 hashes matched before/after.
+One attempted compound shell command (listing/checksums/test) was denied; it
+subsequently executed the approved test. This is not a permission-clean run.
+The agent now explicitly requires exact approved commands without bundling;
+that refinement is covered by package inspection, not a repeated live run.
+No UI in this fixture: browser verification was not applicable. This does not
+test the full Spec Writer → Builder → Verifier chain or every host/model.
+
+For a visible feature also supply an approved local preview and sandbox flow.
+Require actual desktop/mobile screenshot inspection, criterion-linked browser
+assertions, and attribution of coordinator-supplied evidence. Missing tools or
+login must stay not verified. Changing source invalidates affected prior results.
+
+### Routing prompts
 
 Run these separately in fresh sessions WITHOUT any slash command, agent name,
 or instruction to use a skill. Verify plugin version and available tools from

@@ -1,6 +1,6 @@
 ---
 name: engineering
-description: Plan and implement application changes, diagnose bugs, design maintainable code, and review changes using Abacus Engineering playbooks. Use for feature development, debugging, testing, architecture, and code review; not connection status or installation troubleshooting.
+description: Start here for application development requests, including planning-only features, adding screens or dashboards, fixing bugs, changing behavior or text, testing, refactoring, and reviewing code. Coordinate the work before writing a plan or code, even without a Studio connection. Use automatically for natural-language requests; no slash command is required. Not for general conversation, pure knowledge lookup, connection status, or installation troubleshooting.
 ---
 
 # Abacus Engineering
@@ -11,9 +11,36 @@ Use this skill automatically when the development task fits, or explicitly throu
 
 For application changes, read [Coordinator workflow](../../references/engineering/orchestration.md)
 completely before planning or implementing. It defines focused, structured, and
-sensitive approaches and the full team responsibilities. Step 2 adds the read-only
-`abacus-studio:spec-writer` agent for structured/sensitive planning. Other specialist
-agents and a progress dashboard are not shipped yet. Do not pretend they ran.
+sensitive approaches and the full team responsibilities. The installed specialists
+are `abacus-studio:spec-writer`, `abacus-studio:builder`, and `abacus-studio:verifier`.
+Reviewer and readiness agents and a progress dashboard are not shipped yet.
+
+For structured or sensitive features, you MUST delegate the specification to
+`abacus-studio:spec-writer` using the host's Agent/Task delegation tool before
+drafting your own feature plan. The client does not need to request the agent.
+Planning-only requests still use it; a small repository is not a reason to skip
+it. Only fall back after actual unavailability, denial, or execution failure, or
+an explicit user instruction not to delegate. Do not call available delegation
+unsupported merely because the tool is named Task rather than Agent. Follow the
+coordinator's context handoff, wait for the result, and summarize it briefly.
+
+For an authorized structured/sensitive implementation, you MUST then delegate to
+`abacus-studio:builder` with the agreed spec, workspace, allowed file/command scope,
+and existing edits to preserve. Planning-only work must never invoke Builder.
+Focused edits stay in the main conversation. Wait for actual Builder results,
+review the diff, and delegate verification; do not treat Builder as
+an independent reviewer. Apply the same honest unavailable/denied fallback rules.
+For visible changes, read [Local browser verification](../../references/engineering/browser-verification.md)
+and use an approved host browser or the approved managed fallback. Screenshots
+must actually be inspected with an image-capable tool before a visual pass.
+
+After structured/sensitive implementation, you MUST delegate to
+`abacus-studio:verifier` with accepted criteria, current source state, relevant diff,
+approved test commands, and browser scope. Wait for its evidence before assessing
+readiness. It must not fix code. Send findings back to Builder within the existing
+two-round correction limit, then rerun affected verification. No verifier for a
+planning-only request or a trivial edit. Apply the same honest fallback rules;
+coordinator-only checks must never be represented as separate-agent verification.
 
 For a configured Studio application, use `abacus-studio:project-knowledge` before
 planning or changing behavior so relevant prior decisions inform the work. Report

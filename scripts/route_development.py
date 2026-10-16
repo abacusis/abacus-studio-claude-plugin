@@ -19,6 +19,8 @@ CONTEXT = (
     'available specialist merely because the repository is small. '
     'After the spec, delegate authorized structured implementation to '
     'abacus-studio:builder; never invoke Builder for planning-only work. '
+    'After structured implementation, delegate approved verification to '
+    'abacus-studio:verifier, which reports evidence without fixing code. '
     'Trivial text edits stay lightweight; do not launch Spec Writer for them. '
     'For standalone design/security requests use their relevant skills. '
     'Do NOT activate Engineering for arithmetic, general conversation, pure knowledge '

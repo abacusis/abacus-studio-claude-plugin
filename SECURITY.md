@@ -40,6 +40,11 @@ The Builder has editing and shell tools, constrained by host permissions and the
 coordinator's approved scope; prompt instructions are not a filesystem sandbox.
 Its work is not independent verification or publishing authorization.
 
+The Verification Specialist has no Edit/Write tools, but approved test commands
+can still have side effects through Bash. Its instructions prohibit application
+edits and unapproved data writes; host permissions remain the execution boundary.
+A separate agent is not human approval or a security certification.
+
 Optional local browser verification installs pinned Python Playwright and Chromium
 only with approval, separately from the app. It uses a fresh browser context, not
 personal profiles or imported sessions. Managed captures require a current Studio

@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 through 3
+# Coordinate the development workflow — Steps 1 through 4
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,9 +7,10 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Two specialist agents are installed:
+The coordinator remains the main conversation. Three specialist agents are installed:
 `abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
-scoped development tools subject to host permissions. Delegate structured or
+scoped development tools subject to host permissions, plus `abacus-studio:verifier`
+for evidence-based checking without application edits. Delegate structured or
 sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
@@ -18,7 +19,7 @@ specialist agents, quality-check hooks, a local progress UI, durable run state, 
 progress synchronization are NOT implemented. Do not spawn specialist reviewers
 that are not installed, simulate separate conversations, or claim they ran.
 Builder performs authorized structured implementation; the coordinator still
-owns verification, review, and client decisions. Separate specification drafting
+owns review, readiness, and client decisions. Separate specification drafting
 or builder-reported tests are not independent implementation verification.
 Version 0.17.1 adds a routing-only UserPromptSubmit hook to remind the main
 conversation to load Engineering for development requests. It does not execute
@@ -95,7 +96,7 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer and Builder are installed specialist agents. The remaining roles
+Only Spec Writer, Builder, and Verification Specialist are installed specialist agents. The remaining roles
 are responsibility areas performed by the coordinator, not installed agents.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
@@ -142,6 +143,20 @@ current approved preview, relevant assertions/flows, desktop/mobile screenshots,
 and actual image inspection. Use host tools or the separately approved fallback;
 missing browser/authentication/image support stays not verified, not a pass.
 
+After structured/sensitive implementation, invoke `abacus-studio:verifier` with the
+accepted spec/version and criterion IDs, workspace, current source identity and
+local edits, relevant diff/test pointers, approved commands, and preview/browser
+approval. Wait for its result. Do not edit relevant files concurrently. The verifier
+reads source/tests and runs approved checks itself; Builder-only reports are not
+verification passes. Host-browser checks supplied by the coordinator must retain
+that provenance. Do not send secrets or assume authentication is available.
+
+The verifier cannot fix source/tests, waive criteria, or approve publishing. Route
+defects to Builder within at most two correction rounds; rerun affected verification
+against the changed source. Unavailable/denied/failed delegation must be disclosed;
+coordinator checks are a fallback, not a separately executed verification. Its
+verified status covers only evidenced criteria, not readiness or security certification.
+
 Use a short working outline: understand/specify, build, verify/review, resolve,
 assess readiness. Label stages planned, in progress, completed, blocked, or not
 applicable with a reason. Chat progress is not a dashboard or durable job record.
@@ -182,7 +197,7 @@ silently or change acceptance criteria to obtain a pass.
 Return one of these outcomes for structured/sensitive work:
 - Ready to preview: required checks and relevant reviews are complete for the
   current source, with no unresolved blocking findings. Explain any remaining
-  non-blocking limitations and that implementation review was single-session.
+  non-blocking limitations and which checks were separately executed versus supplied.
 - Needs changes: a demonstrated unmet criterion or defect remains. Explain what
   needs correcting; stop after the correction limit.
 - Needs human input: a material decision, missing access, required manual check,

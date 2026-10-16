@@ -11,6 +11,13 @@ Use this skill automatically when the development task fits, or explicitly throu
 
 FIRST read [Workflow depth](../../references/engineering/workflow-depth.md).
 Honor natural-language quick/deep preferences while classifying actual risk.
+When the user requests a mockup/prototype, or substantial visual uncertainty makes
+a preview useful, use [Mockup-first](../../references/engineering/mockup-first.md).
+This optional visual-only route comes before full feature orchestration. It never
+silently authorizes backend work, and is not mandatory for small changes.
+When the preview scope is clear, complete that visual-only slice and stop for the
+relevant feedback; the feature-team requirements below apply when connecting real
+behavior, not merely sketching an illustrative screen.
 For focused low-risk work, complete that guide's Quick Change path in the main
 conversation and STOP: the full orchestration and specialist instructions below
 apply to structured/sensitive work, not every confirmation message or copy edit.

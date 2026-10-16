@@ -13,7 +13,7 @@ import urllib.error
 import urllib.request
 import uuid
 
-EXCLUDED_DIRS = {'.git', '.studio', '.claude', '.impeccable', '.github', 'node_modules', 'dist', 'build',
+EXCLUDED_DIRS = {'.git', '.studio', '.claude', '.agents', '.codex', '.impeccable', '.github', 'node_modules', 'dist', 'build',
                  'coverage', '.netlify', '.next', '.output', '.cache', '.tanstack', '.vite',
                  '.turbo', '.svelte-kit', '.vscode', '__pycache__', '.venv'}
 SECRET_PATH = re.compile(r'^(\.env(?:\..*)?|.*\.(pem|key|p12|pfx|log|tsbuildinfo)|credentials(?:\..*)?|id_rsa|id_ed25519|\.npmrc|\.pypirc|\.gitmodules|\.DS_Store)$', re.I)

@@ -26,6 +26,7 @@ from sync_workspace import excluded, SECRET
 from preview_workspace import refresh_launch, supervise
 from sandbox_environment import provision
 from install_skills import install as install_skills
+from plugin_runtime import skills_directory
 from helper_runtime import ensure_helper_runtime
 from code_map import code_map
 import browser_verification
@@ -135,7 +136,7 @@ def connect(project=None):
             self.send_header('Content-Type', 'text/plain')
             self.send_header('Cache-Control', 'no-store')
             self.end_headers()
-            self.wfile.write(b'Return to Claude Code. You can close this browser tab.')
+            self.wfile.write(b'Return to your coding tool. You can close this browser tab.')
     with HTTPServer(('127.0.0.1', 0), Callback) as server:
         server.timeout = 1
         redirect = f'http://127.0.0.1:{server.server_port}/callback'
@@ -243,7 +244,7 @@ def setup(project, destination):
         git.close()
     # Reserve setup metadata locally; do not modify tracked .gitignore.
     with (target / '.git/info/exclude').open('a') as output_file:
-        output_file.write('\n/.studio/\n/.claude/\n/.impeccable/\n')
+        output_file.write(f'\n/.studio/\n/{skills_directory()}/\n/.impeccable/\n')
     local_git = Git(target, project)
     try:
         provision(target, project, config, operation, local_git)

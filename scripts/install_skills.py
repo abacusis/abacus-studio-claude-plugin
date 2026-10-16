@@ -9,6 +9,7 @@ import stat
 import tempfile
 import urllib.request
 import zipfile
+from plugin_runtime import skills_directory, skill_state
 
 LIMIT = 40 * 1024 * 1024
 
@@ -43,7 +44,7 @@ def install(root, config, fetcher=download):
         raise ValueError('Unsafe Git exclusions for local skill installation.')
     if packages and exclude.is_file():
         with exclude.open('a') as output:
-            output.write('\n/.claude/\n/.studio/\n/.impeccable/\n')
+            output.write(f'\n/{skills_directory()}/skills/\n/.studio/\n/.impeccable/\n')
     results = []
     for package in packages:
         if not isinstance(package, dict):
@@ -57,9 +58,11 @@ def install(root, config, fetcher=download):
             any(part in ('', '.', '..') for part in source.split('/')) or source.startswith('/') or '\\' in source or
             license_path != 'LICENSE' or package.get('hooks') is not False):
             raise ValueError('Skill package is not a pinned, hook-free Studio source.')
-        target = root / '.claude/skills' / name
-        state = root / '.studio/skills' / f'{name}.json'
-        for path in (target, target.parent, target.parent.parent, state, state.parent, state.parent.parent):
+        target = root / skills_directory() / 'skills' / name
+        state = skill_state(root, name)
+        for path in (target, target.parent, target.parent.parent, state, *state.parents):
+            if path == root:
+                break
             if path.is_symlink():
                 raise ValueError('Skill installation paths must remain inside the workspace.')
         if target.exists():

@@ -17,11 +17,14 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from plugin_runtime import is_codex
 
 ROLES = {'orchestrator': 'Orchestrator', 'spec-writer': 'Spec Writer', 'builder': 'Builder',
          'verifier': 'Verification', 'code-reviewer': 'Code Review', 'security-reviewer': 'Security Review',
          'ui-reviewer': 'UI Review', 'ux-reviewer': 'UX Review', 'readiness-reviewer': 'Readiness'}
-ACTIONS = {'submit': '/abacus-studio:submit', 'request-publish': '/abacus-studio:request-publish'}
+ACTIONS = ({'submit': '$abacus-submit', 'request-publish': '$abacus-request-publish'} if is_codex() else
+           {'submit': '/abacus-studio:submit', 'request-publish': '/abacus-studio:request-publish'})
 STALE_AFTER = 300
 DASHBOARD_PROTOCOL = 2
 SECRET = re.compile(r'(?i)(?:sb_secret_|sbp_|github_pat_|ghp_|sk-proj-|-----BEGIN |\b(?:password|api[_-]?key|token|secret)\s*[:=])')
@@ -409,7 +412,7 @@ def handler(root, capability):
                     raise ValueError()
                 value = json.loads(self.rfile.read(length))
                 identity = queue(root,value['action'])
-                self.send(202,{'id':identity,'state':'queued','message':'Return to Claude and send Continue. Existing workflow checks and approvals still apply.'})
+                self.send(202,{'id':identity,'state':'queued','message':'Return to your coding tool and send Continue. Existing workflow checks and approvals still apply.'})
             except Exception:
                 self.send(400,{'error':'Use Submit changes or Request publish; no command execution is supported.'})
     return Handler

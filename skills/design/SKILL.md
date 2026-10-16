@@ -5,6 +5,9 @@ argument-hint: "[polish|audit|simplify|critique] [target]"
 ---
 
 Read and apply [Client communication](../../references/client-communication.md) completely.
+For mockup/prototype requests, first apply [Mockup-first](../../references/engineering/mockup-first.md)
+to preserve sample-data isolation, scope and stop/continue boundaries. A preview
+does not require a new command or automatically authorize backend implementation.
 Use the project-local Impeccable skill at `.claude/skills/impeccable/SKILL.md`.
 For a configured Studio app, first use `abacus-studio:project-knowledge` to retrieve
 relevant design/workflow agreements. Only current approved records establish requirements.

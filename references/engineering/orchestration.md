@@ -3,8 +3,11 @@
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
 FIRST apply [Workflow depth](workflow-depth.md). Its focused Quick Change path
-exits before this full workflow; it includes ordinary success feedback using an
-existing pattern. User quick/deep intent adjusts effort, not authority or actual
+and optional [Mockup-first](mockup-first.md) visual-only route can exit before
+the full team workflow. Don't invoke a feature team solely to sketch a preview.
+Apply structured/sensitive requirements when actually connecting real behavior.
+Focused work includes ordinary success feedback using an existing pattern.
+User quick/deep intent adjusts effort, not authority or actual
 risk. Deep does not mean every specialist, and quick does not waive sensitive
 checks. Use only relevant project knowledge, code mapping, and playbooks; do not
 replace them with a second planning system.

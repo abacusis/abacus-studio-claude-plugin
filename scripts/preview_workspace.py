@@ -10,6 +10,7 @@ import os
 import sys
 import socket
 from runtime_environment import environment
+from plugin_runtime import launch_path
 
 
 def isolate_vite_port(root, config):
@@ -49,11 +50,11 @@ def refresh_launch(root, config):
     argv = shlex.split(command)
     if not argv:
         raise ValueError('Missing preview executable.')
-    directory = root / '.claude'
+    directory = launch_path(root).parent
     if directory.is_symlink():
         raise ValueError('Local launch configuration must stay inside the workspace.')
     directory.mkdir(exist_ok=True)
-    path = directory / 'launch.json'
+    path = launch_path(root)
     if path.is_symlink():
         raise ValueError('Unsafe launch configuration.')
     document = json.loads(path.read_text()) if path.exists() else {'version': '0.0.1', 'configurations': []}
@@ -129,11 +130,11 @@ def supervise(root, project, config_loader, observation=25, timeout=60):
                         if healthy_since and time.monotonic() - healthy_since >= observation:
                             port = int(re.search(r':(\d+)', url).group(1))
                             # Persist the actual port, not the initial preferred port.
-                            launch = json.loads((root / '.claude/launch.json').read_text())
+                            launch = json.loads(launch_path(root).read_text())
                             for item in launch['configurations']:
                                 if item.get('name') == entry['name']:
                                     item['port'] = port
-                            (root / '.claude/launch.json').write_text(json.dumps(launch, indent=2))
+                            launch_path(root).write_text(json.dumps(launch, indent=2))
                             return {'status': 'running', 'url': url, 'pid': process.pid,
                                     'command': config['commands']['start'], 'observed_seconds': observation,
                                     'browser_render_check_required': True}

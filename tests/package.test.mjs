@@ -2,6 +2,16 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+test('mockup-first is optional, isolated and preserves implementation authority', () => {
+  const guide=read('references/engineering/mockup-first.md');
+  for(const phrase of ['No new command','mockup only','build directly','No preference','Do not suggest mockups for ordinary success messages','Quick','synthetic sample data','Localhost is not','No backend edits','No new command','Planning-only','Mockup-only request: stop','already authorized','publishing approval','screenshots','No preference'])assert.ok(guide.toLowerCase().includes(phrase.toLowerCase()),phrase);
+  assert.match(read('references/engineering/workflow-depth.md'),/\[Mockup-first\]\(mockup-first.md\)/);
+  assert.match(read('skills/engineering/SKILL.md'),/optional visual-only route/);
+  assert.match(read('skills/design/SKILL.md'),/mockup-first.md/);
+  assert.match(read('scripts/route_development.py'),/mockup-first.md before full feature orchestration/);
+  assert.match(guide,/static image.*appearance/);
+  assert.match(guide,/cannot establish click behavior/);
+});
 test('workflow depth honors user intent without turning every change into a team job', () => {
   const skill=read('skills/engineering/SKILL.md');
   const guide=read('references/engineering/workflow-depth.md');
@@ -177,7 +187,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.26.0');
+  assert.equal(manifest.version, '0.28.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

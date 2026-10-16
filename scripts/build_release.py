@@ -4,13 +4,12 @@ import hashlib
 import importlib.util
 import json
 import re
-import shutil
 from pathlib import Path
 import zipfile
 
 ROOT_FILES = {'.gitignore', '.mcp.json', 'README.md', 'INSTALL.md', 'SECURITY.md', 'RELEASE.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md'}
 PATTERNS = ('.claude-plugin/*.json', 'hooks/hooks.json', 'agents/*.md', 'dashboard/*.html', 'dashboard/*.css', 'dashboard/*.js', 'skills/*/SKILL.md', 'references/*.md',
-            'references/*/*.md', 'scripts/*.py', 'scripts/requirements.txt',
+            'references/*/*.md', 'adapters/codex/*.md', 'scripts/*.py', 'scripts/requirements.txt',
             'tests/*.py', 'tests/*.mjs')
 FORBIDDEN = {'.git', '.claude', '.studio', '.impeccable', '__pycache__', 'node_modules'}
 CONCRETE_SECRET = re.compile(r'-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----|\b(?:sbp_[A-Za-z0-9]{20,}|sb_secret_[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[A-Z0-9]{16})\b|\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}')
@@ -38,7 +37,9 @@ def release_files(root):
         files.append(path)
     return files
 
-def build(root, output):
+def build(root, output, target='claude'):
+    if target not in ('claude', 'codex'):
+        raise ValueError('Unknown release target')
     root, output = Path(root).resolve(), Path(output).absolute()
     archive = output.with_name(output.name + '.zip')
     if output.exists() or output.is_symlink() or archive.exists() or archive.is_symlink() or not output.parent.is_dir():
@@ -46,17 +47,27 @@ def build(root, output):
     if output == root or root in output.parents:
         raise ValueError('Release output must be outside the source folder.')
     files = release_files(root)
+    if target == 'codex':
+        adapter_spec = importlib.util.spec_from_file_location('codex_release_adapter', Path(__file__).with_name('build_codex.py'))
+        adapter = importlib.util.module_from_spec(adapter_spec)
+        adapter_spec.loader.exec_module(adapter)
+        contents = adapter.render(root, files)
+    else:
+        contents = {source.relative_to(root).as_posix(): source.read_bytes() for source in files}
     manifest = {'version': json.loads((root / '.claude-plugin/plugin.json').read_text())['version'],
                 'repository': 'abacusis/abacus-studio-claude-plugin', 'files': {},
-                'excluded': 'Everything outside the distribution allowlist, including local Claude settings, caches, credentials and Git history.',
-                'publication_performed': False}
+                'excluded': 'Everything outside the distribution allowlist, including local host settings, caches, credentials and Git history.',
+                'target': target, 'publication_performed': False}
     output.mkdir()
-    for source in files:
-        relative = source.relative_to(root)
+    for name, data in sorted(contents.items()):
+        relative = Path(name)
+        if relative.is_absolute() or '..' in relative.parts or CONCRETE_SECRET.search(data.decode()):
+            raise ValueError('Unsafe rendered release file: ' + name)
         target = output / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
-        target.chmod(0o755 if source.stat().st_mode & 0o111 else 0o644)
+        target.write_bytes(data)
+        source = root / relative
+        target.chmod(0o755 if source.is_file() and source.stat().st_mode & 0o111 else 0o644)
         manifest['files'][relative.as_posix()] = hashlib.sha256(target.read_bytes()).hexdigest()
     (output / 'RELEASE-MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n')
     with zipfile.ZipFile(archive, 'x', compression=zipfile.ZIP_DEFLATED) as bundled:
@@ -77,5 +88,6 @@ def build(root, output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', required=True)
+    parser.add_argument('--target', choices=('claude', 'codex'), default='claude')
     args = parser.parse_args()
-    print(json.dumps(build(Path(__file__).resolve().parents[1], args.output), indent=2))
+    print(json.dumps(build(Path(__file__).resolve().parents[1], args.output, args.target), indent=2))

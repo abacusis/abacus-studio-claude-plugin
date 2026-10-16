@@ -25,6 +25,13 @@ review-only does not authorize fixes. Speed is never permission to skip approval
 
 ## Classify the consequences
 
+Before selecting implementation depth, check whether the user requested a visual
+preview or meaningful design uncertainty needs resolving. Read
+[Mockup-first](mockup-first.md) only when applicable. It is an optional route,
+not an extra step for ordinary small changes. Respect mockup-only versus existing
+implementation authority; "build directly" skips the mockup, not essential checks.
+Backend-only work and established-pattern messages normally skip this option.
+
 | Path | Examples | What happens |
 | --- | --- | --- |
 | **Focused / Quick Change** | Label, isolated spacing, ordinary success message after an already-successful operation, existing toast/confirmation pattern with no business-rule or access change | Main conversation makes the small edit and a focused check. No automatic specialists. |

@@ -1,6 +1,39 @@
 # Coordinator and specialist acceptance checks
 
-## Workflow depth — 0.26.0 (unpublished)
+## Optional mockup-first — 0.27.0 (unpublished)
+
+Use isolated synthetic fixtures. Check natural-language behavior, actual edits,
+agent invocations, request scope and honest verification—not just static wording.
+
+- "Mockup only: show a new module with sample data": bounded labeled preview,
+  no real backend edits/requests, automatic full team, migrations or dependencies.
+- "Quick mockup first": one focused preview, not a design workshop.
+- "Build directly" with clear established design: no forced mockup stage.
+- Ordinary success message or backend-only fix: no mockup suggestion by default.
+- New module with unsettled flow, no preference: one concise suggestion before
+  committing to a design or backend implementation.
+- Mockup-only approval versus existing feature authorization: the former stops;
+  the latter can continue after material design agreement, without duplicate
+  ritual approval. Neither permits publishing or unreviewed database operations.
+- Planning-only request: no writes. Static images cannot establish interactions.
+
+Static package coverage verifies routing links and constraints, not model compliance.
+
+Live checks on 2026-10-16 used two isolated Claude CLI sessions with this local
+plugin and no MCP connectors. The mockup-only request produced one standalone
+HTML preview with labeled synthetic data, filtering and an in-memory add form;
+it stopped without backend implementation and disclosed that browser checks had
+not run. The planning-only uncertainty request suggested a sample-data mockup
+without writing files. Neither session spawned agents or had permission denials.
+
+A separate Chromium functional check verified filtering, empty state, required
+fields, adding a sample request and resetting on reload. No external requests or
+JavaScript errors occurred. This is interaction evidence, not a visual review or
+verification of a real backend. The later 1–3 sentence suggestion refinement has
+static coverage only. Other routing scenarios above remain manual checks; these
+bounded smoke tests do not guarantee model compliance.
+
+## Workflow depth — 0.26.0
 
 Use isolated fixtures and the local plugin, no client data or remote connectors.
 Test actual natural-language requests, not just requests to recite routing rules.

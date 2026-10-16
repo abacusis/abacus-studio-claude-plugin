@@ -1,5 +1,28 @@
 # Publishing Abacus Studio for Claude Code
 
+## 0.28.0 — Claude release and Codex testing preview
+
+- One source repository, separate Claude and Codex release targets. Existing
+  Claude packaging remains the default. Shared source and Claude distribution stay
+  on main; a generated Codex-only distribution is published on the codex branch.
+  No repository rename or client installation is performed by release builds.
+- Codex package includes eleven adapted skills, shared Python helpers and eight
+  specialist role procedures, with explicit native-delegation/tool-scope limits.
+- Shared Studio browser authorization and OS credential storage; no separate
+  connector consent, keys in chat or hard-coded client configuration.
+- Package-selected skill installation into ignored `.agents/skills/`, isolated
+  host installation receipts and private Codex preview metadata under `.studio/`.
+- Optional Codex hook adapter filters raw inputs and uses supported lifecycle
+  events. Hook trust is separate; generic workers remain unattributed. No full
+  dashboard parity, enforced role tool sandbox or unattended recovery claim.
+- Includes the previously unpublished 0.27.0 mockup-first work. Live service integration
+  requires authorized testing; package/unit tests are not that evidence.
+
+Both ZIPs accompany tag v0.28.0. The codex branch is generated output, not a second
+source of truth: make changes on main and regenerate it. First publication creates
+that branch without replacing an existing remote branch. Future updates must
+preserve distribution history and never force-push over unknown changes.
+
 Target repository: `abacusis/abacus-studio-claude-plugin`.
 Internal plugin: `abacus-studio`; marketplace: `abacus-studio-marketplace`.
 Only the plugin distribution belongs in this repository.
@@ -43,6 +66,16 @@ Only the plugin distribution belongs in this repository.
 - Test Windows and Linux separately; current automated tests are not those tests.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
+
+## 0.27.0 — local preparation, unpublished
+
+- Adds optional mockup-first routing for explicit preview requests and meaningful
+  visual uncertainty, without new commands, agents or compulsory design reviews.
+- Preserves quick-change routing and explicit build-directly intent; visual-only
+  slices avoid automatic full-team orchestration and use labeled sample data.
+- Separates mockup-only authority from already-authorized implementation and keeps
+  real services, writes, migrations and publishing outside preview authorization.
+- Updates Engineering, Design and routing guidance plus acceptance coverage.
 
 ## 0.26.0
 

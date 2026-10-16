@@ -1,6 +1,10 @@
 # Maintaining the public plugin
 
-This is the public Abacus Studio Claude Code plugin repository. README.md is the
+This is the public Abacus Studio plugin source repository, with separate Claude
+and Codex release targets. Shared helpers/playbooks stay here; Codex-only wording
+and packaging belong in adapters/codex/ and scripts/build_codex.py. Do not edit
+generated distributions or rename the remote as an incidental implementation step.
+README.md is the
 client-facing product introduction, not an internal architecture manual.
 
 ## Every change includes README review
@@ -28,3 +32,8 @@ client-facing product introduction, not an internal architecture manual.
 The automated check catches missing updates, mismatched version headings, and a
 missing specialist introduction. Human review still checks honesty and usefulness;
 changing a file is not proof that the copy is good.
+
+For cross-host changes, test both release targets. Preserve existing Claude
+entrypoints. Codex instructions must not assume Claude agent registration or
+environment variables. Dashboard attribution and delegation limits must stay
+explicit. No installation, hook-trust bypass or remote publication as a build step.

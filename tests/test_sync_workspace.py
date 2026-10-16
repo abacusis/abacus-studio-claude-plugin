@@ -13,7 +13,8 @@ spec.loader.exec_module(sync)
 
 class SyncTests(unittest.TestCase):
     def test_exclusions_and_changed_files(self):
-        hashes={'src/a.ts':'new','.env':'secret','node_modules/a':'x'}
+        hashes={'src/a.ts':'new','.env':'secret','node_modules/a':'x',
+                '.agents/skills/local/SKILL.md':'local', '.codex/config.toml':'local'}
         files=sync.changes({'src/a.ts':'old','src/gone.ts':'old'},hashes,{'src/a.ts':'hello'})
         self.assertEqual(files,[{'path':'src/a.ts','content':'hello'},{'path':'src/gone.ts','content':None}])
     def test_secret_and_binary_changes_stop_before_queueing(self):

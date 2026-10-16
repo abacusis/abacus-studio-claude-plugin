@@ -3,11 +3,18 @@
 Client introduction: [README](../README.md). Release checklist:
 [RELEASE](../RELEASE.md). Access boundaries: [SECURITY](../SECURITY.md).
 
+Review and update the public README in every change set. Highlight real client
+value without inventing features, and keep latest version, availability and the
+specialist team current. Repository AGENTS.md defines the standing rule; the
+README CI workflow checks changed-file coverage, and release packaging validates
+version and specialist introductions. Run `python3 scripts/check_readme.py`
+before handoff. These checks do not replace editorial review.
+
 ## Capability references
 
-- [Coordinator workflow — Steps 1 through 7](engineering/orchestration.md): local main-session
+- [Coordinator workflow — Steps 1 through 8](engineering/orchestration.md): local main-session
   coordination, role selection, evidence, bounded correction, and readiness.
-  Spec Writer, Builder, Verifier, Code Reviewer, Security Reviewer, and UI Reviewer agents are bundled; other specialists, quality-check hooks, dashboard,
+  Spec Writer, Builder, Verifier, Code Reviewer, Security Reviewer, UI Reviewer, and UX Reviewer agents are bundled; readiness specialist, quality-check hooks, dashboard,
   and progress upload are not implemented yet. The agent inherits the session model.
   See [manual acceptance checks](engineering/orchestration-testing.md).
 

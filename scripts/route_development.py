@@ -27,6 +27,8 @@ CONTEXT = (
     'For standalone design/security requests use their relevant skills. '
     'Visible substantial changes also use abacus-studio:ui-reviewer with actual '
     'current screenshots, not source-only visual claims; keep UI distinct from UX. '
+    'Substantial changes to user tasks also use abacus-studio:ux-reviewer with '
+    'actual flow evidence; screenshots alone cannot establish flow success. '
     'Security-sensitive changes use the Security skill and its source-only '
     'abacus-studio:security-reviewer; no security ceremony for trivial edits. '
     'Do NOT activate Engineering for arithmetic, general conversation, pure knowledge '

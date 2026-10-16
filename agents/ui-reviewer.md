@@ -53,5 +53,5 @@ No defects found means only within the images reviewed, never application approv
 
 Return findings to the coordinator for authorized Builder corrections within the
 existing two-round limit and refreshed-image review. You do not fix code, waive
-criteria, grant readiness/publishing approval, or replace the future UX Reviewer.
+criteria, grant readiness/publishing approval, or replace the UX Reviewer.
 Stop at the turn budget; do not spawn replacements. Keep the client summary brief.

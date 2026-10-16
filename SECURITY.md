@@ -50,6 +50,10 @@ The UI Reviewer uses those reading tools to inspect approved local screenshots;
 it cannot capture images, browse, run scripts, or edit the app. Screenshots may
 contain sensitive information and reading them can send pixels to the AI provider.
 No screenshot inspection implies full accessibility, UX, or publishing approval.
+The UX Reviewer also has only Read/Grep/Glob. It reviews approved source, images,
+and interaction evidence; it cannot submit forms, operate browsers, run scripts,
+or change data. Actual actions remain with the coordinator or authorized verifier,
+under existing sandbox/write approval. Evidence review is not an independent run.
 The Security Reviewer uses the same restricted tool list for source-only analysis;
 it cannot run attacks or tests, probe services, or remediate findings. Source-only
 candidates stay Needs validation without severity unless independent evidence

@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 through 7
+# Coordinate the development workflow — Steps 1 through 8
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,13 +7,14 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Six specialist agents are installed:
+The coordinator remains the main conversation. Seven specialist agents are installed:
 `abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
 scoped development tools subject to host permissions, plus `abacus-studio:verifier`
 for evidence-based checking without application edits, and read-only
 `abacus-studio:code-reviewer` for engineering review, plus read-only
 `abacus-studio:security-reviewer` for security boundaries and
-`abacus-studio:ui-reviewer` for actual screenshot inspection. Delegate structured or
+`abacus-studio:ui-reviewer` for screenshot inspection and `abacus-studio:ux-reviewer`
+for user-flow evidence review. Delegate structured or
 sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
@@ -99,7 +100,7 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer, Builder, Verification Specialist, Code Reviewer, Security Reviewer, and UI Reviewer are installed specialist agents. The remaining roles
+Only Spec Writer, Builder, Verification Specialist, Code Reviewer, Security Reviewer, UI Reviewer, and UX Reviewer are installed specialist agents. The remaining roles
 are responsibility areas performed by the coordinator, not installed agents.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
@@ -161,6 +162,25 @@ Review can run alongside other checks against the same stable source. Wait for
 relevant results; fixes require refreshed images and affected re-review within the
 same two-round correction limit. Never claim uninspected states or accessibility
 compliance from screenshots alone.
+
+For structured/sensitive changes to user tasks, navigation, forms, feedback or
+recovery, also invoke `abacus-studio:ux-reviewer` using [UX review](ux-review.md).
+Supply user/role, goal and accepted criteria, current source including local edits,
+actual approved browser actions/assertions/results, route/state/viewport/time,
+screenshots, and evidence reporter. It reads evidence/source but cannot operate a
+browser or write files. The coordinator or authorized verifier performs required
+checks within existing approval; review grants no extra login or sandbox writes.
+Screenshots alone do not prove a working flow. Missing/stale required interactions
+stay not flow-verified. Wait for relevant findings before readiness; material UX
+validation gaps must remain visible and prevent readiness claims.
+
+Keep UI findings distinct from UX findings and deduplicate with functional checks.
+Review can run alongside other checks on stable source with no concurrent Builder
+edits. Explicit UX review-only requests do not authorize fixes. Backend-only,
+planning-only and trivial edits do not automatically invoke this full workflow.
+Disclose failed/denied/unavailable delegation; coordinator evidence review is not
+separate-agent execution. Authorized fixes share the existing two-round correction
+limit and need refreshed affected flow evidence and re-review.
 
 After structured/sensitive implementation, invoke `abacus-studio:verifier` with the
 accepted spec/version and criterion IDs, workspace, current source identity and

@@ -14,7 +14,7 @@ completely before planning or implementing. It defines focused, structured, and
 sensitive approaches and the full team responsibilities. The installed specialists
 are `abacus-studio:spec-writer`, `abacus-studio:builder`, `abacus-studio:verifier`,
 `abacus-studio:code-reviewer`, `abacus-studio:security-reviewer`, and
-`abacus-studio:ui-reviewer`. UX and readiness agents and a
+`abacus-studio:ui-reviewer`, and `abacus-studio:ux-reviewer`. Readiness agents and a
 progress dashboard are not shipped yet.
 
 For structured or sensitive features, you MUST delegate the specification to
@@ -48,7 +48,22 @@ does not block basic visual review. Wait for relevant results, consolidate with
 other checks, and request fresh captures after fixes within the existing two-round
 limit. No full-team ceremony for trivial edits or backend-only changes. Review-only
 requests do not authorize fixes. Apply honest unavailable/denied fallback rules;
-UI review is not the future UX Reviewer's flow validation.
+UI review is not the UX Reviewer's flow validation.
+
+For structured/sensitive changes affecting user tasks, navigation, forms, feedback,
+or recovery, you MUST also delegate to `abacus-studio:ux-reviewer`. Read
+[UX review](../../references/engineering/ux-review.md). Supply accepted user/role,
+goal/criteria, current source, and actual interaction evidence with actions,
+assertions/results, screenshots, viewport/state/time, and reporter provenance.
+The reviewer reads evidence; the coordinator or authorized verifier operates the
+approved browser. No new browser privileges, login, or write approval is implied.
+Screenshots alone cannot establish flow success. Missing/stale required evidence
+stays not flow-verified and relevant material gaps prevent readiness. Review may
+run alongside UI/Code/Security checks on stable source. Wait for relevant results,
+deduplicate findings, route authorized fixes through Builder within the same two
+rounds, and refresh affected evidence. No automatic UX team for backend-only,
+planning-only, or trivial edits. Explicit UX review-only requests do not authorize
+fixes. Disclose actual unavailable/denied/failed delegation and any fallback.
 
 After structured/sensitive implementation, you MUST delegate to
 `abacus-studio:verifier` with accepted criteria, current source state, relevant diff,

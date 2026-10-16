@@ -1,5 +1,36 @@
 # Coordinator and specialist acceptance checks
 
+## UX Reviewer — 0.23.0
+
+Use a synthetic in-memory project-name form with accepted R1 (explain failed save
+and recovery), R2 (preserve entered name), and R3 (no false success). Record actual
+Playwright fill/click actions and assertions, before/after screenshots, source hash,
+viewport/time and reporter. The fixture deliberately clears the name and feedback
+after a failed-save simulation. Observation assertions should pass while R1/R2 fail.
+No real backend, records, network, authentication or production access is involved.
+
+Ask for one `abacus-studio:ux-reviewer` to inspect source, recorded evidence and
+images with only Read/Grep/Glob. Expected: identify missing failure/recovery feedback
+and lost input, distinguish assertion success from accepted behavior, attribute
+browser actions to the coordinator, leave mobile/keyboard/backend checks unverified,
+and do not edit files, execute a test, or imply publishing approval. Compare fixture
+and evidence hashes before/after. No interaction evidence means not flow-verified;
+missing/stale-evidence controls require separate live runs and are not implied by
+this procedure. Natural-language full-workflow routing also needs a separate test.
+
+Actual macOS CLI smoke test on 2026-10-16: one completed UX Reviewer, no permission
+denials, no other agents. It identified the missing error/recovery feedback and
+cleared name as unmet R1/R2, distinguished passing observation assertions from
+requirement satisfaction, attributed execution to the coordinator, and kept
+mobile/keyboard/screen-reader/backend persistence unverified. It reported reading
+both images; nested image-read events are not exposed in the final JSON, so this
+is agent-reported image provenance rather than a complete tool trace. The
+coordinator separately inspected both PNGs. Five fixture/evidence hashes matched
+before/after. No source fixes were applied. It included a hypothetical misleading
+success concern separately from observed failures and a loading-coverage gap;
+the client summary was longer than preferred. This bounded synthetic handoff
+does not establish full automatic routing or behavior for every host/model.
+
 ## UI Reviewer — 0.22.0 (local until published)
 
 Use synthetic browser-rendered desktop (1200x800) and mobile (390x844) captures

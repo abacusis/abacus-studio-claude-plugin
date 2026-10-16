@@ -6,7 +6,15 @@ Only the plugin distribution belongs in this repository.
 
 ## Prepare a release
 
-1. Bump `.claude-plugin/plugin.json` and the release notes/version assertion.
+1. Bump both plugin/marketplace manifests and the version assertion. Update
+   README.md in every change set: highlight meaningful new client value, keep its
+   latest-feature heading and specialist roster current, and distinguish locally
+   prepared features from published releases. Add the release notes here. See
+   AGENTS.md for the ongoing documentation rule. Do not invent benefits for
+   internal-only changes; use a short maintenance note instead.
+   Run `python3 scripts/check_readme.py --base <starting commit SHA>` to check the
+   whole change set. CI requires a README change for every push/PR with changes.
+   The release builder also checks README version and specialist coverage.
 2. Run the Python tests and `node --test tests/package.test.mjs`.
 3. Run `claude plugin validate .`.
 4. Use `scripts/build_release.py --output <NEW absolute release folder>`.
@@ -17,6 +25,11 @@ Only the plugin distribution belongs in this repository.
    local `.claude` settings, caches, `.env`, and application workspaces are excluded.
 
 ## Before publishing
+
+- Review README marketing claims against actual implementation and evidence.
+  Once publication is authorized, replace the current local/unpublished notice
+  with accurate release availability before including README in the release commit.
+  Do not promise working interactions from screenshots or certified security.
 
 - LICENSE currently contains a proprietary review draft, not adopted terms.
   Do not publish it as effective until legal review and owner approval confirm
@@ -30,6 +43,15 @@ Only the plugin distribution belongs in this repository.
 - Test Windows and Linux separately; current automated tests are not those tests.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
+
+## 0.23.0
+
+- Adds a read-only UX Reviewer to assess actual flow evidence, feedback and recovery.
+- Keeps UI presentation review distinct from task completion and executed checks.
+- Refreshes the public README to explain the specialist team and its client value.
+- Adds a standing README maintenance rule, CI change-set check, and release-time
+  version/specialist coverage checks. These are structural checks, not editorial QA.
+- No automatic publication, extra credentials, or new runtime access.
 
 ## 0.15.0
 

@@ -14,6 +14,50 @@ and work with Abacus to bring reviewed changes into your live application.
 [Get started](https://studio.abacusis.ca/install/claude) ·
 [Explore Abacus Studio](https://studio.abacusis.ca)
 
+## Your idea. An AI engineering team behind it.
+
+Don't just ask AI to write code. Give it a process for understanding your app,
+planning the change, building it, and checking the result from different angles.
+
+Claude coordinates the work in your local session, bringing in the relevant
+specialists for substantial changes. Small improvements stay small—you don't
+need to manage a team of agents or remember a command for each one.
+
+| Specialist | What it brings to your change |
+| --- | --- |
+| Spec Writer | Turns your request into clear requirements and acceptance criteria. |
+| Builder | Implements the agreed change and adds relevant tests. |
+| Verification Specialist | Checks requirements against actual results and identifies what remains untested. |
+| Code Reviewer | Looks for bugs, regressions, and code that will be difficult to maintain. |
+| Security Reviewer | Examines relevant access and data boundaries through focused source review. |
+| UI Reviewer | Inspects real screenshots for clipping, layout issues, and visual inconsistency. |
+| UX Reviewer | Examines actual interaction evidence for confusing steps, missing feedback, and recovery problems. |
+
+For example, a form might look right but silently lose your work after a failed
+save. Visual review checks the screen; UX review examines the recorded flow and
+flags the lost input and missing explanation. Passing tests, good-looking screens,
+and a usable workflow are different questions—the plugin helps Claude consider
+each one instead of treating “the code is written” as “the work is finished.”
+
+Relevant findings go back for corrections, with at most two correction rounds
+before unresolved issues are brought to you. You get a plain-language summary of
+what changed, what was checked, and what still needs attention.
+
+These are AI specialists, not a replacement for the Abacus team. They run through
+your local Claude session and depend on available tools, approved access, and
+actual evidence. No screenshot means no visual pass; no executed check means no
+claim that it passed. Readiness to preview is never approval to publish.
+
+### What's new in 0.23.0
+
+The latest source adds the **UX Reviewer** to the specialist team: a second look
+at whether people can complete their tasks, understand failures, and recover
+without losing their work. It builds on the recent Code, Security, and UI review
+capabilities and local browser verification.
+
+Version 0.23.0 is available from the Abacus Studio marketplace. See the
+[installation and update guide](INSTALL.md) to get the latest release.
+
 ## More than a connection to your code
 
 Claude Code provides the AI. The Abacus Studio plugin adds project context,
@@ -43,6 +87,9 @@ For sensitive changes, a read-only Security Reviewer traces relevant access and
 data boundaries and reports concerns without probing your live application.
 A UI Reviewer inspects actual desktop/mobile screenshots for layout problems
 and visual consistency, keeping visual review separate from workflow testing.
+A separate UX Reviewer examines actual flow evidence for confusing actions,
+missing feedback, and recovery problems, without mistaking screenshots for a
+successfully tested workflow.
 
 **A clearer view of the code.** When enabled for your application, a local code
 map helps Claude locate related components before making substantial changes.

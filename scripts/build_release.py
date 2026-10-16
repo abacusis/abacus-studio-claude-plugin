@@ -1,6 +1,7 @@
 """Prepare a fresh, allowlisted distribution folder and verified ZIP; never publish."""
 import argparse
 import hashlib
+import importlib.util
 import json
 import re
 import shutil
@@ -16,6 +17,10 @@ CONCRETE_SECRET = re.compile(r'-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----|\b(?:sbp
 
 def release_files(root):
     root = Path(root).resolve()
+    spec = importlib.util.spec_from_file_location('readme_release_check', Path(__file__).with_name('check_readme.py'))
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    checker.validate(root)
     selected = {root / name for name in ROOT_FILES}
     for pattern in PATTERNS:
         selected.update(root.glob(pattern))

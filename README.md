@@ -49,7 +49,22 @@ your local Claude session and depend on available tools, approved access, and
 actual evidence. No screenshot means no visual pass; no executed check means no
 claim that it passed. Readiness to preview is never approval to publish.
 
-### What's new in 0.24.0
+### What's new in 0.25.0
+
+Publish requests open a development-to-release review PR without requiring paid
+GitHub branch protection. Review, merging and deployment remain separate steps.
+
+**See your AI team working locally.** Ask Claude to open the team dashboard to see
+the Orchestrator and eight specialists, select an agent's activity and findings,
+and see changes still on your computer. Submit and Request publish buttons queue
+the existing Claude workflows; they never bypass review or publish directly.
+Tracking is optional and local. Returned agents are not automatically marked as
+passed, and stale activity is clearly labeled.
+
+Version 0.25.0 is available from the Abacus Studio marketplace. Ask Claude to
+“Open the local team dashboard” and approve workspace tracking to get started.
+
+### Recent improvements
 
 The **Readiness Reviewer** adds a final evidence check before Claude calls a
 substantial change ready to preview. It brings together the agreed requirements,
@@ -60,7 +75,7 @@ You get one clear outcome: **Ready to preview**, **Needs changes**, or **Needs h
 input**, with the reason and next step. This builds on the recent UX, UI, Security
 and Code reviewers; it does not replace Abacus's review or approve publishing.
 
-Version 0.24.0 is available from the Abacus Studio marketplace. See the
+See the
 [installation and update guide](INSTALL.md) to get the latest release.
 
 ## More than a connection to your code
@@ -173,6 +188,12 @@ for this workflow or paste credentials into chat.
 See [security and access details](SECURITY.md) for boundaries and limitations.
 
 ## Behind the plugin
+
+**An optional local team dashboard** makes the work visible without exposing
+private AI reasoning or conversation transcripts. Local changes and cached Git
+comparisons are shown separately; the dashboard does not verify GitHub freshness.
+After queuing an action, return to Claude and send “Continue.” Normal checks and
+approvals still apply.
 
 Abacus maintains the engineering guidance and Studio workflows. Skills provide
 specialized playbooks, while Studio's MCP services supply authorized project

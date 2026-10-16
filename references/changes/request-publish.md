@@ -14,11 +14,13 @@ Never push directly to the release branch, merge the PR, or invoke deployment.
    `studio_git.py publish-preview --project-id "<Studio ID>" --workspace "<absolute workspace>"`.
    It fetches first and refuses dirty or unsynchronized workspaces. If needed,
    finish Submit separately with its own confirmations before continuing.
-2. The backend verifies membership, separate private repository, release branch
-   protection and required review. On a protection/plan error, report the admin
-   prerequisite; do not bypass it, make the repository public, or change billing.
-   Server-side GitHub App Administration Read and Pull requests Write permissions
-   are required to inspect protection and open PRs. These are never client tokens.
+2. The backend verifies membership, separate private repository and distinct
+   development/release branches. Opening the review PR does not require branch
+   protection or a paid GitHub plan. Existing GitHub rules remain unchanged and
+   apply to any later merge. The server needs Pull requests Write permission to
+   create PRs; it does not request Administration Read for protection inspection.
+   These are never client tokens. Report actual server errors; do not invent a
+   branch-protection prerequisite or change repository rules or billing.
 3. If no changes exist, say so. If an open PR exists, show its link; do not duplicate
    it. Otherwise review the returned commit messages and file list, draft a factual
    title and description, and ask the client to confirm the publish request.

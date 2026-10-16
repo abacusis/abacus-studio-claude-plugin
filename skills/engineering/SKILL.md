@@ -15,7 +15,13 @@ sensitive approaches and the full team responsibilities. The installed specialis
 are `abacus-studio:spec-writer`, `abacus-studio:builder`, `abacus-studio:verifier`,
 `abacus-studio:code-reviewer`, `abacus-studio:security-reviewer`, and
 `abacus-studio:ui-reviewer`, `abacus-studio:ux-reviewer`, and
-`abacus-studio:readiness-reviewer`. A progress dashboard is not shipped yet.
+`abacus-studio:readiness-reviewer`.
+
+When the user asks to open the local dashboard or see the team working, read
+[Local team dashboard](../../references/engineering/local-dashboard.md) completely.
+Ask for its local tracking approval before starting it; do not launch it for
+connection status or every development request. When enabled, keep coordinator
+summaries and check results current using that reference's reporting contract.
 
 For structured or sensitive features, you MUST delegate the specification to
 `abacus-studio:spec-writer` using the host's Agent/Task delegation tool before

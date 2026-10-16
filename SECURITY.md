@@ -23,12 +23,23 @@ local-development enablement, and the assigned client repository server-side.
 
 ## Execution and review
 
-The plugin includes one routing-only UserPromptSubmit hook. It executes a small
+The plugin includes a routing-only UserPromptSubmit hook. It executes a small
 local Python script that returns constant guidance to select the appropriate
 workflow. It does not read prompt input, files, tokens, or transcripts, and does
 not upload data, modify projects, launch agents, or approve actions. It has a
 five-second timeout and command failure is non-blocking. Disabling hooks may
 reduce automatic routing reliability; no permission bypass is attempted.
+
+Separate dashboard observers run only after workspace opt-in. They select lifecycle
+IDs, tool names and filtered file paths from hook input, storing local metadata in
+the Git-ignored `.studio/dashboard` directory. They discard prompts, transcripts,
+tool bodies/output and agent responses. Coordinator-written summaries must contain
+no sensitive information; filtering is not comprehensive secret redaction.
+The optional server binds only to loopback with an unguessable URL, Host/Origin
+checks and no external assets. Keep that URL private. Buttons queue two fixed
+workflow requests, consumed on the next Claude prompt; they cannot run arbitrary
+commands or grant approval. Local users can read local metadata. Tracking can be
+disabled without deleting history; stop the server separately using its helper.
 
 Setup requires approval of the destination and local commands. Dependency scripts
 and application code execute locally, so inspect them and use trusted repositories.

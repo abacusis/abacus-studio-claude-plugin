@@ -165,7 +165,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.24.0');
+  assert.equal(manifest.version, '0.25.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);
@@ -219,4 +219,18 @@ test('Setup works directly and Status stays limited to connection access', () =>
   assert.match(setup, /workspace-config/);
   assert.match(setup, /Browser consent and host-required execution prompts still apply/);
   assert.match(read('references/workspace/status.md'), /get_connection_status/);
+});
+
+test('local dashboard ships semantic assets and queues existing workflows only', () => {
+  const html=read('dashboard/index.html');
+  const js=read('dashboard/app.js');
+  assert.match(html,/Your AI team/);
+  assert.match(html,/role="tablist"/);
+  assert.match(html,/Return to Claude/);
+  assert.match(js,/requestError/);
+  assert.match(js,/scrollIntoView/);
+  assert.match(read('scripts/build_release.py'),/dashboard\/\*\.html/);
+  assert.match(read('skills/engineering/SKILL.md'),/local-dashboard.md/);
+  assert.match(read('scripts/route_development.py'),/local team dashboard/);
+  for(const role of ['orchestrator','spec-writer','builder','verifier','code-reviewer','security-reviewer','ui-reviewer','ux-reviewer','readiness-reviewer'])assert.ok(js.includes(role));
 });

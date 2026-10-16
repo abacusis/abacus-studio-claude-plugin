@@ -231,7 +231,11 @@ delegation; never represent it as an agent review or clean security pass.
 
 Use a short working outline: understand/specify, build, verify/review, resolve,
 assess readiness. Label stages planned, in progress, completed, blocked, or not
-applicable with a reason. Chat progress is not a dashboard or durable job record.
+applicable with a reason. Chat progress is not a durable job record. If the client
+asks for a local team view, use [Local team dashboard](local-dashboard.md), with
+explicit workspace opt-in. Its metadata is an observation aid, not an execution
+engine or a resumable job system. Report only actual specialist outcomes and
+refresh affected checks after edits; do not infer passes from agent completion.
 
 Review the same identified source state and accepted specification. Use the
 available Git revision plus the relevant uncommitted/untracked changes; HEAD

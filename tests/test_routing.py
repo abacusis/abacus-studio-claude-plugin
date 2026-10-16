@@ -30,7 +30,9 @@ class RoutingTests(unittest.TestCase):
 
     def test_default_hook_is_bounded_and_fail_open(self):
         config = json.loads((ROOT / 'hooks/hooks.json').read_text())
-        self.assertEqual(list(config['hooks']), ['UserPromptSubmit'])
+        self.assertIn('UserPromptSubmit',config['hooks'])
+        self.assertIn('SubagentStart',config['hooks'])
+        self.assertIn('SubagentStop',config['hooks'])
         self.assertEqual(len(config['hooks']['UserPromptSubmit']), 1)
         hook = config['hooks']['UserPromptSubmit'][0]['hooks'][0]
         self.assertEqual(hook['type'], 'command')
@@ -38,6 +40,11 @@ class RoutingTests(unittest.TestCase):
         self.assertTrue(hook['command'].endswith('|| exit 0'))
         self.assertIn('python3 -I', hook['command'])
         self.assertIn('|| python -I', hook['command'])
+        for entries in config['hooks'].values():
+            for entry in entries:
+                for observer in entry['hooks']:
+                    self.assertEqual(observer['timeout'],5)
+                    self.assertTrue(observer['command'].endswith('|| exit 0'))
         # Default hooks/hooks.json discovery only: no duplicate registration.
         self.assertNotIn('hooks', json.loads((ROOT / '.claude-plugin/plugin.json').read_text()))
 

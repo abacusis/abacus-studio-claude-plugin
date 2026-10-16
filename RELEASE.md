@@ -44,6 +44,20 @@ Only the plugin distribution belongs in this repository.
 - Publish a matching version tag after approval. Protect the distribution branch
   and review updates: clients enabling auto-update trust code released here.
 
+## 0.25.0
+
+- Removes obsolete plugin guidance requiring branch protection or Administration
+  Read before requesting a client-repository review PR; no merge/deploy permission.
+
+- Adds an opt-in loopback dashboard with Orchestrator and eight specialist cards,
+  activity, safe file-path metadata, and coordinator-reported checks/findings.
+- Lifecycle hooks record bounded metadata only after workspace approval. Returned
+  agents are distinct from passed checks; stale sessions do not appear working.
+- Shows local changes and cached upstream counts without fetching or reading diffs.
+- Submit and Request publish queue allowlisted intents for the next Claude prompt;
+  they cannot execute Git, start Claude, or authorize publishing themselves.
+- No transcripts, private reasoning, remote telemetry, or new dependencies.
+
 ## 0.24.0
 
 - Adds a read-only Readiness Reviewer to reconcile current requirements, checks

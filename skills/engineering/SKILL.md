@@ -5,6 +5,8 @@ description: Plan and implement application changes, diagnose bugs, design maint
 
 # Abacus Engineering
 
+Read and apply [Client communication](../../references/client-communication.md) completely.
+
 Use this skill automatically when the development task fits, or explicitly through `/abacus-studio:engineering`. The user does not need to learn separate testing or debugging commands.
 
 For a configured Studio application, use `abacus-studio:project-knowledge` before

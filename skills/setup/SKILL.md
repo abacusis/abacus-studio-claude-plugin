@@ -5,6 +5,7 @@ disable-model-invocation: true
 argument-hint: "[optional app name]"
 ---
 
+Read and apply [Client communication](../../references/client-communication.md) completely.
 Read [Setup](../../references/workspace/setup.md) completely and follow it.
 The request is: $ARGUMENTS
 Start guided setup directly; no separate Connect command is required first.

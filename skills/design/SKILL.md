@@ -4,6 +4,7 @@ description: Improve your app's design, layout, and accessibility with Impeccabl
 argument-hint: "[polish|audit|simplify|critique] [target]"
 ---
 
+Read and apply [Client communication](../../references/client-communication.md) completely.
 Use the project-local Impeccable skill at `.claude/skills/impeccable/SKILL.md`.
 For a configured Studio app, first use `abacus-studio:project-knowledge` to retrieve
 relevant design/workflow agreements. Only current approved records establish requirements.

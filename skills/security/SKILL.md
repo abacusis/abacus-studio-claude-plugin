@@ -5,6 +5,8 @@ description: Review application source and code changes for authentication, auth
 
 # Abacus Security
 
+Read and apply [Client communication](../../references/client-communication.md) completely.
+
 Use automatically for relevant security work or through `/abacus-studio:security`. Read the [focused review playbook](../../references/security/review.md) completely before reviewing.
 
 This version is a read-only, source-based review, not Cloudflare's complete multi-phase audit harness. It grants no extra access, does not execute target code for security experiments, and does not create reports or launch a broad audit automatically. If asked for a full audit or pen test, explain these limits and offer a clearly scoped source review; do not silently substitute it or claim comprehensive coverage.

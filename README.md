@@ -1,171 +1,122 @@
-# Abacus Studio — Claude Code plugin 0.16.0
+# Abacus Studio for Claude Code
 
-## Application code map
+## Build your software with AI, without doing it alone.
 
-An optional Studio setting enables local source mapping with Graphify. Approved
-Setup installs a pinned isolated runtime and builds the map; Engineering consults
-it automatically for substantial changes and dependency investigation. Queries
-refresh changed source snapshots without installing anything. No new client
-command, upstream hooks, cloud upload, or Graphify account is required. Unsupported
-platforms and map failures fall back to ordinary source searches. See
-[integration details](references/engineering/code-map.md).
+“I wish our software could do this.”
 
-Deployment: apply Studio migration `20261015020000_workspace_code_map.sql`, then
-deploy `admin-projects`, `mcp`, and `local-git`, and deploy
-the settings frontend. The option is disabled by default. Enable it per application
-and run approved Setup with this plugin. Do not enable/install it silently for
-existing clients. Backend deployment and plugin updates are separate from the
-Studio frontend release.
+Abacus Studio helps you turn that idea into a change you can see and test—using
+Claude Code, connected to your application and backed by Abacus's engineering
+guidance and review process.
 
-## Application knowledge
+Keep using the AI tool you know. Describe what you want, preview the results,
+and work with Abacus to bring reviewed changes into your live application.
 
-Application knowledge is retrieved through Studio's read-only `search_app_knowledge`
-and `get_app_knowledge` tools using the existing helper authorization. Engineering
-and Design discover shared records by title, summary and topics, then read relevant
-full records. Only current approved guidance establishes requirements; proposed
-and superseded records are context. No extra client command, write permissions,
-automatic ingestion, or silent approval changes. Requires the matching Studio
-backend and migration; unavailable knowledge is reported, not treated as empty.
+[Get started](https://studio.abacusis.ca/install/claude) ·
+[Explore Abacus Studio](https://studio.abacusis.ca)
 
-## Licensing — draft awaiting review
+## More than a connection to your code
 
-[LICENSE](LICENSE) proposes proprietary terms for Abacus-owned material, allowing
-authorized client use with Studio while restricting redistribution/resale and
-reuse of that material in competing products. It is a review draft, not an
-effective or legally approved agreement. The named licensor is Abacus Internet
-Solutions Inc. Adoption, ownership, client agreement consistency and acceptance
-remain unresolved. It does not retroactively
-change previous versions. Third-party MIT rights remain separate and intact:
-see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and its full upstream notices.
+Claude Code provides the AI. The Abacus Studio plugin adds project context,
+engineering playbooks, and a guided path from local development to review.
 
-Substantial features now use specification-driven planning inside Engineering:
-agree on business requirements, plan implementation, create traceable tasks, and
-verify the result against acceptance criteria. Small edits stay lightweight.
-No new commands or Spec Kit installation are required. Specs use the project's
-existing documentation convention (or an approved location); they are ordinary
-reviewed source-repository documents, not automatically uploaded to Studio.
-See [planning workflow](references/engineering/specification.md) and
-[Spec Kit attribution](references/engineering/spec-kit-upstream.md).
+**Knowledge of your application.** Claude can retrieve relevant decisions,
+agreements, and prior reasoning explicitly shared through Studio. You don't have
+to explain the same background every time. Previous decisions inform the
+conversation; they don't permanently prevent changes.
 
-## Abacus Security
+**Engineering guidance built in.** Abacus Engineering provides playbooks for
+clarifying requirements, planning features, testing, debugging, and reviewing
+code. Larger changes get a structured approach; small improvements stay simple.
 
-Focused source-based security reviews are automatically discoverable or available
-through `/abacus-studio:security`. Engineering routes security-sensitive changes
-to this guidance. Reviews report evidence and unresolved validation separately;
-they do not modify source, run target code, probe live systems, or guarantee safety.
-This is a curated Cloudflare-informed adaptation, not the complete upstream audit
-harness. Full audit execution, validated JSON reports, and Studio Health uploads
-are not included. See [provenance and license](references/security/upstream.md).
+**Design and security support.** Improve layouts and usability with the optional
+Studio-managed Impeccable design package. Focused source reviews help identify
+potential security issues and explain what still needs verification. They are
+not a substitute for a complete security audit.
 
-## Abacus Engineering
+**A clearer view of the code.** When enabled for your application, a local code
+map helps Claude locate related components before making substantial changes.
 
-Bundled engineering guidance is available automatically for relevant development
-work, or through `/abacus-studio:engineering`. It covers requirements and project
-language, behavior-first testing, evidence-led debugging, maintainable architecture,
-and requirements/engineering review. No separate upstream plugin installation is
-needed. Design stays with Impeccable; saving and publishing stay with Studio.
+**Plain-language communication.** The plugin guides Claude to explain results
+and next steps simply, with technical detail when you need it.
 
-This package does not automatically commit, push, migrate, or deploy. It does not
-add credentials, hooks, a background service, or Studio dashboard reporting.
-See [provenance and MIT notice](references/engineering/upstream.md).
+These capabilities guide Claude's work; they don't guarantee correct code or
+replace testing and professional review. Availability depends on your app's
+Studio configuration.
 
-Next.js apps receive public Supabase variable aliases requested by Studio's
-Required environment variable names, including NEXT_PUBLIC_SUPABASE_URL and
-NEXT_PUBLIC_SUPABASE_ANON_KEY. Privileged server secrets are never public aliases.
+## From your idea to your live application
 
-Connect opens one Studio browser approval for app access and local development.
-Setup reuses it. No Claude connector sign-in or `/mcp` is required; the helper
-calls Studio's MCP service privately using OS-stored tokens.
+1. **Set up your app.** Sign in to Studio, choose your application, and let guided
+   setup prepare its code and local preview with your approval.
+2. **Describe your change.** Ask Claude what you want to improve. Work through
+   the plan, try the result, and refine it together.
+3. **Save your progress.** Submit reviewed changes to your sandbox repository,
+   so they aren't stored only on your computer. You don't have to be ready to
+   publish.
+4. **Request publishing review.** When you're ready, send the changes for review.
+   Abacus can review them with you and coordinate the publishing process.
 
-## Commands
+**Saving is not publishing.** Submitting saves changes to the sandbox repository.
+Requesting publish opens a separate review request. Neither command automatically
+merges changes or deploys your application.
 
-Choose an action directly from the Abacus Studio plugin menu:
+## Get started
 
-| Command | Purpose |
-| --- | --- |
-| `/abacus-studio:connect` | Sign in or renew authorization. |
-| `/abacus-studio:disconnect` | Disconnect Studio and selected local authorization. |
-| `/abacus-studio:status` | Show connection, role, and granted access only. |
-| `/abacus-studio:setup` | Choose an app, clone its code, and open a local preview. |
-| `/abacus-studio:design` | Improve the interface. Describe your goal in plain language. |
-| `/abacus-studio:engineering` | Plan, build, debug, test, or review a change. Claude can also select it automatically. |
-| `/abacus-studio:security` | Review source for security boundary failures without changing or executing the application. |
-| `/abacus-studio:submit` | Review and save changes to the sandbox repository. |
-| `/abacus-studio:request-publish` | Request a publishing review PR. |
+You'll need Claude Code and access to an application configured for local
+development in Abacus Studio. The public plugin does not grant access to any
+client's application, code, or data.
 
-Setup works directly; Connect does not have to be run first. Setup and Connect
-accept an optional app name. Design accepts a plain-language goal or an optional
-action such as `audit`. No required subcommands remain.
-
-The workspace and changes group commands have been removed. Migrations are an
-internal skill Claude can select when needed, using Studio's reviewed sandbox
-workflow. Clients do not need to remember a migration command. Migration SQL
-still requires explicit review and approval.
-
-## Install and use
-
-See [installation instructions](INSTALL.md) for ZIP upload and marketplace setup.
-Replace the installed plugin and start a new session to refresh the menu.
-The distribution repository is `abacusis/abacus-studio-claude-plugin`.
-
-Install from a local Claude Code session:
+Follow the [installation guide](https://studio.abacusis.ca/install/claude), then
+run this in Claude Code:
 
 ```text
-/plugin marketplace add abacusis/abacus-studio-claude-plugin
-/plugin install abacus-studio@abacus-studio-marketplace
+/abacus-studio:setup
 ```
 
-Claude Code 2.1.275 or later also supports the combined install:
-`/plugin install abacus-studio --marketplace abacusis/abacus-studio-claude-plugin`.
+Setup guides you through sign-in, app selection, and approval of the local setup.
+After that, just describe what you'd like to change.
 
-1. Run Setup, select an app, and approve the local folder and setup commands.
-2. Complete the browser approval opened by Connect or Setup once.
-3. Preview and build with Claude. Use Design for interface improvements.
-4. Submit fetches first, reviews all outgoing changes, resolves conflicts with
-   approval, runs configured checks, and confirms a normal push to sandbox.
-5. Request publish opens a review PR. It does not merge or deploy.
+> “Help me add a sales dashboard showing monthly revenue and recent orders.”
 
-Status checks only Studio authentication, current roles, and granted permissions.
-It never searches folders, fetches Git, or starts sign-in. Connect resets the
-shared helper authorization before listing apps. Disconnect revokes that shared
-authorization. Older connector and legacy per-app consents remain separate.
+## Useful commands
 
-## Setup and access
+You can describe your development goals naturally. These commands are shortcuts
+for specific Studio actions:
 
-Studio supplies the separate private client repository, sandbox branch, commands,
-Node requirements, enabled skill packages, and optional sandbox credentials.
-Setup checks Git, Python, and secure OS credential storage, selecting the private
-`~/.abacus-studio/venv` automatically when default Python lacks keyring.
-Missing prerequisites require installation approval. There is no plaintext token
-fallback. Windows/Linux end-to-end testing remains required before broad rollout.
+| Command | When to use it |
+| --- | --- |
+| `/abacus-studio:setup` | Prepare your app and open a local preview. |
+| `/abacus-studio:connect` | Sign in or renew your Studio connection. |
+| `/abacus-studio:status` | Check your connection, role, and access. |
+| `/abacus-studio:engineering` | Get help planning, building, debugging, or reviewing. |
+| `/abacus-studio:design` | Improve a screen's design or usability. |
+| `/abacus-studio:security` | Request a focused source-code security review. |
+| `/abacus-studio:submit` | Review and save changes to the sandbox repository. |
+| `/abacus-studio:request-publish` | Send your changes for publishing review. |
+| `/abacus-studio:disconnect` | Revoke the plugin's Studio connection. |
 
-Setup refreshes Studio settings before starting the preview and verifies HTTP,
-process survival, and browser rendering. Existing snapshots and local files are
-preserved. Project skill packages are pinned and installed into ignored local
-folders without running upstream installers or enabling hooks.
+## Your project stays yours
 
-Studio checks membership and repository authorization for credential requests.
-GitHub credentials are repository scoped, not branch scoped; use GitHub rulesets
-for branch enforcement. Source changes go through Git, while Studio stores activity
-metadata. Review deployment hooks before treating repository pushes as isolated.
+Studio checks your access to the assigned private client repository. Sign-in
+credentials use your computer's secure credential store. If your app needs
+sandbox keys, authorized setup can place them in a local, Git-ignored environment
+file; local users and coding tools can read that copy. Never use production keys
+for this workflow or paste credentials into chat.
 
-Optional sandbox credentials are provisioned into a Git-ignored `.env`; local
-users and coding tools can read them. Management tokens remain in Studio.
-Never configure production credentials. Removing stored secrets does not revoke
-local copies; rotate them in Supabase when access ends.
+See [security and access details](SECURITY.md) for boundaries and limitations.
 
-Secret detection is best effort. Known local/generated/secret paths and workflow
-changes are blocked from submission. No force push, background autosync,
-automatic conflict winner, merge, or production deployment is performed.
-Submodules and Git LFS setup are not supported. Preserve failed operation state
-and ask the administrator to inspect uncertain migration outcomes.
+## Behind the plugin
 
-## Validation
+Abacus maintains the engineering guidance and Studio workflows. Skills provide
+specialized playbooks, while Studio's MCP services supply authorized project
+information and workflow access. Optional project tools add design guidance and
+local code mapping without requiring clients to learn another set of commands.
 
-`node --test tests/package.test.mjs`
+For installation help, updates, or project access, contact your Abacus team.
 
-`PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p '*test*.py'`
+[Installation and updates](INSTALL.md) ·
+[Maintainer guide](references/maintainer-guide.md) ·
+[Third-party acknowledgements](THIRD_PARTY_NOTICES.md)
 
-`claude plugin validate .claude-plugin/plugin.json`
-
-Publisher: see [release preparation](RELEASE.md) and [security boundaries](SECURITY.md).
+By Abacus Internet Solutions Inc. See [LICENSE](LICENSE) for the current licensing
+document, which is marked as a draft, not effective terms. Third-party components
+retain their own applicable licenses.

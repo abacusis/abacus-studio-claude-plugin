@@ -2,6 +2,23 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+test('every bundled skill loads the shared client communication standard', () => {
+  const root = new URL('../skills/', import.meta.url);
+  const skills = readdirSync(root).filter(name => existsSync(new URL(`${name}/SKILL.md`, root)));
+  assert.ok(skills.length > 0);
+  for (const name of skills) {
+    assert.match(read(`skills/${name}/SKILL.md`), /Read and apply \[Client communication\]\(\.\.\/\.\.\/references\/client-communication\.md\) completely\./, name);
+  }
+  const standard = read('references/client-communication.md');
+  assert.match(standard, /Lead with the outcome/);
+  assert.match(standard, /usually be under 100 words, not a rigid limit/);
+  assert.match(standard, /user asks for technical details/);
+  assert.match(standard, /never overrides permissions, approval requirements/);
+  assert.match(standard, /exact commands, SQL, diffs/);
+  assert.match(standard, /Never print credentials/);
+  assert.match(standard, /short answer is not permission to skip verification/);
+  assert.match(standard, /review requested, not approved or live/);
+});
 test('marketplace installs the existing root plugin without duplicating metadata', () => {
   const marketplace = JSON.parse(read('.claude-plugin/marketplace.json'));
   const plugin = JSON.parse(read('.claude-plugin/plugin.json'));
@@ -27,7 +44,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.16.0');
+  assert.equal(manifest.version, '0.16.1');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

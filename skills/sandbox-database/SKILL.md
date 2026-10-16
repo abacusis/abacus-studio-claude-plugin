@@ -5,6 +5,7 @@ user-invocable: false
 ---
 
 This is an internal development capability, not a client menu command.
+Read and apply [Client communication](../../references/client-communication.md) completely.
 Read [Sandbox migrations](../../references/changes/migrate.md) completely before
 acting. Resolve scripts against `${CLAUDE_PLUGIN_ROOT}/scripts/`.
 Prepare new migration files in the selected client repository. Studio needs

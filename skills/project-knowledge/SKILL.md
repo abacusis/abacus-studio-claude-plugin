@@ -6,6 +6,8 @@ user-invocable: false
 
 # Application knowledge
 
+Read and apply [Client communication](../../references/client-communication.md) completely.
+
 Use the selected app ID returned by Studio or its verified workspace metadata.
 Do not search the computer for other projects or substitute an app. Resolve
 `scripts/studio_git.py` against `${CLAUDE_PLUGIN_ROOT}` and use the setup helper

@@ -12,6 +12,7 @@ class ReleaseTests(unittest.TestCase):
     def test_distribution_excludes_local_files(self):
         names = {p.relative_to(Path(__file__).parents[1]).as_posix() for p in release.release_files(Path(__file__).parents[1])}
         self.assertIn('.claude-plugin/marketplace.json', names)
+        self.assertIn('agents/spec-writer.md', names)
         self.assertNotIn('.claude/settings.local.json', names)
         self.assertFalse(any('__pycache__' in name or name.endswith('.pyc') for name in names))
 
@@ -30,6 +31,7 @@ class ReleaseTests(unittest.TestCase):
                 self.assertIn('LICENSE', archive.namelist())
                 self.assertIn('THIRD_PARTY_NOTICES.md', archive.namelist())
                 self.assertIn('skills/engineering/SKILL.md', archive.namelist())
+                self.assertIn('agents/spec-writer.md', archive.namelist())
                 self.assertIn('skills/security/SKILL.md', archive.namelist())
                 self.assertIn('skills/project-knowledge/SKILL.md', archive.namelist())
                 self.assertIn('references/security/review.md', archive.namelist())

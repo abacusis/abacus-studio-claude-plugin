@@ -2,6 +2,39 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+test('Engineering loads coordination with honest limits and complete responsibilities', () => {
+  assert.match(read('skills/engineering/SKILL.md'), /\[Coordinator workflow\]\(\.\.\/\.\.\/references\/engineering\/orchestration\.md\)/);
+  const guide = read('references/engineering/orchestration.md');
+  for (const role of ['Orchestrator', 'Spec Writer', 'Builder', 'Verification Specialist', 'Code Reviewer', 'Security Reviewer', 'UI Reviewer', 'UX Reviewer', 'Readiness Reviewer']) assert.ok(guide.includes(role), role);
+  for (const phrase of ['Classify by consequences, not file count', 'no mandatory classification questionnaire', 'Do not spawn specialist', 'two correction rounds', 'Needs human input', 'Source inspection does not', 'HEAD', 'not installed agents', 'not a publishing Approver']) assert.ok(guide.toLowerCase().includes(phrase.toLowerCase()), phrase);
+  assert.match(guide, /Execution depends on the local Claude session/);
+  assert.match(guide, /summarize the scope and proceed/);
+  assert.match(guide, /Saving and publishing/);
+  assert.match(read('references/engineering/specification.md'), /do not add a mandatory approval pause/);
+  assert.match(read('references/engineering/orchestration-testing.md'), /not model compliance/);
+});
+test('Spec Writer is the only bundled specialist and has a read-only handoff', () => {
+  assert.deepEqual(readdirSync(new URL('../agents/', import.meta.url)).sort(), ['spec-writer.md']);
+  const agent = read('agents/spec-writer.md');
+  const frontmatter = agent.split('---')[1];
+  assert.match(frontmatter, /^name: spec-writer$/m);
+  assert.match(frontmatter, /^tools: Read, Grep, Glob$/m);
+  assert.match(frontmatter, /^model: inherit$/m);
+  assert.match(frontmatter, /^maxTurns: 20$/m);
+  assert.match(agent, /If a required instruction file is inaccessible, return blocked/);
+  assert.doesNotMatch(frontmatter, /permissionMode|hooks|mcpServers|memory|skills/);
+  for (const phrase of ['Do not write even specification files', 'Do not assume you inherit', 'unavailable knowledge', 'UI considerations and UX considerations', 'explicitly planned, not run', 'Never read .env']) {
+    assert.ok(agent.includes(phrase), phrase);
+  }
+  const coordinator = read('references/engineering/orchestration.md');
+  assert.match(coordinator, /Invoke the installed namespaced `abacus-studio:spec-writer`/);
+  assert.match(coordinator, /If unavailable or denied/);
+  assert.match(coordinator, /Wait for its result/);
+  assert.match(coordinator, /Only Spec Writer is an installed specialist/);
+  assert.match(coordinator, /Do not paste the agent's full draft into chat by default/);
+  assert.match(read('references/client-communication.md'), /aim for 2–4 sentences/);
+  assert.match(coordinator, /never collapse them into a single/);
+});
 test('every bundled skill loads the shared client communication standard', () => {
   const root = new URL('../skills/', import.meta.url);
   const skills = readdirSync(root).filter(name => existsSync(new URL(`${name}/SKILL.md`, root)));
@@ -44,7 +77,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.16.1');
+  assert.equal(manifest.version, '0.17.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

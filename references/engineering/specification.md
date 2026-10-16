@@ -19,9 +19,11 @@ traceability. Include relevant failure/permission cases and explicit non-goals.
 Do not invent numeric targets: outcomes may be verifiable behavior rather than
 unsupported performance promises.
 
-Show the draft and obtain confirmation of consequential requirements before
-implementing a substantial feature. Previously confirmed requirements need not
-be approved repeatedly. Planning-only requests stop at the requested artifact;
+For a clear, authorized implementation request, summarize the requirements and
+proceed; do not add a mandatory approval pause. Ask for confirmation when an
+unanswered question materially changes behavior, scope, or a current agreement.
+Previously confirmed requirements need not be approved repeatedly.
+Planning-only requests stop at the requested artifact;
 approval of a plan alone is not permission to build, migrate, submit, or publish.
 
 ## 2. Decide how it fits

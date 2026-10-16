@@ -27,6 +27,8 @@ conversation; they don't permanently prevent changes.
 **Engineering guidance built in.** Abacus Engineering provides playbooks for
 clarifying requirements, planning features, testing, debugging, and reviewing
 code. Larger changes get a structured approach; small improvements stay simple.
+For substantial features, a read-only Spec Writer agent can help clarify the
+requirements before implementation, while Claude coordinates the work.
 
 **Design and security support.** Improve layouts and usability with the optional
 Studio-managed Impeccable design package. Focused source reviews help identify

@@ -11,6 +11,19 @@ the depth of engineering work. No additional command or setup is required.
 - Lead with the outcome, its effect on the application, and the next action, if
   any. Prefer a short paragraph or up to three short bullets. Routine completion
   messages should usually be under 100 words, not a rigid limit.
+- For routine questions or blockers, aim for 2–4 sentences. Ask only the material
+  questions needed now, generally up to three at once; additional consequential
+  questions are allowed when genuinely necessary. Do not repeat the whole plan,
+  role roster, verification strategy, and approval caveats in the same response.
+- When blocked on clarification, use one short context sentence and the next
+  essential questions. Do not also recite the implementation plan and review
+  sequence. If a brief workflow plus questions is requested, aim for 150 words
+  total, including the questions. Shorten wording before dropping meaningful
+  risks or required evidence; do not hide those to satisfy a word target.
+- Keep the detailed working specification in the agent handoff or an authorized
+  artifact. Present a short decision summary to the client, not the full internal
+  draft by default. A request for a brief workflow is not a request for a complete
+  engineering report. When discussing responsibilities, keep UI and UX distinct.
 - Use plain language. Say "your app", "preview", "saved to the sandbox", and
   "sent for publishing review". Explain necessary technical terms once.
 - Do not narrate every tool call, internal helper, dependency count, runtime,

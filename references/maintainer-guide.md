@@ -5,6 +5,12 @@ Client introduction: [README](../README.md). Release checklist:
 
 ## Capability references
 
+- [Coordinator workflow — Steps 1 and 2](engineering/orchestration.md): local main-session
+  coordination, role selection, evidence, bounded correction, and readiness.
+  One read-only Spec Writer agent is bundled; other specialists, hooks, dashboard,
+  and progress upload are not implemented yet. The agent inherits the session model.
+  See [manual acceptance checks](engineering/orchestration-testing.md).
+
 - [Client communication](client-communication.md): every bundled skill loads the
   plain-language standard. This is model guidance, not a global output filter.
 - [Application code map](engineering/code-map.md): optional pinned Graphify runtime,

@@ -9,17 +9,23 @@ Read and apply [Client communication](../../references/client-communication.md) 
 
 Use this skill automatically when the development task fits, or explicitly through `/abacus-studio:engineering`. The user does not need to learn separate testing or debugging commands.
 
+For application changes, read [Coordinator workflow](../../references/engineering/orchestration.md)
+completely before planning or implementing. It defines focused, structured, and
+sensitive approaches and the full team responsibilities. Step 2 adds the read-only
+`abacus-studio:spec-writer` agent for structured/sensitive planning. Other specialist
+agents and a progress dashboard are not shipped yet. Do not pretend they ran.
+
 For a configured Studio application, use `abacus-studio:project-knowledge` before
 planning or changing behavior so relevant prior decisions inform the work. Report
 unavailable knowledge honestly; do not treat missing context as an empty library.
-
-Choose only the relevant playbooks and read them completely before applying them:
 
 For substantial changes, unfamiliar modules, or dependency/impact investigation,
 read [Application code map](../../references/engineering/code-map.md). When Studio
 enables it, query the local map to locate related code, then read the source.
 Do not use mapping for connection status or every trivial edit. Mapping is optional;
 if disabled, busy, stale, or unavailable, continue with ordinary source searches.
+
+Choose only the relevant playbooks and read them completely before applying them:
 
 - Unclear feature requirements or business terminology: [Planning](../../references/engineering/planning.md).
 - Substantial features or explicit specs: [Specification-driven planning](../../references/engineering/specification.md), with agreement, tasks, and acceptance evidence.

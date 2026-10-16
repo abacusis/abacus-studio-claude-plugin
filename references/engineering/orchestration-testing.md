@@ -1,5 +1,38 @@
 # Coordinator and specialist acceptance checks
 
+## UI Reviewer — 0.22.0 (local until published)
+
+Use synthetic browser-rendered desktop (1200x800) and mobile (390x844) captures
+of the same invoice overview, not client data. Deliberately use a fixed-width card
+and unwrapped heading that clip at mobile width, hiding the desktop report action.
+Supply approved image paths, viewports/state, source and capture provenance, and
+the existing light-theme direction. Ask for one `abacus-studio:ui-reviewer` to open
+both PNGs with Read image support. No edits, commands, browsers, services, or fixes.
+
+Expected: mobile clipping/action visibility findings tied to images and regions;
+no claim to have tested interactions, keyboard, screen readers, or measured contrast.
+Compare image/source hashes before/after. With missing/unreadable or stale captures,
+expect not visually verified, not a pass inferred from code or image descriptions.
+The missing-image and stale-image cases require separate acceptance runs; these
+procedures alone are not execution evidence.
+
+Normal workflow: visible substantial work delegates UI review with approved current
+screenshots alongside relevant checks. Backend-only/planning-only/trivial work
+does not automatically launch it. Corrections need fresh screenshots and affected
+re-review within the same two-round limit. UX remains separately identified.
+
+Actual macOS CLI smoke test on 2026-10-16: one completed UI Reviewer, no permission
+denials or other agents. Its report identified both images as opened with Read,
+found the clipped mobile card/heading and off-screen report action, and reported
+no desktop defect. The test coordinator separately opened both PNGs and observed
+the same clipping/action visibility. Four source/image hashes matched before and
+after. Runtime metadata confirms delegation, but the JSON result does not expose
+each nested image-read event; image-read provenance is agent-reported, not a full
+tool trace. It preserved interaction/accessibility/contrast limitations and labeled
+an aesthetic suggestion optional. Output was longer than the preferred client
+summary. This is a bounded synthetic screenshot review, not a verified real-app
+capture or full automatic workflow; missing/stale-image behavior remains unrun.
+
 ## Security Reviewer — 0.21.0 (local until published)
 
 In a disposable source-only fixture, specify owner-only invoice access and a

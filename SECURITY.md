@@ -46,6 +46,10 @@ edits and unapproved data writes; host permissions remain the execution boundary
 A separate agent is not human approval or a security certification.
 
 The Code Reviewer has only Read, Grep, and Glob tools: no shell or file editing.
+The UI Reviewer uses those reading tools to inspect approved local screenshots;
+it cannot capture images, browse, run scripts, or edit the app. Screenshots may
+contain sensitive information and reading them can send pixels to the AI provider.
+No screenshot inspection implies full accessibility, UX, or publishing approval.
 The Security Reviewer uses the same restricted tool list for source-only analysis;
 it cannot run attacks or tests, probe services, or remediate findings. Source-only
 candidates stay Needs validation without severity unless independent evidence

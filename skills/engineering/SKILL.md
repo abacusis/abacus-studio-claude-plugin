@@ -13,7 +13,8 @@ For application changes, read [Coordinator workflow](../../references/engineerin
 completely before planning or implementing. It defines focused, structured, and
 sensitive approaches and the full team responsibilities. The installed specialists
 are `abacus-studio:spec-writer`, `abacus-studio:builder`, `abacus-studio:verifier`,
-`abacus-studio:code-reviewer`, and `abacus-studio:security-reviewer`. UI, UX, and readiness agents and a
+`abacus-studio:code-reviewer`, `abacus-studio:security-reviewer`, and
+`abacus-studio:ui-reviewer`. UX and readiness agents and a
 progress dashboard are not shipped yet.
 
 For structured or sensitive features, you MUST delegate the specification to
@@ -34,6 +35,20 @@ an independent reviewer. Apply the same honest unavailable/denied fallback rules
 For visible changes, read [Local browser verification](../../references/engineering/browser-verification.md)
 and use an approved host browser or the approved managed fallback. Screenshots
 must actually be inspected with an image-capable tool before a visual pass.
+
+For visible structured/sensitive changes, you MUST also delegate to
+`abacus-studio:ui-reviewer` with current desktop/mobile screenshot paths,
+viewport/state/capture/source metadata, changed scope, and relevant design guidance.
+Read [UI review](../../references/engineering/ui-review.md). The reviewer must open
+images itself; no screenshot description or source-only visual pass. Missing or
+stale images stay not visually verified. It cannot browse, capture, edit, or run
+Impeccable scripts. The coordinator captures through approved browser tools and
+may supply relevant Studio-pinned design guidance. Missing optional Impeccable
+does not block basic visual review. Wait for relevant results, consolidate with
+other checks, and request fresh captures after fixes within the existing two-round
+limit. No full-team ceremony for trivial edits or backend-only changes. Review-only
+requests do not authorize fixes. Apply honest unavailable/denied fallback rules;
+UI review is not the future UX Reviewer's flow validation.
 
 After structured/sensitive implementation, you MUST delegate to
 `abacus-studio:verifier` with accepted criteria, current source state, relevant diff,

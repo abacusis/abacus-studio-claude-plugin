@@ -1,4 +1,4 @@
-# Coordinate the development workflow — Steps 1 through 6
+# Coordinate the development workflow — Steps 1 through 7
 
 The main Claude Code conversation is the local coordinator. Read this playbook
 before planning or implementing an application change through Engineering.
@@ -7,12 +7,13 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-The coordinator remains the main conversation. Five specialist agents are installed:
+The coordinator remains the main conversation. Six specialist agents are installed:
 `abacus-studio:spec-writer` with read-only tools and `abacus-studio:builder` with
 scoped development tools subject to host permissions, plus `abacus-studio:verifier`
 for evidence-based checking without application edits, and read-only
 `abacus-studio:code-reviewer` for engineering review, plus read-only
-`abacus-studio:security-reviewer` for security boundaries. Delegate structured or
+`abacus-studio:security-reviewer` for security boundaries and
+`abacus-studio:ui-reviewer` for actual screenshot inspection. Delegate structured or
 sensitive specification work to it when the host allows delegation. This is
 required even for planning-only features; do not silently substitute your own
 draft while that agent and delegation tool are available. The host may expose
@@ -98,7 +99,7 @@ chat when sufficient. Never rewrite an accepted requirement to fit the result.
 
 ## 3. Map responsibilities to this change
 
-Only Spec Writer, Builder, Verification Specialist, Code Reviewer, and Security Reviewer are installed specialist agents. The remaining roles
+Only Spec Writer, Builder, Verification Specialist, Code Reviewer, Security Reviewer, and UI Reviewer are installed specialist agents. The remaining roles
 are responsibility areas performed by the coordinator, not installed agents.
 Do not claim independent reviewer execution or launch the whole roster for a
 focused edit.
@@ -144,6 +145,22 @@ Visible changes need [local browser verification](browser-verification.md): a
 current approved preview, relevant assertions/flows, desktop/mobile screenshots,
 and actual image inspection. Use host tools or the separately approved fallback;
 missing browser/authentication/image support stays not verified, not a pass.
+
+For visible structured/sensitive work invoke `abacus-studio:ui-reviewer` using
+[UI review](ui-review.md). Supply actual approved screenshots, desktop/mobile
+viewport and screen/state, capture time, current source including local edits,
+accepted design agreements, and optional project-local design excerpts. It must
+open each image itself. Missing image support or stale evidence means not visually
+verified, not a source-inferred pass. It cannot capture, browse, run scripts, or
+edit. The coordinator handles approved capture and any user sandbox sign-in.
+Missing optional Impeccable does not block basic visual review. Explicit visual
+review-only requests can use the agent without Builder; backend-only, planning-only
+and trivial edits do not automatically launch it. Disclose unavailable/denied/failed
+delegation. Findings need image/region/viewport evidence; UI is not UX validation.
+Review can run alongside other checks against the same stable source. Wait for
+relevant results; fixes require refreshed images and affected re-review within the
+same two-round correction limit. Never claim uninspected states or accessibility
+compliance from screenshots alone.
 
 After structured/sensitive implementation, invoke `abacus-studio:verifier` with the
 accepted spec/version and criterion IDs, workspace, current source identity and

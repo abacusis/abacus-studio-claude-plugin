@@ -5,9 +5,9 @@ Client introduction: [README](../README.md). Release checklist:
 
 ## Capability references
 
-- [Coordinator workflow — Steps 1 through 6](engineering/orchestration.md): local main-session
+- [Coordinator workflow — Steps 1 through 7](engineering/orchestration.md): local main-session
   coordination, role selection, evidence, bounded correction, and readiness.
-  Spec Writer, Builder, Verifier, Code Reviewer, and source-only Security Reviewer agents are bundled; other specialists, quality-check hooks, dashboard,
+  Spec Writer, Builder, Verifier, Code Reviewer, Security Reviewer, and UI Reviewer agents are bundled; other specialists, quality-check hooks, dashboard,
   and progress upload are not implemented yet. The agent inherits the session model.
   See [manual acceptance checks](engineering/orchestration-testing.md).
 

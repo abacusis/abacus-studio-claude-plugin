@@ -109,5 +109,6 @@ timeouts, or blocked resources must not become a passing result.
 
 Use the existing correction limit, then return unresolved findings to the
 coordinator. Builder evidence is not independent verification or publishing
-approval. No Verification, UI, or UX agent is bundled in Step 3; the coordinator
-performs those responsibilities honestly until their separately approved steps.
+approval. Verifier and UI Reviewer are now installed; the latter opens approved
+screenshots itself but cannot capture or use a browser. UX remains a coordinator
+responsibility until its separately approved agent is implemented.

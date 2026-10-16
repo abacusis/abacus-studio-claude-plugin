@@ -18,7 +18,13 @@ When the user describes a design goal, select the appropriate workflow from
 Impeccable's instructions. Do not require subcommands.
 Claude can also use Impeccable directly when the user's design request fits.
 
-If the package is missing, explain that Studio setup must install the enabled
+For a bounded screenshot-only review, the coordinator can use the installed
+`abacus-studio:ui-reviewer` and bundled UI review playbook without running a full
+Impeccable audit or making design changes. Supply approved current images and
+relevant project design guidance; missing optional Impeccable does not prevent
+basic visual review. Actual design work still follows the pinned package above.
+
+For actual design work, if the package is missing, explain that Studio setup must install the enabled
 design package. Do not fetch an arbitrary latest version or install global skills.
 If another Impeccable installation wins name resolution, use the project-local
 instructions explicitly so this workflow uses Studio's pinned version.

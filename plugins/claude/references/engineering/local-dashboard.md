@@ -95,7 +95,7 @@ Submit changes and Request publish queue only those two allowlisted intents in
 local metadata. They do NOT run Git/SQL/commands or send a message to Claude.
 The client returns to Claude and sends Continue; the next UserPromptSubmit hook
 delivers the request once. Follow the existing Submit/Request publish workflow,
-with its required checks and separate approvals. The click is not commit/push or
+with its required checks and request-scoped authorization. The click is not commit/push or
 publishing approval. Delivered is not executed/succeeded. If hooks are unavailable,
 ask Claude directly with the existing command; do not launch a new headless session
 or bypass approvals. Pause, live question answering, cloud backup/release status

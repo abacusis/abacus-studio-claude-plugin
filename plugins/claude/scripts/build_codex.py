@@ -75,11 +75,20 @@ def render(root, sources):
                   'two directories above its directory. Substitute that real path in commands; '
                   'it is not an environment variable. Skill references name packaged workflows, '
                   'not a Claude Skill tool. Read references/codex/delegation.md before any '
-                  'specialist handoff; role names are procedures, not installed agent profiles.\n\n')
+                  'specialist handoff; use approved project-scoped Abacus profiles when available.\n\n')
         body = body.replace('The request is: $ARGUMENTS', 'Use the current user request as the input.')
         value = f'---\nname: abacus-{name}\ndescription: {translate(description)}\n---\n\n' + header + body
         if name == 'engineering':
             value = sources['adapters/codex/engineering.md'].read_text()
+        if name == 'setup':
+            value += ('\n## Codex project specialists\n\n'
+                      'Include eight project-scoped Abacus agent profiles in the local setup approval. '
+                      'After the workspace is created, run `python3 -I "<plugin-root>/scripts/codex_agents.py" '
+                      '--workspace "<absolute workspace>" --approved`. This installs only owned '
+                      '`.codex/agents/abacus-*.toml` files and a local receipt; no global configuration, '
+                      'model changes, or hook-trust changes. Existing conflicting profiles are preserved. '
+                      'Open a new Codex session in the workspace to discover the profiles. Existing '
+                      'workspaces can use this same approved refresh without recloning.\n')
         output[f'skills/abacus-{name}/SKILL.md'] = value.encode()
         # Codex supplies the plugin label; do not repeat the brand in skill titles.
         interface = ('interface:\n'
@@ -91,7 +100,7 @@ def render(root, sources):
         output[f'skills/abacus-{name}/agents/openai.yaml'] = interface.encode()
     for role in ROLES:
         body = translate(strip_frontmatter(sources[f'agents/{role}.md'].read_text()))
-        prefix = ('Codex role procedure, not an installed custom-agent profile.\n'
+        prefix = ('Codex specialist instructions, also used by approved project-scoped profiles.\n'
                   'Read references/codex/delegation.md. Map allowed operations to host tools '
                   'without expanding permissions; these instructions are not a tool sandbox.\n\n')
         output[f'roles/{role}.md'] = (prefix + body).encode()
@@ -103,8 +112,9 @@ def render(root, sources):
     end = workflow.index('### Spec Writer handoff', start)
     workflow = workflow[:start] + (
         '## Current capability boundary\n\nRead [Codex delegation](../codex/delegation.md) first. '
-        'Eight specialist procedures are bundled in roles/, not registered custom-agent profiles. '
-        'Use the host\'s available authorized delegation with complete role instructions. '
+        'Eight specialist procedures are bundled in roles/. Approved Setup installs project-scoped '
+        'abacus-<role> profiles. Use those exact names only when available in the current session; '
+        'otherwise use authorized native delegation with complete role instructions. '
         'If unavailable or forbidden, disclose a main-conversation fallback; do not pretend '
         'a separate agent ran. Read-only scopes are behavioral constraints, not enforced tool '
         'allowlists. Local execution depends on this session. Optional trusted hooks provide '
@@ -126,23 +136,24 @@ def render(root, sources):
     events = ('SessionStart', 'UserPromptSubmit', 'SubagentStart', 'SubagentStop',
               'PreToolUse', 'PostToolUse', 'Interrupt', 'Stop', 'SessionEnd')
     hooks = {event: [{'hooks': [{'type': 'command',
-             'command': 'python3 -I "${PLUGIN_ROOT}/scripts/codex_hook.py"', 'timeout': 5}]}] for event in events}
+             'command': 'python3 -I "${PLUGIN_ROOT}/scripts/codex_hook.py"', 'timeout': 1 if event == 'Interrupt' else 5}]}] for event in events}
     output['hooks/hooks.json'] = (json.dumps({'hooks': hooks}, indent=2) + '\n').encode()
     install = sources['adapters/codex/INSTALL.md'].read_bytes()
     output['INSTALL.md'] = install
     output['TESTING.md'] = sources['adapters/codex/TESTING.md'].read_bytes()
-    output['RELEASE.md'] = (f'# Codex preview {version}\n\nTesting distribution generated from the shared Abacus Studio source. '
+    output['RELEASE.md'] = (f'# Codex adapter {version}\n\nDistribution generated from the shared Abacus Studio source. '
         'See INSTALL.md for installation and capabilities; TESTING.md separates '
         'executed checks from pending live acceptance. No remote publication, '
         'account installation or hook-trust approval is performed by this build.\n').encode()
-    output['README.md'] = (f'# Abacus Studio for Codex\n\nVersion {version}: testing preview.\n\n'
+    output['README.md'] = (f'# Abacus Studio for Codex\n\nVersion {version}.\n\n'
         'Build your software with AI, without doing it alone. Abacus Studio brings '
         'engineering playbooks, curated project decisions, optional mockups, security '
         'guidance and reviewed submission to your Codex workflow.\n\n'
         'Small changes stay focused. Substantial changes can use eight specialist '
-        'procedures through available authorized host delegation. They are not '
-        'registered custom-agent profiles. Native hook coverage and role attribution '
-        'vary by host; no full dashboard parity is claimed.\n\n'
+        'profiles installed locally during approved Setup. Named profiles use Codex '
+        'native delegation; trusted lifecycle hooks connect their recorded activity '
+        'to the local dashboard. Existing profiles and global settings are preserved. '
+        'See TESTING.md for executed checks and remaining live acceptance.\n\n'
         'See [Installation and testing](INSTALL.md). No automatic commits, pushes, '
         'merges or deployments. Readiness is not Abacus approval.\n').encode()
     # Fail closed on missed executable host references in model instructions.

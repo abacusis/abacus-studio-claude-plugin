@@ -237,7 +237,7 @@ def observe(payload):
                 db.execute('BEGIN IMMEDIATE') if not db.in_transaction else None
                 queued = db.execute('SELECT * FROM requests WHERE state="queued" ORDER BY time LIMIT 2').fetchall()
                 for req in queued:
-                    context += ' The user requested ' + ACTIONS[req['action']] + ' in the local dashboard. Follow that existing workflow with all its checks and separate approvals; this is not commit/push/publishing approval.'
+                    context += ' The user requested ' + ACTIONS[req['action']] + ' in the local dashboard. Follow that workflow and references/changes/authorization.md with all checks. This queued intent is not commit/push/publishing approval; use direct user authorization and do not repeat confirmations of already-authorized steps.'
                     db.execute('UPDATE requests SET state="delivered",session=? WHERE id=?', (sid, req['id']))
                 if queued:
                     event(db, sid, 'orchestrator', 'request', 'Dashboard workflow request delivered · not executed')

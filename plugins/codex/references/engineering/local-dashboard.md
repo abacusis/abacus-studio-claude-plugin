@@ -16,7 +16,9 @@ PreToolUse/PostToolUse, Interrupt, Stop and SessionEnd. It records only bounded
 metadata, never prompts, transcripts, commands, patches, reasoning or tool output.
 Codex shell tool events show a generic command action; their text is discarded.
 apply_patch events show an edit action but do not infer files or per-file counts
-from patch content. Only recognizable Abacus agent types can be role-attributed.
+from patch content. Native `abacus-<role>` profiles installed through Setup are
+role-attributed from their actual lifecycle events. Canonical Bash/Edit/Write and
+delegation callbacks are supported without retaining command or patch content.
 Codex generic workers may therefore be absent from the team map. Coordinator
 reports remain labeled as reports, not independently observed child execution.
 

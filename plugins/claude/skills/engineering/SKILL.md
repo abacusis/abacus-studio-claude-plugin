@@ -154,7 +154,7 @@ publishing. Return affected evidence for reassessment after authorized correctio
 
 Work only in the authorized client workspace. This skill grants no additional access or permission to mutate external systems. Do not read unrelated repositories or log secrets. Do not commit, push, create a PR, merge, or deploy as an automatic completion step.
 
-For saving changes, use the existing [Submit workflow](../../references/changes/submit.md), preserving fetch-first, conflict approval, configured checks, and push confirmation. For publishing review, use `/abacus-studio:request-publish`. Database migrations and Edge Functions must use the existing `abacus-studio:sandbox-database` skill and its reviewed Studio workflow; a sandbox is not permission to bypass approval.
+For saving changes, use the existing [Submit workflow](../../references/changes/submit.md), preserving fetch-first, conflict approval and configured checks. A direct Submit request covers commit/check/push; “submit and publish” also covers the review PR without repeated confirmations. For publishing review, use `/abacus-studio:request-publish`. Database migrations and Edge Functions must use the existing `abacus-studio:sandbox-database` skill and its reviewed Studio workflow; a sandbox is not permission to bypass approval.
 
 Keep project-specific facts in project documentation, not in this plugin. Report changed behavior, verified checks, and any remaining gaps. Local review is not Abacus approval or a production security certification.
 

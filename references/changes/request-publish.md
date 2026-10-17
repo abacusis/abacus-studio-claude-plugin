@@ -6,6 +6,10 @@ disable-model-invocation: true
 
 # Request publish
 
+Read [Submission authorization](authorization.md). A direct review request or
+the publish part of “submit and publish” authorizes opening the reviewed PR;
+routine wording and comparison review do not require another confirmation.
+
 This is distinct from Submit: Submit saves commits on the client development
 branch. Request publish opens a PR to Studio's configured client release branch.
 Never push directly to the release branch, merge the PR, or invoke deployment.
@@ -13,7 +17,8 @@ Never push directly to the release branch, merge the PR, or invoke deployment.
 1. Use the setup interpreter and selected authorized Git workspace. Run
    `studio_git.py publish-preview --project-id "<Studio ID>" --workspace "<absolute workspace>"`.
    It fetches first and refuses dirty or unsynchronized workspaces. If needed,
-   finish Submit separately with its own confirmations before continuing.
+   finish Submit first if included in the user's request. Otherwise ask whether
+   to submit outstanding local work; do not assume that authority.
 2. The backend verifies membership, separate private repository and distinct
    development/release branches. Opening the review PR does not require branch
    protection or a paid GitHub plan. Existing GitHub rules remain unchanged and
@@ -23,11 +28,14 @@ Never push directly to the release branch, merge the PR, or invoke deployment.
    branch-protection prerequisite or change repository rules or billing.
 3. If no changes exist, say so. If an open PR exists, show its link; do not duplicate
    it. Otherwise review the returned commit messages and file list, draft a factual
-   title and description, and ask the client to confirm the publish request.
+   title and description within the authorized scope and proceed without another
+   confirmation. Pause for unrelated or sensitive changes in the comparison.
    Describe this as a request for review, not a successful publication.
 4. Run `studio_git.py publish --project-id "<Studio ID>" --workspace "<absolute workspace>" --approved`
    with JSON on stdin containing ONLY title, description, expected_head and
    expected_base. Use exact SHAs from preview. Do not print secrets or call the
-   credential helper. If branches moved, refresh preview and obtain approval again.
+   credential helper. If branches moved, refresh and review using the bounded
+   retry in Submission authorization. Ask only for a material scope change,
+   conflict or other problem, not simply because the SHAs changed.
 5. Show the returned PR link and state that it awaits review. No merge/deploy occurs.
    Later sandbox pushes update the PR; reviewers must check its latest diff.

@@ -62,6 +62,7 @@ class CodexPackageTests(unittest.TestCase):
                 self.assertEqual(archive.read('skills/engineering/SKILL.md'), (ROOT / 'skills/engineering/SKILL.md').read_bytes())
                 self.assertEqual(archive.read('hooks/hooks.json'), (ROOT / 'hooks/hooks.json').read_bytes())
                 self.assertNotIn('.codex-plugin/plugin.json', archive.namelist())
+                self.assertEqual(archive.read('INSTALL.md'), (ROOT / 'adapters/claude/INSTALL.md').read_bytes())
 
     def test_host_paths_selected_by_installed_package_not_user_environment(self):
         self.assertFalse(plugin_runtime.is_codex())
@@ -104,6 +105,24 @@ class CodexPackageTests(unittest.TestCase):
 
 
 class CodexHookTests(unittest.TestCase):
+    def test_native_named_profiles_have_real_lifecycle_and_canonical_tools(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            subprocess.run(['git', 'init', '-q', str(root)], check=True)
+            (root / '.git/info/exclude').write_text('/.studio/\n')
+            local_dashboard.enable(root, approved=True)
+            base = {'cwd': str(root), 'session_id': 'native-test'}
+            codex_hook.handle(base | {'hook_event_name': 'UserPromptSubmit'})
+            for role in build_codex.ROLES:
+                child = base | {'agent_type': 'abacus-' + role, 'agent_id': role}
+                codex_hook.handle(child | {'hook_event_name': 'SubagentStart'})
+                codex_hook.handle(child | {'hook_event_name': 'PreToolUse', 'tool_name': 'Bash', 'tool_input': {'command': 'PRIVATE'}})
+                state = local_dashboard.snapshot(root)
+                self.assertTrue(any(row['role'] == role and row['invoked'] for row in state['agents']))
+                codex_hook.handle(child | {'hook_event_name': 'SubagentStop'})
+            self.assertNotIn('PRIVATE', json.dumps(local_dashboard.snapshot(root)))
+            self.assertEqual(codex_hook.adapt(base | {'hook_event_name':'PreToolUse','tool_name':'spawn_agent'})['tool_name'], 'Agent')
+
     def test_observation_is_opt_in_and_generic_workers_do_not_become_specialists(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

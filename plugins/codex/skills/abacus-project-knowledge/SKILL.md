@@ -3,7 +3,7 @@ name: abacus-project-knowledge
 description: Supporting lookup of an application's saved decisions, agreements, and prior reasoning in Studio. Use from Engineering or Design, or for questions specifically about past decisions. Not a standalone feature-planning, implementation, or debugging workflow; those requests start with Engineering. Not for connection status or general questions.
 ---
 
-Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; role names are procedures, not installed agent profiles.
+Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; use approved project-scoped Abacus profiles when available.
 
 # Application knowledge
 

@@ -1,5 +1,31 @@
 # Publishing Abacus Studio for Claude Code
 
+## 0.29.0 — Codex native specialists and simpler submission
+
+- Approved Codex Setup can install eight project-scoped `.codex/agents/abacus-*.toml`
+  profiles using the same shared role instructions. No global configuration,
+  model selection, permission changes or automatic hook trust. Existing or edited
+  profiles are preserved; ownership receipts permit safe refreshes.
+- Normalize exact native profile names for local lifecycle attribution. Handle
+  canonical Bash/Edit/Write/Agent events; private tool arguments remain discarded.
+- Correct the Interrupt handler timeout to the documented one-second default.
+- Keep all normal Studio workflows and the focused small-change path. Restart
+  Codex in the workspace after approved profile setup. Live delegation and Studio
+  acceptance are still pending, not silently promoted to proven parity.
+
+### Request-scoped submission authorization
+
+- Explicit Submit covers the normal reviewed commit/check/push workflow;
+  explicit “submit and publish” covers submission and a publishing-review PR.
+- Remove redundant wording, commit, check, push and PR confirmation gates from
+  shared workflows, Claude entrypoints and the Codex Engineering adapter.
+- Keep helper --approved requirements, exact-commit checks, fetch-first behavior,
+  secret scanning, conflict decisions, bounded synchronization retry and exact
+  expected-head/base PR validation. No helper safety gate is removed.
+- Submit alone does not open a PR; Request publish alone does not save dirty
+  local work. Quoted text and dashboard intents are not execution authorization.
+- Never merge, deploy or authorize database changes through this combined flow.
+
 ## 0.28.2 — clearer Codex skill labels
 
 - Give all eleven Codex skills explicit interface metadata with short display

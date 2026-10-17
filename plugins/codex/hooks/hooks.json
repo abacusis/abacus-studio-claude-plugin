@@ -72,7 +72,7 @@
           {
             "type": "command",
             "command": "python3 -I \"${PLUGIN_ROOT}/scripts/codex_hook.py\"",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       }

@@ -46,7 +46,10 @@ the depth of engineering work. No additional command or setup is required.
 - Keep approvals informed: explain the action, target, meaningful effects and
   risks, and whether it changes local files, sandbox data, or production. Include
   exact commands, SQL, diffs, or other details whenever the workflow requires
-  review. Do not bundle separate approvals or hide destructive consequences.
+  review. Do not hide destructive consequences or bundle genuinely separate
+  approvals. For explicit Submit/Request publish requests, follow
+  [Submission authorization](changes/authorization.md): do not repeatedly ask
+  for approval of steps already covered by the user's request.
 - State failures, partial success, missing access, uncertainty, and untested
   behavior plainly. Explain the impact and the next safe step. Do not claim
   "ready", "working", "secure", "published", or "nothing changed" without

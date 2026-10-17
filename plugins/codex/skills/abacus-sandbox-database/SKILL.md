@@ -3,7 +3,7 @@ name: abacus-sandbox-database
 description: Use when a Studio-connected app needs a sandbox schema migration, including missing tables or columns and features requiring database changes.
 ---
 
-Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; role names are procedures, not installed agent profiles.
+Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; use approved project-scoped Abacus profiles when available.
 
 This is an internal development capability, not a client menu command.
 Read and apply [Client communication](../../references/client-communication.md) completely.

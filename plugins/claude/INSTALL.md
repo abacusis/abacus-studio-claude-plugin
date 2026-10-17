@@ -1,90 +1,87 @@
-# Abacus Studio for Claude Code
+# Get started with Abacus Studio in Claude Code
 
-## Install from GitHub
+Build and preview changes with AI. Save your progress when you want, and ask
+Abacus to review it for release when you are ready.
 
-The distribution repository is
-[`abacusis/abacus-studio-plugin`](https://github.com/abacusis/abacus-studio-plugin).
+You need Claude Code and access to your application in Studio. Using Codex?
+Follow the [Codex instructions](https://github.com/abacusis/abacus-studio-plugin/blob/main/adapters/codex/INSTALL.md) instead.
 
-Run these commands one at a time using the Claude Code CLI:
+## 1. Install
+
+Run these commands one at a time in Terminal, or ask Claude to run them for you:
 
 ```sh
 claude plugin marketplace add abacusis/abacus-studio-plugin
 claude plugin install abacus-studio@abacus-studio-marketplace
 ```
 
-Keep the `plugin` part of each command. These are CLI commands, not slash
-commands. If you are already chatting with Claude, ask it to run them and review
-the installation with you.
+Approve the installation, then restart Claude Code and open a new chat.
 
-Review the plugin and confirm installation for your user account. If Claude asks
-to reload plugins, follow that prompt. In Desktop, you can instead open the plugin
-manager and add this GitHub repository as a marketplace, then select Abacus Studio.
-If your Desktop version has no custom-marketplace entry, use the local Claude Code
-terminal commands above or the publisher's ZIP upload option.
+## 2. Connect
 
-You can also ask Claude:
+In Claude Code, enter:
 
-> Help me install Abacus Studio from abacusis/abacus-studio-plugin as a
-> plugin marketplace. Review what it installs with me, then help me connect to
-> Studio and set up my app. Ask me to complete browser sign-in myself.
+```text
+/abacus-studio:connect
+```
 
-A plain chat request does not bypass installation approval or browser sign-in.
-A private plugin repository requires GitHub access; a public plugin repository
-does not make your Studio apps or client repositories public.
+Sign in to Studio and complete the browser approval when prompted.
 
-## Connect and start
+## 3. Set up your application
 
-1. Run `/abacus-studio:connect`. It opens Studio browser approval automatically
-   for app access and local development. Complete that one approval yourself;
-   never paste passwords, tokens, or Supabase keys into chat. No `/mcp` is required.
-2. Choose **Abacus Studio → setup** in the plugin menu, or run
-   `/abacus-studio:setup`. Choose your app when prompted.
-3. Continue the guided setup and approve the folder and local commands.
-   Studio supplies the app's repository, branch and sandbox settings.
-4. `/abacus-studio:status` checks your Studio connection and role.
-5. Use `/abacus-studio:submit` to review and push changes to the client
-   development branch. Use `/abacus-studio:request-publish` to request a
-   separate publish PR. Neither command automatically merges or deploys.
+```text
+/abacus-studio:setup
+```
 
-Setup reuses the authorization; selecting an app does not require another consent.
-Git credentials stay in
-your OS credential store. An optional sandbox server key is written to the ignored
-local `.env`; local users and coding tools can read it. Production keys are never
-appropriate for this workflow.
+Choose your application and approve the setup. Claude prepares your local copy
+and opens a preview. Your live application stays unchanged.
 
-## Updates and existing ZIP installations
+## 4. Start working
 
-To sign in again, run `/abacus-studio:connect`. It resets the shared helper
-authorization and opens a new browser consent flow automatically.
-Use `/abacus-studio:disconnect` to revoke that shared authorization without
-signing in again. Neither
-action deletes your project files. Connect requires fresh Studio approval before
-listing apps. Older separately installed connectors remain independent.
+Just describe what you want to change. For example:
 
-Use Claude's plugin manager to refresh this marketplace and update the plugin.
-Automatic updates depend on your marketplace settings; they are not guaranteed
-merely by publishing a GitHub commit.
+> Add a confirmation message after saving.
 
-For a manual update, refresh the marketplace and then update the plugin:
+Try the result and ask for adjustments. You can say “keep it quick,” “go deeper,”
+or “show me a mockup first.”
+
+## 5. Save your progress
+
+```text
+/abacus-studio:submit
+```
+
+Or say: **“Submit my changes.”**
+
+Claude reviews the changes, runs the configured checks, and helps save them to
+your shared sandbox repository. This creates a recorded version you can return
+to, rather than leaving the work only on your computer. You do not have to be
+finished or ready to publish. It does not make the changes live.
+
+## 6. Ask Abacus to publish
+
+```text
+/abacus-studio:request-publish
+```
+
+Or say: **“Request publishing review.”**
+
+This sends your submitted changes to Abacus for review before release. It does
+not automatically publish them. Abacus helps review the work and coordinate the
+approved release.
+
+## Get the latest version
 
 ```sh
 claude plugin marketplace update abacus-studio-marketplace
 claude plugin update abacus-studio@abacus-studio-marketplace
 ```
 
-Run `/reload-plugins` after the update, or start a new session.
-See [Claude Code's update instructions](https://code.claude.com/docs/en/discover-plugins#keep-plugins-updated).
+Then restart Claude Code and open a new chat. If you installed using the previous
+`abacusis/abacus-studio-claude-plugin` address, GitHub redirects it to the current
+[repository](https://github.com/abacusis/abacus-studio-plugin); try updating normally.
 
-If you installed Abacus Studio from a ZIP, disable or uninstall that old copy before
-enabling the marketplace copy, so duplicate commands and connectors do not appear.
-Uninstalling the plugin is not a reason to delete your app workspace.
+## Need help?
 
-## Publisher checklist
-
-- Publish only this plugin package to the dedicated distribution repository.
-  Do not publish `.env`, `.studio`, `.claude`, credential files, or client app code.
-- Validate `.claude-plugin/marketplace.json` and the plugin with `claude plugin validate`.
-- Test marketplace installation in a separate Claude profile before sharing it.
-- Bump `.claude-plugin/plugin.json` for plugin releases, then publish a matching Git tag.
-- A marketplace install does not grant Studio access. Studio still checks each
-  user's app membership, enabled local development, and repository authorization.
+Use `/abacus-studio:status` to check your connection, or contact your Abacus team.
+Complete sign-in in the browser; never paste passwords or keys into chat.

@@ -3,7 +3,7 @@ name: abacus-setup
 description: Choose your app, clone its code, and open a local preview.
 ---
 
-Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; role names are procedures, not installed agent profiles.
+Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; use approved project-scoped Abacus profiles when available.
 
 Read and apply [Client communication](../../references/client-communication.md) completely.
 Read [Setup](../../references/workspace/setup.md) completely and follow it.
@@ -14,3 +14,7 @@ together, and preserve browser and execution requirements.
 Resolve scripts against `<plugin-root>/scripts/`.
 After verification, show the preview link and briefly explain Status, Design,
 Submit, and Request publish using their direct `$abacus-` commands.
+
+## Codex project specialists
+
+Include eight project-scoped Abacus agent profiles in the local setup approval. After the workspace is created, run `python3 -I "<plugin-root>/scripts/codex_agents.py" --workspace "<absolute workspace>" --approved`. This installs only owned `.codex/agents/abacus-*.toml` files and a local receipt; no global configuration, model changes, or hook-trust changes. Existing conflicting profiles are preserved. Open a new Codex session in the workspace to discover the profiles. Existing workspaces can use this same approved refresh without recloning.

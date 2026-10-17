@@ -10,6 +10,56 @@ README CI workflow checks changed-file coverage, and release packaging validates
 version and specialist introductions. Run `python3 scripts/check_readme.py`
 before handoff. These checks do not replace editorial review.
 
+## Tool adapter maintenance (not client setup)
+
+Client guides live at adapters/claude/INSTALL.md and adapters/codex/INSTALL.md.
+Root INSTALL.md is a short tool chooser. Both generated packages put their own
+guide at INSTALL.md in the package root; do not hand-edit generated copies.
+Keep them focused on installation, connection, setup, saving and publishing review.
+Do not put package building, developer acceptance tests or publisher checklists
+in those guides. The Codex adapter overview links to its adjacent client guide.
+
+Shared sources stay in skills/, agents/, references/ and scripts/. Codex's
+adapter renders them with scripts/build_claude.py; the root Codex marketplace
+selects plugins/claude. Codex uses scripts/build_codex.py and plugins/codex.
+Run `python3 scripts/generate_packages.py`, then `--check`; never hand-edit the
+generated distributions. Standalone ZIP catalogs select their own package root.
+
+For a local Codex test package, choose a new folder outside the checkout:
+
+```sh
+python3 scripts/build_release.py --target codex --output /absolute/new/abacus-studio-codex
+codex plugin marketplace add /absolute/new/abacus-studio-codex
+codex plugin add abacus-studio@abacus-studio-codex
+```
+
+Use an isolated profile for maintainer tests. Preserve the output folder and
+verify the installed skill source path and manifest, not just a source checkout.
+See adapters/codex/TESTING.md for executed evidence and pending acceptance.
+Exercise quick edits, planning-only and mockup-only requests, connection status,
+and optional dashboard tracking in disposable authorized projects with synthetic
+data. Live authorization, provisioning, migrations, submissions and publishing
+requests require separate in-scope integration tests. Unit tests do not establish
+those live services work.
+
+Codex specialist roles are procedures, not registered Codex agent profiles or
+enforced tool allowlists. Generic worker callbacks cannot be mapped to roles.
+Hook trust is separate; do not bypass it. Without trusted hooks, live observation
+and queued-action delivery are unavailable. Windows needs a suitable python3;
+do not claim unattended/cloud operation or dashboard parity. Detailed boundaries
+remain in adapters/codex/delegation.md and the generated TESTING.md.
+
+For older Codex sources pinned to the removed codex branch, re-register the
+marketplace once: `codex plugin marketplace remove abacus-studio-codex`, then
+the current GitHub marketplace-add and plugin-add commands from the client guide.
+This changes plugin registration, not application files. Do not remove a working
+default-branch installation simply because GitHub renamed its repository.
+For old ZIP copies, disable the duplicate before enabling a marketplace copy;
+never delete application workspaces as part of plugin replacement.
+
+Publisher checks and version/tag procedures stay in RELEASE.md. Keep credentials,
+environment files, caches and client application code out of every distribution.
+
 ## Capability references
 
 - [Coordinator workflow — Steps 1 through 9](engineering/orchestration.md): local main-session

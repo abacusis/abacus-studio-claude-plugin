@@ -120,6 +120,32 @@ class WorkflowTests(unittest.TestCase):
             self.run_action('prepare', description='Update config', approved=True)
         self.assertEqual(self.git.text('rev-parse', 'HEAD'), before)
 
+    def test_request_authorization_can_cover_prepare_check_and_push(self):
+        (self.root / 'app.txt').write_text('Client title\n')
+        self.run_action('status')
+        self.run_action('prepare', description='Update title', approved=True)
+        self.run_action('check', approved=True)
+        result = self.run_action('submit', approved=True)
+        self.assertEqual(result['commit'], self.command('rev-parse', 'sandbox', root=self.remote))
+        self.assertEqual(len([call for call in self.git.calls if call[0] == 'push']), 1)
+
+    def test_failed_configured_check_still_blocks_an_authorized_push(self):
+        (self.root / 'app.txt').write_text('Client title\n')
+        self.config['commands']['build'] = 'false'
+        self.run_action('prepare', description='Update title', approved=True)
+        with self.assertRaisesRegex(ValueError, 'configured build check failed'):
+            self.run_action('check', approved=True)
+        with self.assertRaises(ValueError):
+            self.run_action('submit', approved=True)
+        self.assertFalse(any(call[0] == 'push' for call in self.git.calls))
+
+    def test_workflow_still_requires_authorization(self):
+        (self.root / 'app.txt').write_text('Client title\n')
+        before = self.git.text('rev-parse', 'HEAD')
+        with self.assertRaises(ValueError):
+            self.run_action('prepare', description='Update title', approved=False)
+        self.assertEqual(self.git.text('rev-parse', 'HEAD'), before)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,7 +5,7 @@
 “I wish our software could do this.”
 
 Abacus Studio helps you turn that idea into a change you can see and test—using
-Claude Code, connected to your application and backed by Abacus's engineering
+Claude Code or Codex, connected to your application and backed by Abacus's engineering
 guidance and review process.
 
 Keep using the AI tool you know. Describe what you want, preview the results,
@@ -19,7 +19,7 @@ and work with Abacus to bring reviewed changes into your live application.
 Don't just ask AI to write code. Give it a process for understanding your app,
 planning the change, building it, and checking the result from different angles.
 
-Claude coordinates the work in your local session, bringing in the relevant
+Your AI tool coordinates the work in your local session, bringing in the relevant
 specialists for substantial changes. Small improvements stay small—you don't
 need to manage a team of agents or remember a command for each one.
 
@@ -49,7 +49,13 @@ your local Claude session and depend on available tools, approved access, and
 actual evidence. No screenshot means no visual pass; no executed check means no
 claim that it passed. Readiness to preview is never approval to publish.
 
-### What's new in 0.28.2
+### What's new in 0.29.0
+
+**Simpler saving and review requests.**
+Say “submit and publish” to authorize saving to sandbox and opening Abacus’s
+review request in one flow, without approving every intermediate step again.
+Checks, sensitive-file protection and conflict decisions remain. This never
+authorizes an automatic merge or deployment; host permission prompts still apply.
 
 Codex menu labels are clearer: skills use simple titles such as **Setup**,
 **Design**, and **Request Publish** under **Abacus Studio**, without repeating
@@ -68,24 +74,22 @@ A freshness check keeps both distributions synchronized with the playbooks and
 helpers. The same adapter pattern can support more tools after compatibility work;
 no other tool integration is included yet.
 
-Version 0.28.2 is available from `main` for both tools. Existing Codex installs
+Version 0.29.0 is available from `main` for both tools. Existing Codex installs
 pinned to the old `codex` branch need a one-time marketplace re-registration;
 see the [Codex installation instructions](adapters/codex/INSTALL.md).
 
 ### Recent improvements
 
-**The same engineering foundation, now prepared for Codex.** A separate local
-Codex preview package reuses the playbooks, project knowledge, workspace helpers
-and reviewed submission process. Keep using Claude Code, or test the Codex adapter
-without replacing your Claude installation. See [Codex preview setup](adapters/codex/INSTALL.md).
+**One workflow, in your preferred AI tool.** The Codex adapter shares Abacus's
+playbooks, project knowledge, setup, verification, Submit and Request publish
+workflows. See [Codex setup](adapters/codex/INSTALL.md).
 
-Codex uses its own skills and authorized native delegation, not Claude agent
-profiles. Optional trusted hooks provide local observation; generic Codex workers
-cannot yet be attributed to specialist roles in the dashboard. This is a local
-testing preview, not an OpenAI public-directory listing or a claim of full UI parity.
-
-Version 0.28.0 remains the published Claude release and Codex testing preview. See the
-[release packages](https://github.com/abacusis/abacus-studio-plugin/releases/tag/v0.28.0).
+**Named Codex specialists.** Version 0.29.0 adds eight native,
+project-scoped specialist profiles during approved setup. Their recorded activity
+can appear in the same local team dashboard, using trusted Codex hooks. Small
+changes still stay focused. Live client acceptance remains tracked in
+[Codex testing](adapters/codex/TESTING.md); successful packaging is not a claim
+that every live integration has been verified.
 
 **Try the idea before connecting the backend.** Ask for a mockup first, or let
 Claude suggest a clickable sample-data preview when the layout or flow is still
@@ -208,7 +212,7 @@ You'll need Claude Code and access to an application configured for local
 development in Abacus Studio. The public plugin does not grant access to any
 client's application, code, or data.
 
-Follow the [repository installation guide](INSTALL.md), which includes the full
+Follow the [Claude installation guide](adapters/claude/INSTALL.md), which includes the full
 `claude plugin` installation and update commands for `abacusis/abacus-studio-plugin`.
 Then run this in Claude Code:
 
@@ -218,6 +222,14 @@ Then run this in Claude Code:
 
 Setup guides you through sign-in, app selection, and approval of the local setup.
 After that, just describe what you'd like to change.
+
+Both the [Claude guide](adapters/claude/INSTALL.md) and [Codex guide](adapters/codex/INSTALL.md)
+walk through the same simple steps: install, connect, set up, build, save your
+progress, and request Abacus’s publishing review. No developer setup instructions
+are required to follow either guide.
+
+Installation guides live in matching `adapters/<tool>/INSTALL.md` locations.
+The [installation overview](INSTALL.md) helps you choose your tool.
 
 > “Help me add a sales dashboard showing monthly revenue and recent orders.”
 

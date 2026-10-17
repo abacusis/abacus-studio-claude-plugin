@@ -23,8 +23,12 @@ authorization. Planning-only never authorizes edits.
 
 For structured/sensitive work read [Coordinator workflow](../../references/engineering/orchestration.md)
 and [Codex delegation](../../references/codex/delegation.md). The main Codex
-conversation coordinates. Specialist procedures are files in `roles/`, not
-registered Claude agents. Use only the host's actually available, authorized
+conversation coordinates. Approved Setup installs eight project-scoped native
+profiles named `abacus-spec-writer`, `abacus-builder`, `abacus-verifier`,
+`abacus-code-reviewer`, `abacus-security-reviewer`, `abacus-ui-reviewer`,
+`abacus-ux-reviewer`, and `abacus-readiness-reviewer`. Prefer these when the current
+session lists them. The source instructions are in `roles/`; they are not Claude
+agents. Use only the host's actually available, authorized
 delegation tools. Supply the relevant role file completely and the scoped handoff.
 Never invent an agent type, change configuration, bypass a host restriction or
 launch a separate headless coding session to obtain delegation.
@@ -53,6 +57,8 @@ local and dependent on trusted supported hooks. Missing observation is not a
 working agent. Do not read transcripts to fill gaps or promise background recovery.
 
 Submit and Request publish remain separate authorized workflows through their
-packaged skills. Never automatically commit, push, open PRs, merge, deploy, run
+packaged skills. An explicit “submit and publish” request covers both in sequence
+without repeated confirmations; read references/changes/authorization.md.
+Submit alone does not open a PR. Never automatically commit, push, open PRs, merge, deploy, run
 migrations, or expand access. Reviewed sandbox changes use `abacus-sandbox-database`.
 Readiness is not human approval, a security certification or publishing permission.

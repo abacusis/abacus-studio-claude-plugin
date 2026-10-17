@@ -172,9 +172,31 @@ test('Claude marketplace selects its generated package with shared identity', ()
   assert.equal(marketplace.plugins[0].version, plugin.version);
   assert.equal(marketplace.plugins[0].description, plugin.description);
   assert.equal(marketplace.plugins[0].source, './plugins/claude');
-  assert.match(read('INSTALL.md'), /https:\/\/github.com\/abacusis\/abacus-studio-plugin/);
-  assert.match(read('INSTALL.md'), /claude plugin marketplace add abacusis\/abacus-studio-plugin/);
-  assert.match(read('INSTALL.md'), /abacus-studio@abacus-studio-marketplace/);
+  assert.match(read('adapters/claude/INSTALL.md'), /https:\/\/github.com\/abacusis\/abacus-studio-plugin/);
+  assert.match(read('adapters/claude/INSTALL.md'), /claude plugin marketplace add abacusis\/abacus-studio-plugin/);
+  assert.match(read('adapters/claude/INSTALL.md'), /abacus-studio@abacus-studio-marketplace/);
+});
+test('client installation guides share a simple journey without maintainer build steps', () => {
+  for (const [path, prefix] of [['adapters/claude/INSTALL.md', '/abacus-studio:'], ['adapters/codex/INSTALL.md', '$abacus-']]) {
+    const guide = read(path);
+    for (const action of ['connect', 'setup', 'submit', 'request-publish']) assert.ok(guide.includes(prefix + action), action);
+    assert.match(guide, /Submit my changes/);
+    assert.match(guide, /Request publishing review/);
+    assert.match(guide, /does not make the changes live/);
+    assert.match(guide, /does\s+not automatically publish/);
+    assert.doesNotMatch(guide, /build_release\.py|generate_packages\.py|Publisher checklist|Build a local test package/);
+  }
+  assert.match(read('adapters/codex/INSTALL.md'), /codex plugin add abacus-studio@abacus-studio-codex/);
+  assert.match(read('adapters/claude/README.md'), /\]\(INSTALL\.md\)/);
+  for (const tool of ['claude', 'codex']) assert.ok(read('INSTALL.md').includes(`adapters/${tool}/INSTALL.md`));
+});
+test('submission authorization is shared, scoped, and does not repeat stage confirmations', () => {
+  const authorization = read('references/changes/authorization.md').replace(/\s+/g, ' ');
+  for (const phrase of ['Submit and publish', 'Submit alone', 'failed/missing required checks', 'sensitive or blocked files', 'conflicts', 'one synchronization retry', 'Host-required permission', 'never merging']) assert.ok(authorization.includes(phrase), phrase);
+  for (const action of ['submit', 'request-publish']) assert.match(read(`references/changes/${action}.md`), /\[Submission authorization\]\(authorization\.md\)/);
+  assert.doesNotMatch(read('references/changes/submit.md'), /ask for explicit confirmation to push|Ask the client to approve the description/);
+  assert.doesNotMatch(read('references/changes/request-publish.md'), /own confirmations|obtain approval again|ask the client to confirm the publish request/);
+  assert.match(read('adapters/codex/engineering.md'), /references\/changes\/authorization\.md/);
 });
 test('migrations require per-file approval and never deliver management credentials', () => {
   const skill = read('references/changes/migrate.md');
@@ -188,7 +210,7 @@ test('migrations require per-file approval and never deliver management credenti
 test('Claude package uses one helper authorization without an extra connector', () => {
   const manifest = JSON.parse(read('.claude-plugin/plugin.json'));
   assert.equal(manifest.name, 'abacus-studio');
-  assert.equal(manifest.version, '0.28.2');
+  assert.equal(manifest.version, '0.29.0');
   const config = JSON.parse(read('.mcp.json'));
   assert.deepEqual(config.mcpServers, {});
   assert.equal(config.mcpServers['studio-local'], undefined);

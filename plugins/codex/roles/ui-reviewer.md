@@ -1,4 +1,4 @@
-Codex role procedure, not an installed custom-agent profile.
+Codex specialist instructions, also used by approved project-scoped profiles.
 Read references/codex/delegation.md. Map allowed operations to host tools without expanding permissions; these instructions are not a tool sandbox.
 
 # Abacus UI Reviewer

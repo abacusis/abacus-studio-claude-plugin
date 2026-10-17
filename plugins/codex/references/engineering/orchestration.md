@@ -14,7 +14,7 @@ replace them with a second planning system.
 
 ## Current capability boundary
 
-Read [Codex delegation](../codex/delegation.md) first. Eight specialist procedures are bundled in roles/, not registered custom-agent profiles. Use the host's available authorized delegation with complete role instructions. If unavailable or forbidden, disclose a main-conversation fallback; do not pretend a separate agent ran. Read-only scopes are behavioral constraints, not enforced tool allowlists. Local execution depends on this session. Optional trusted hooks provide routing and partial local observation, not an execution engine or recovery service.
+Read [Codex delegation](../codex/delegation.md) first. Eight specialist procedures are bundled in roles/. Approved Setup installs project-scoped abacus-<role> profiles. Use those exact names only when available in the current session; otherwise use authorized native delegation with complete role instructions. If unavailable or forbidden, disclose a main-conversation fallback; do not pretend a separate agent ran. Read-only scopes are behavioral constraints, not enforced tool allowlists. Local execution depends on this session. Optional trusted hooks provide routing and partial local observation, not an execution engine or recovery service.
 
 ### Spec Writer handoff
 

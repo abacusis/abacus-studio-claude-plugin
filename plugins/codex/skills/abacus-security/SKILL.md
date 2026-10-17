@@ -3,7 +3,7 @@ name: abacus-security
 description: Review application source and code changes for authentication, authorization, data isolation, injection, secret exposure, and other security boundary failures. Use for focused security questions or security-sensitive development; not live penetration testing or a complete application audit.
 ---
 
-Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; role names are procedures, not installed agent profiles.
+Resolve `<plugin-root>` from the absolute source path of this loaded skill: two directories above its directory. Substitute that real path in commands; it is not an environment variable. Skill references name packaged workflows, not a Claude Skill tool. Read references/codex/delegation.md before any specialist handoff; use approved project-scoped Abacus profiles when available.
 
 # Abacus Security
 

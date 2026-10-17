@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from local_dashboard import observe
+from codex_agents import ROLES
 
 ROUTING = (
     'Abacus Studio for Codex: for application planning, changes, debugging, tests '
@@ -27,9 +28,16 @@ def adapt(payload):
         return None
     clean = {k: payload[k] for k in ('cwd', 'session_id', 'agent_id', 'agent_type') if k in payload}
     clean['hook_event_name'] = 'StopFailure' if kind == 'Interrupt' else kind
+    # Native project profiles have an exact, generated name. Never guess a role
+    # from worker text, task names, timing, prompts or transcript content.
+    profile = payload.get('agent_type', '')
+    if profile in {'abacus-' + role for role in ROLES}:
+        clean['agent_type'] = 'abacus-studio:' + profile.removeprefix('abacus-')
     if kind in ('PreToolUse', 'PostToolUse'):
-        names = {'exec_command': 'Bash', 'shell_command': 'Bash', 'shell': 'Bash',
-                 'apply_patch': 'Edit', 'Read': 'Read', 'Grep': 'Grep', 'Glob': 'Glob'}
+        names = {'exec_command': 'Bash', 'shell_command': 'Bash', 'shell': 'Bash', 'Bash': 'Bash',
+                 'apply_patch': 'Edit', 'Edit': 'Edit', 'Write': 'Write',
+                 'Read': 'Read', 'Grep': 'Grep', 'Glob': 'Glob',
+                 'Agent': 'Agent', 'spawn_agent': 'Agent'}
         tool = names.get(payload.get('tool_name'))
         if not tool:
             return None

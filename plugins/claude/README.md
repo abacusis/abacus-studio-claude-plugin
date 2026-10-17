@@ -208,8 +208,8 @@ You'll need Claude Code and access to an application configured for local
 development in Abacus Studio. The public plugin does not grant access to any
 client's application, code, or data.
 
-Follow the [installation guide](https://studio.abacusis.ca/install/claude), then
-run this in Claude Code:
+Follow the [repository installation guide](INSTALL.md), which includes the full
+`claude plugin` installation and update commands. Then run this in Claude Code:
 
 ```text
 /abacus-studio:setup

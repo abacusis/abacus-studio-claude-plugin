@@ -5,12 +5,16 @@
 The distribution repository is
 [`abacusis/abacus-studio-claude-plugin`](https://github.com/abacusis/abacus-studio-claude-plugin).
 
-In a local Claude Code session, enter:
+Run these commands one at a time using the Claude Code CLI:
 
-```text
-/plugin marketplace add abacusis/abacus-studio-claude-plugin
-/plugin install abacus-studio@abacus-studio-marketplace
+```sh
+claude plugin marketplace add abacusis/abacus-studio-claude-plugin
+claude plugin install abacus-studio@abacus-studio-marketplace
 ```
+
+Keep the `plugin` part of each command. These are CLI commands, not slash
+commands. If you are already chatting with Claude, ask it to run them and review
+the installation with you.
 
 Review the plugin and confirm installation for your user account. If Claude asks
 to reload plugins, follow that prompt. In Desktop, you can instead open the plugin
@@ -61,12 +65,10 @@ Use Claude's plugin manager to refresh this marketplace and update the plugin.
 Automatic updates depend on your marketplace settings; they are not guaranteed
 merely by publishing a GitHub commit.
 
-To enable updates, run `/plugin`, open **Marketplaces**, select
-**abacus-studio-marketplace**, and choose **Enable auto-update**. Third-party
-marketplaces have this off by default. For a manual update, open the plugin on
-the **Installed** tab and select **Update now**, or run this in your terminal:
+For a manual update, refresh the marketplace and then update the plugin:
 
 ```sh
+claude plugin marketplace update abacus-studio-marketplace
 claude plugin update abacus-studio@abacus-studio-marketplace
 ```
 

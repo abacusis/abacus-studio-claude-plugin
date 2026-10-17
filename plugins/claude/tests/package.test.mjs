@@ -172,7 +172,8 @@ test('Claude marketplace selects its generated package with shared identity', ()
   assert.equal(marketplace.plugins[0].version, plugin.version);
   assert.equal(marketplace.plugins[0].description, plugin.description);
   assert.equal(marketplace.plugins[0].source, './plugins/claude');
-  assert.match(read('INSTALL.md'), /https:\/\/github.com\/abacusis\/abacus-studio-claude-plugin/);
+  assert.match(read('INSTALL.md'), /https:\/\/github.com\/abacusis\/abacus-studio-plugin/);
+  assert.match(read('INSTALL.md'), /claude plugin marketplace add abacusis\/abacus-studio-plugin/);
   assert.match(read('INSTALL.md'), /abacus-studio@abacus-studio-marketplace/);
 });
 test('migrations require per-file approval and never deliver management credentials', () => {

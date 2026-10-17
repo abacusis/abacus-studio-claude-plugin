@@ -85,7 +85,7 @@ cannot yet be attributed to specialist roles in the dashboard. This is a local
 testing preview, not an OpenAI public-directory listing or a claim of full UI parity.
 
 Version 0.28.0 remains the published Claude release and Codex testing preview. See the
-[release packages](https://github.com/abacusis/abacus-studio-claude-plugin/releases/tag/v0.28.0).
+[release packages](https://github.com/abacusis/abacus-studio-plugin/releases/tag/v0.28.0).
 
 **Try the idea before connecting the backend.** Ask for a mockup first, or let
 Claude suggest a clickable sample-data preview when the layout or flow is still
@@ -209,7 +209,8 @@ development in Abacus Studio. The public plugin does not grant access to any
 client's application, code, or data.
 
 Follow the [repository installation guide](INSTALL.md), which includes the full
-`claude plugin` installation and update commands. Then run this in Claude Code:
+`claude plugin` installation and update commands for `abacusis/abacus-studio-plugin`.
+Then run this in Claude Code:
 
 ```text
 /abacus-studio:setup

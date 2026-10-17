@@ -3,12 +3,12 @@
 ## Install from GitHub
 
 The distribution repository is
-[`abacusis/abacus-studio-claude-plugin`](https://github.com/abacusis/abacus-studio-claude-plugin).
+[`abacusis/abacus-studio-plugin`](https://github.com/abacusis/abacus-studio-plugin).
 
 Run these commands one at a time using the Claude Code CLI:
 
 ```sh
-claude plugin marketplace add abacusis/abacus-studio-claude-plugin
+claude plugin marketplace add abacusis/abacus-studio-plugin
 claude plugin install abacus-studio@abacus-studio-marketplace
 ```
 
@@ -24,7 +24,7 @@ terminal commands above or the publisher's ZIP upload option.
 
 You can also ask Claude:
 
-> Help me install Abacus Studio from abacusis/abacus-studio-claude-plugin as a
+> Help me install Abacus Studio from abacusis/abacus-studio-plugin as a
 > plugin marketplace. Review what it installs with me, then help me connect to
 > Studio and set up my app. Ask me to complete browser sign-in myself.
 

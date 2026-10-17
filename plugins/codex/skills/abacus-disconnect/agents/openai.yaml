@@ -1,2 +1,6 @@
+interface:
+  display_name: "Disconnect"
+  short_description: "Disconnect your Studio authorization"
+  default_prompt: "Use $abacus-disconnect for my application."
 policy:
   allow_implicit_invocation: false

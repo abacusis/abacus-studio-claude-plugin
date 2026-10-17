@@ -1,5 +1,15 @@
 # Publishing Abacus Studio for Claude Code
 
+## 0.28.2 — clearer Codex skill labels
+
+- Give all eleven Codex skills explicit interface metadata with short display
+  titles: Setup, Design, Engineering and the other actions. Codex supplies the
+  Abacus Studio namespace; skill labels no longer repeat the brand.
+- Preserve skill identifiers, invocation policy, authorization and Claude commands.
+- Regenerate both packages and test metadata, packaging and shared workflows.
+- Update: `codex plugin marketplace upgrade abacus-studio-codex`, then
+  `codex plugin add abacus-studio@abacus-studio-codex`; restart Codex afterward.
+
 ## 0.28.1 — one branch, consistent tool packages
 
 - Shared source remains on main; both distributions are generated at

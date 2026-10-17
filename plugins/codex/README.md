@@ -1,6 +1,6 @@
 # Abacus Studio for Codex
 
-Version 0.28.1: testing preview.
+Version 0.28.2: testing preview.
 
 Build your software with AI, without doing it alone. Abacus Studio brings engineering playbooks, curated project decisions, optional mockups, security guidance and reviewed submission to your Codex workflow.
 

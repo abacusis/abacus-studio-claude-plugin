@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design"
+  short_description: "Improve your application interface and usability"
+  default_prompt: "Use $abacus-design for my application."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering"
+  short_description: "Plan, build and verify application changes"
+  default_prompt: "Use $abacus-engineering for my application."

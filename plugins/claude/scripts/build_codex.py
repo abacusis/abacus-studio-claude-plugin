@@ -6,6 +6,19 @@ ROLES = ('spec-writer', 'builder', 'verifier', 'code-reviewer', 'security-review
          'ui-reviewer', 'ux-reviewer', 'readiness-reviewer')
 SKILLS = ('connect', 'disconnect', 'setup', 'status', 'submit', 'request-publish',
           'engineering', 'design', 'security', 'project-knowledge', 'sandbox-database')
+SKILL_DESCRIPTIONS = {
+    'connect': 'Sign in to Studio and choose your application',
+    'disconnect': 'Disconnect your Studio authorization',
+    'setup': 'Set up your application and local preview',
+    'status': 'Show your Studio connection and access role',
+    'submit': 'Review and save your changes to the client repository',
+    'request-publish': 'Request Abacus review before publishing',
+    'engineering': 'Plan, build and verify application changes',
+    'design': 'Improve your application interface and usability',
+    'security': 'Review application code for security concerns',
+    'project-knowledge': 'Find application decisions and project context',
+    'sandbox-database': 'Review and apply authorized sandbox database changes',
+}
 
 
 def translate(value):
@@ -68,8 +81,14 @@ def render(root, sources):
         if name == 'engineering':
             value = sources['adapters/codex/engineering.md'].read_text()
         output[f'skills/abacus-{name}/SKILL.md'] = value.encode()
+        # Codex supplies the plugin label; do not repeat the brand in skill titles.
+        interface = ('interface:\n'
+                     f'  display_name: {json.dumps(name.replace("-", " ").title())}\n'
+                     f'  short_description: {json.dumps(SKILL_DESCRIPTIONS[name])}\n'
+                     f'  default_prompt: {json.dumps("Use $abacus-" + name + " for my application.")}\n')
         if 'disable-model-invocation: true' in raw:
-            output[f'skills/abacus-{name}/agents/openai.yaml'] = b'policy:\n  allow_implicit_invocation: false\n'
+            interface += 'policy:\n  allow_implicit_invocation: false\n'
+        output[f'skills/abacus-{name}/agents/openai.yaml'] = interface.encode()
     for role in ROLES:
         body = translate(strip_frontmatter(sources[f'agents/{role}.md'].read_text()))
         prefix = ('Codex role procedure, not an installed custom-agent profile.\n'

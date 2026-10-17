@@ -1,2 +1,6 @@
+interface:
+  display_name: "Connect"
+  short_description: "Sign in to Studio and choose your application"
+  default_prompt: "Use $abacus-connect for my application."
 policy:
   allow_implicit_invocation: false

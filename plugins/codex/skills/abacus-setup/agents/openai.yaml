@@ -1,2 +1,6 @@
+interface:
+  display_name: "Setup"
+  short_description: "Set up your application and local preview"
+  default_prompt: "Use $abacus-setup for my application."
 policy:
   allow_implicit_invocation: false

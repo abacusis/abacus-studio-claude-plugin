@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security"
+  short_description: "Review application code for security concerns"
+  default_prompt: "Use $abacus-security for my application."

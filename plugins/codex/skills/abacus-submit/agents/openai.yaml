@@ -1,2 +1,6 @@
+interface:
+  display_name: "Submit"
+  short_description: "Review and save your changes to the client repository"
+  default_prompt: "Use $abacus-submit for my application."
 policy:
   allow_implicit_invocation: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sandbox Database"
+  short_description: "Review and apply authorized sandbox database changes"
+  default_prompt: "Use $abacus-sandbox-database for my application."

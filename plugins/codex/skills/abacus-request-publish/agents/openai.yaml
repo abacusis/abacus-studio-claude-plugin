@@ -1,2 +1,6 @@
+interface:
+  display_name: "Request Publish"
+  short_description: "Request Abacus review before publishing"
+  default_prompt: "Use $abacus-request-publish for my application."
 policy:
   allow_implicit_invocation: false

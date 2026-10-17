@@ -41,7 +41,13 @@ class CodexPackageTests(unittest.TestCase):
                              'scripts/browser_verification.py', 'scripts/install_skills.py', 'LICENSE', 'THIRD_PARTY_NOTICES.md'):
                     self.assertEqual(archive.read(path), (ROOT / path).read_bytes())
                 self.assertIn('skills/abacus-setup/agents/openai.yaml', names)
-                self.assertNotIn('skills/abacus-engineering/agents/openai.yaml', names)
+                for skill in build_codex.SKILLS:
+                    metadata = archive.read(f'skills/abacus-{skill}/agents/openai.yaml').decode()
+                    self.assertIn(f'display_name: "{skill.replace("-", " ").title()}"', metadata)
+                    self.assertNotIn('display_name: "Abacus', metadata)
+                    self.assertIn(f'Use $abacus-{skill}', metadata)
+                    self.assertEqual('allow_implicit_invocation: false' in metadata,
+                                     'disable-model-invocation: true' in (ROOT / f'skills/{skill}/SKILL.md').read_text())
                 catalog = json.loads(archive.read('.agents/plugins/marketplace.json'))
                 self.assertEqual(catalog['plugins'][0]['source']['path'], './')
                 self.assertEqual(catalog['plugins'][0]['policy']['authentication'], 'ON_USE')

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Knowledge"
+  short_description: "Find application decisions and project context"
+  default_prompt: "Use $abacus-project-knowledge for my application."

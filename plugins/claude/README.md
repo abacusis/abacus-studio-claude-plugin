@@ -49,7 +49,17 @@ your local Claude session and depend on available tools, approved access, and
 actual evidence. No screenshot means no visual pass; no executed check means no
 claim that it passed. Readiness to preview is never approval to publish.
 
-### What's new in 0.28.1
+### What's new in 0.28.2
+
+Codex menu labels are clearer: skills use simple titles such as **Setup**,
+**Design**, and **Request Publish** under **Abacus Studio**, without repeating
+the brand. Version 0.28.2 includes this naming cleanup;
+existing skill identifiers and Claude commands are unchanged.
+
+Refresh the Codex marketplace with `codex plugin marketplace upgrade abacus-studio-codex`,
+then run `codex plugin add abacus-studio@abacus-studio-codex` and restart Codex.
+
+### Shared packages on main
 
 **One repository, consistent packages for each tool.** Claude's package is
 generated in `plugins/claude` and Codex's in `plugins/codex`, both from shared
@@ -58,7 +68,7 @@ A freshness check keeps both distributions synchronized with the playbooks and
 helpers. The same adapter pattern can support more tools after compatibility work;
 no other tool integration is included yet.
 
-Version 0.28.1 is available from `main` for both tools. Existing Codex installs
+Version 0.28.2 is available from `main` for both tools. Existing Codex installs
 pinned to the old `codex` branch need a one-time marketplace re-registration;
 see the [Codex installation instructions](adapters/codex/INSTALL.md).
 
